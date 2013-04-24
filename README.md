@@ -20,4 +20,4 @@ $> bundle install
 $> ruby demo_app.rb
 ```
 
-There you can see stuff on the console. Type ```!!!``` to quit.
+There you can see the contents of the "stuff" variables by calling ```stuff``` on the pry console. Type ```exit``` to leave the breakpoint (that's "continue" in other debuggers)  or ```!!!``` to quit.
