@@ -1,7 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    activerecord (1.6.0)
     activesupport (3.1.12)
       multi_json (~> 1.0)
     builder (3.2.0)
@@ -41,7 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
+  activesupport (~> 3.1.1)
   feedzirra
   pry
   sanitize

@@ -1,6 +1,6 @@
 source :rubygems
 
 gem 'pry'
-gem 'sanitize'
-gem 'activerecord', :require => "active_record"
+gem 'activesupport', '~> 3.1.1', require: 'active_support'
 gem 'feedzirra'
+gem 'sanitize'
