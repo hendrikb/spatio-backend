@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'active_record'
+require 'active_support'
 require 'feedzirra'
 
 class Reader::RSS
