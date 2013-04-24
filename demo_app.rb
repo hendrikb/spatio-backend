@@ -5,7 +5,7 @@ require './lib/reader/csv/wlan_standorte_berlin.rb'
 
 require './lib/reader/rss.rb'
 
-readerCSV = Reader::CSV::WlanStandorteBerlin.new 'data/wlanstandort_final.csv'
+readerCSV = Reader::CSV::WlanStandorteBerlin.new 'data/csv/wlanstandort_final.csv'
 stuff = readerCSV.load
 
 # look at stuff now!
