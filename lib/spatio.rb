@@ -1,1 +1,3 @@
-require_relative 'spatio/parser/streets'
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'spatio/parser'

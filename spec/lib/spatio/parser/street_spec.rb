@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-describe Spatio::Parser::Streets do
-  subject { Spatio::Parser::Streets }
+describe Spatio::Parser::Street do
+  subject { Spatio::Parser::Street }
   context '.perform' do
     context 'fixed streets' do
       ['Adlergestell', 'Unter den Linden'].each do |fixed_street|

@@ -2,7 +2,7 @@
 
 module Spatio
   module Parser
-    class Streets
+    class Street
       STREET_SIGNIFIER = ["stra(ss|ß)e",
                           "str",
                           "weg",
