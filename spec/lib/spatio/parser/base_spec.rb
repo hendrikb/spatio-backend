@@ -11,10 +11,10 @@ describe Spatio::Parser::Base do
       subject.perform(location_string)
     end
 
-    it 'returns a hash with street set' do
+    it 'returns a hash with streets set' do
       street = 'Musterstrasse'
-      Spatio::Parser::Street.stub(:perform).and_return street
-      subject.perform(location_string)[:street].should eq street
+      Spatio::Parser::Street.stub(:perform).and_return [street]
+      subject.perform(location_string)[:streets].should eq [street]
     end
 
     it 'calls City.perform' do
@@ -22,10 +22,10 @@ describe Spatio::Parser::Base do
       subject.perform(location_string)
     end
 
-    it 'returns a hash with city set' do
+    it 'returns a hash with cities set' do
       city = 'Berlin'
-      Spatio::Parser::City.stub(:perform).and_return city
-      subject.perform(location_string)[:city].should eq city
+      Spatio::Parser::City.stub(:perform).and_return [city]
+      subject.perform(location_string)[:cities].should eq [city]
     end
   end
 end
