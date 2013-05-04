@@ -23,11 +23,18 @@ describe Spatio::Parser::Street do
         end
       end
     end
+
     context 'other places' do
       ['Gehweg', 'Parkplatz'].each do |place|
         it "does not match #{place}" do
           subject.perform(place).should_not include place
         end
+      end
+    end
+
+    context 'multiple streets' do
+      it 'returns multiple streets' do
+        subject.perform('Turmstr/Beusselstr').should eq ['Turmstr', 'Beusselstr']
       end
     end
   end
