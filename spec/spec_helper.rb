@@ -25,5 +25,4 @@ SimpleCov.start do
   add_filter '/spec\.rb/'
 end
 
-require File.join( APP_ROOT, 'lib/spatio/backend')
-require File.join( APP_ROOT, 'lib/spatio/parser')
+require 'spatio'
