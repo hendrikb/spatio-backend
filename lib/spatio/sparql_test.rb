@@ -7,7 +7,6 @@ module Spatio
     def cities
       query = '
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX dcterms: <http://purl.org/dc/terms/>
       PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 
       SELECT DISTINCT ?name {
@@ -24,7 +23,6 @@ module Spatio
       query = '
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX dbprop: <http://de.dbpedia.org/property/>
-      PREFIX dcterms: <http://purl.org/dc/terms/>
 
       SELECT DISTINCT ?name {
       ?state rdfs:label ?name.
