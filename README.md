@@ -1,5 +1,6 @@
 Spatio
 ======
+Usage: ./pry.sh
 
 About
 -----

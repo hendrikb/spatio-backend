@@ -1,9 +1,17 @@
 source 'https://rubygems.org'
 gem 'pry'
 gem 'sinatra'
+gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
-group :test do
-    gem 'rspec'
-end
 gem 'feedzirra'
 gem 'sanitize'
+
+gem 'rgeo'
+gem 'rgeo-activerecord'
+gem 'pg'
+gem 'activerecord-postgis-adapter'
+
+group :test do
+  gem 'rspec'
+  gem 'simplecov'
+end
