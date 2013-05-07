@@ -16,8 +16,7 @@ module Spatio
       def perform
         result = {}
         [:streets, :cities].each do |parser|
-          result[parser] =
-            constantize(parser).perform(location_string)
+          result[parser] = constantize(parser).perform(location_string)
         end
         result
       end
