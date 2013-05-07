@@ -11,6 +11,8 @@ gem 'rgeo-activerecord'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 
+gem 'sparql-client'
+
 group :test do
   gem 'rspec'
   gem 'simplecov'
