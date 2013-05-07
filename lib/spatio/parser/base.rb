@@ -17,7 +17,7 @@ module Spatio
         result = {}
         [:streets, :cities].each do |parser|
           result[parser] =
-            "Spatio::Parser::#{parser.to_s.classify}".constantize.perform(location_string)
+            constantize(parser).perform(location_string)
         end
         result
       end
@@ -25,6 +25,10 @@ module Spatio
       private
       def initialize(location_string)
         @location_string = location_string
+      end
+
+      def constantize(class_name)
+        "Spatio::Parser::#{class_name.to_s.classify}".constantize
       end
     end
   end
