@@ -13,10 +13,6 @@ module Spatio
         new(location_string).perform
       end
 
-      def initialize(location_string)
-        @location_string = location_string
-      end
-
       def perform
         result = {}
         [:streets, :cities].each do |parser|
@@ -26,6 +22,10 @@ module Spatio
         result
       end
 
+      private
+      def initialize(location_string)
+        @location_string = location_string
+      end
     end
   end
 end
