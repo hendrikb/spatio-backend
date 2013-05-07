@@ -1,7 +1,12 @@
 source 'https://rubygems.org'
 gem 'pry'
 gem 'sinatra'
+gem 'sinatra-activerecord'
 gem 'rspec'
-gem 'activesupport', '~> 3.1.1', require: 'active_support'
 gem 'feedzirra'
 gem 'sanitize'
+
+gem 'rgeo'
+gem 'rgeo-activerecord'
+gem 'pg'
+gem 'activerecord-postgis-adapter'
