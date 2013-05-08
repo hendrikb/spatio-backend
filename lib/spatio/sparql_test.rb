@@ -23,7 +23,7 @@ module Spatio
       ?state rdfs:label ?name.
       ?state dcterms:subject <http://de.dbpedia.org/resource/Kategorie:Bundesland_(Deutschland)> }'
 
-      query query_string
+      query(query_string).reject { |state| state =~/D(E|e)/ }
     end
 
     PREFIXES = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
