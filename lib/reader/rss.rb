@@ -5,14 +5,27 @@ require 'feedzirra'
 class Reader::RSS
   include Reader
 
-  def initialize feed_url, options = { input_encoding:'utf-8', output_encoding: 'utf-8' }
-    super
-    @feed_url = feed_url
-    @options = options
+  def self.perform parameters = { input_encoding:'utf-8', output_encoding: 'utf-8' }
+    Reader::RSS.new(parameters)
   end
 
-  def load
+
+  private
+  def initialize parameters
+    super
+    @feed_url = parameters[:url]
+    @options = parameters
+    raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
+    perform
+  end
+
+  def parameters_valid?
+    return !@feed_url.nil?
+  end
+
+  def perform
     fetch_feed
+    require 'pry'; binding.pry
     @feed.entries.each do |entry|
       @items << {
         human_readable_location_in: parseable_locations(entry),
@@ -26,7 +39,6 @@ class Reader::RSS
     add_ids
   end
 
-  private
 
   def fallback_text entry
     begin
