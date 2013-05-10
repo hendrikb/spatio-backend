@@ -6,14 +6,6 @@ require './lib/models/format_definition'
 
 APP_ROOT = settings.root
 
-get '/' do
-  haml :index
-end
-
-get '/v/format_definition' do
-  @format_definitions = FormatDefinition.all
-  haml :format_definition_index
-end
 
 
 put '/api/format_definition/new' do
