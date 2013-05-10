@@ -1,7 +1,7 @@
 require 'sparql/client'
 
 module Spatio
-  module SparqlTest
+  module SparqlClient
     extend self
 
     #straight query for communities is too large, get subcategories.first
