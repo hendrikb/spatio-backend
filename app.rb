@@ -16,7 +16,17 @@ get '/format_definition' do
 end
 
 
-get '/format_definition/new' do
-  haml :format_definition_new
+put '/api/format_definition/new' do
+  data = JSON.parse request.body.read
+  format_definition= FormatDefinition.new name: data["name"],
+                      importer_class: data["importer_class"],
+                      importer_parameters: data["importer_parameters"]
+
+  if format_definition.save
+    { "status" => "ok"  }.to_json
+  else
+    status 500
+    { "status" =>  "error", "errors" => format_definition.errors }.to_json
+  end
 end
 
