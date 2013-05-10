@@ -1,17 +1,17 @@
 !!! 5
 %head
 %body
+  %h1 Saved Format Definitions
   %table
-    %h1 Saved Format Definitions
     %tr
       %th ID
       %th Name
       %th Class
-  - @format_definitions.each do |definition|
-    %tr
-      %td=definition.id
-      %td=definition.name
-      %td=definition.importer_class
+    - @format_definitions.each do |definition|
+      %tr
+        %td=definition.id
+        %td=definition.name
+        %td=definition.importer_class
   %h1 Create New
   %form{id: 'format_definition_form'}
     %label Name
