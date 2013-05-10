@@ -10,7 +10,7 @@ get '/' do
   haml :index
 end
 
-get '/format_definition' do
+get '/v/format_definition' do
   @format_definitions = FormatDefinition.all
   haml :format_definition_index
 end
