@@ -2,6 +2,7 @@
 %head
 %body
   %table
+    %h1 Saved Format Definitions
     %tr
       %th ID
       %th Name
@@ -11,3 +12,12 @@
       %td=definition.id
       %td=definition.name
       %td=definition.importer_class
+  %h1 Create New
+  %form{id: 'format_definition_form'}
+    %label Name
+    %input{id: 'name', name:'name'}
+    %label Class
+    %input{id: 'importer_class', name:'importer_class'}
+    %label Parameters
+    %textarea{id: 'importer_paramters', name:'importer_paramters'}
+    %button Submit
