@@ -4,5 +4,7 @@ require 'sinatra/reloader' if settings.environment == :development
 APP_ROOT = settings.root
 
 get '/' do
-    "Hello World!"
+  haml :index
+end
+
 end
