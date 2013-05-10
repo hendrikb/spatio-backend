@@ -23,5 +23,11 @@ describe Spatio::SparqlClient do
     it 'does not include Lists', :vcr do
       subject.cities.grep(/Liste/).should be_empty
     end
+
+    ['Berlin', 'Hamburg', 'Bremen'].each do |city_state|
+      it "includes #{city_state}", :vcr do
+        subject.cities.should include city_state
+      end
+    end
   end
 end
