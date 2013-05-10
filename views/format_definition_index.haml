@@ -1,0 +1,13 @@
+!!! 5
+%head
+%body
+  %table
+    %tr
+      %th ID
+      %th Name
+      %th Class
+  - @format_definitions.each do |definition|
+    %tr
+      %td=definition.id
+      %td=definition.name
+      %td=definition.importer_class
