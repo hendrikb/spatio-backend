@@ -17,4 +17,31 @@ def initialize_states
   end
 end
 
+COMMUNITY_QUERY = <<-sql
+INSERT INTO COMMUNITIES(name, area, created_at, updated_at)
+SELECT name, ST_TRANSFORM(ST_COLLECT(way), 3785), NOW(), NOW()
+FROM planet_osm_polygon
+WHERE admin_level = '8'
+AND name IS NOT NULL
+AND name <> '?'
+GROUP BY name
+sql
+
+def initialize_communities
+  puts 'Initializing communities'
+  Community.delete_all
+
+  ActiveRecord::Base.connection.insert_sql(COMMUNITY_QUERY)
+
+  osm_polygons = Class.new(ActiveRecord::Base) do
+    self.table_name = 'planet_osm_polygon'
+  end
+
+  osm_polygons.where(name: Spatio::SparqlClient.cities).group(:name).
+    select('name, ST_TRANSFORM(ST_COLLECT(way), 3785) AS area').each do |city|
+    Community.create(name: city[:name], area: city[:area]) rescue next
+  end
+end
+
 initialize_states
+initialize_communities
