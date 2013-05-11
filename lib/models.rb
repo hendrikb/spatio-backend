@@ -11,3 +11,4 @@ ActiveRecord::Base.establish_connection conf('database.yml')
 
 require_relative 'models/state.rb'
 require_relative 'models/community.rb'
+require_relative 'models/district.rb'
