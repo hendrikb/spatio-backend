@@ -1,6 +1,9 @@
 require 'sinatra'
 require 'sinatra/reloader' if settings.environment == :development
 
+set :views, Proc.new { File.join(root, "views_gui") }
+
+
 get '/' do
   haml :index
 end
