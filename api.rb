@@ -24,7 +24,7 @@ put '/api/format_definition/new' do
     klass = eval "Spatio::Reader::#{data['importer_class']}"
   rescue RuntimeError
     return json_err "Parser class Spatio::Reader::#{data['importer_class']} not found"
-  rescue ParseError
+  rescue JSON::ParserError
     return json_err "Invalid JSON"
   end
 
