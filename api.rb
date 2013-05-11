@@ -26,7 +26,7 @@ put '/api/format_definition/new' do
     importer_parameters: data["importer_parameters"]
 
   if format_definition.save
-    { "status" => "ok"  }.to_json
+    okay
   else
     json_errors format_definition.errors
   end
@@ -34,12 +34,14 @@ end
 
 delete '/api/format_definition/:id' do
   if FormatDefinition.delete(params[:id])
-    { "status" => "ok"  }.to_json
+    okay
   else
-    { "status" =>  "error", "errors" => [ {"id" => "Couldn't delete"}  ] }.to_json
+    json_err "Could not delete"
   end
+end
 
-
+def okay
+  { "status" => "ok"  }.to_json
 end
 
 def json_err error
