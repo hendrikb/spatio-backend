@@ -10,6 +10,17 @@
         row = obj["format_definition"]
         line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>X</td></tr>"
         $("table").append(line)
+
+    load_index = () ->
+      $.ajax api_url+"/format_definition/",
+        type: "GET",
+        error: (jqXHR, textStatus, errorThrown) ->
+          alert textStatus
+        success: (data, textStatus, jqXHR) ->
+          build_table data
+    $(document).ready ->
+      load_index()
+
 %body
   %h1 Saved Format Definitions
   %table
