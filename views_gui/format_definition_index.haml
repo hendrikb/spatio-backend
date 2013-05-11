@@ -13,7 +13,6 @@
 
     load_index = () ->
       $.ajax api_url+"/format_definition/",
-        type: "GET",
         error: (jqXHR, textStatus, errorThrown) ->
           alert textStatus
         success: (data, textStatus, jqXHR) ->
