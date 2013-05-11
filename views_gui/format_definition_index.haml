@@ -3,6 +3,13 @@
   %script{src:'/jquery.js'}
   :coffee
     api_url = "#{settings.api_url}"
+    build_table = (data) ->
+      $('tr.row').remove()
+
+      for obj in data
+        row = obj["format_definition"]
+        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>X</td></tr>"
+        $("table").append(line)
 %body
   %h1 Saved Format Definitions
   %table
