@@ -2,18 +2,15 @@
 require 'active_support'
 require 'feedzirra'
 
-module Spatio
-  module Reader
-    class RSS < Reader
+module Spatio::Reader
+    class RSS
 
       def self.perform parameters = { input_encoding:'utf-8', output_encoding: 'utf-8' }
-        Reader::RSS.new(parameters)
+        Spatio::Reader::RSS.new(parameters)
       end
-
 
       private
       def initialize parameters
-        super
         @feed_url = parameters[:url]
         @options = parameters
         raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
@@ -87,6 +84,4 @@ module Spatio
         @options[:parse_articles_selector]
       end
     end
-  end
 end
-

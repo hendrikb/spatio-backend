@@ -3,23 +3,19 @@ require 'digest/sha1'
 
 module Spatio
   module Reader
-    attr_reader :items
+      attr_reader :items
 
-    protected
+      protected
 
-    def initialize *args
-      @items = []
-    end
-
-    def add_ids
-      @items.each do |item|
-        item[:id] = digest item.to_s
+      def add_ids
+        @items.each do |item|
+          item[:id] = digest item.to_s
+        end
       end
-    end
 
-    private
-    def digest string
-      Digest::SHA1.hexdigest string
-    end
+      private
+      def digest string
+        Digest::SHA1.hexdigest string
+      end
   end
 end
