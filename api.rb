@@ -7,10 +7,13 @@ require './lib/models/format_definition'
 APP_ROOT = settings.root
 
 get '/api/format_definition/' do
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  content_type :json
   FormatDefinition.all.to_json
 end
 
 put '/api/format_definition/new' do
+  response.headers["Access-Control-Allow-Origin"] = "*"
 
   begin
     data = JSON.parse request.body.read
