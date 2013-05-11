@@ -8,6 +8,10 @@ APP_ROOT = settings.root
 
 
 
+get '/api/format_definition/' do
+  FormatDefinition.all.to_json
+end
+
 put '/api/format_definition/new' do
   data = JSON.parse request.body.read
   format_definition= FormatDefinition.new name: data["name"],
