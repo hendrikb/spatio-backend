@@ -26,3 +26,11 @@ put '/api/format_definition/new' do
   end
 end
 
+delete '/api/format_definition/:id' do
+  if FormatDefinition.delete(params[:id])
+    { "status" => "ok"  }.to_json
+  else
+    { "status" =>  "error", "errors" => [ {"id" => "Couldn't delete"}  ] }.to_json
+  end
+end
+
