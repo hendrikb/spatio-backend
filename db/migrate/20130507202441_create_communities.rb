@@ -9,7 +9,7 @@ class CreateCommunities < ActiveRecord::Migration
 
     change_table :communities do |t|
       t.index :area, :spatial => true
-      t.index :name, :unique => true
+      t.index :name
     end
   end
 
