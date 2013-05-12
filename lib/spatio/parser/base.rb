@@ -4,6 +4,7 @@ require 'active_support/inflector'
 require 'spatio/parser/street'
 require 'spatio/parser/district'
 require 'spatio/parser/city'
+require 'spatio/parser/state'
 
 module Spatio
   module Parser
