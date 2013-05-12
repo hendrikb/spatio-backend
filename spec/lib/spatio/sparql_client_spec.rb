@@ -1,4 +1,5 @@
 require 'spec_helper'
+require './lib/spatio/sparql_client'
 
 describe Spatio::SparqlClient do
   context 'states' do
