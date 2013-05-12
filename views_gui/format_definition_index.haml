@@ -4,19 +4,20 @@
   :coffee
     api_url = "#{settings.api_url}"
     build_table = (data) ->
-      $('tr.row').remove()
+      $('tr.row').remove() if $('tr.row')
 
       for obj in data
         row = obj["format_definition"]
-        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>X</td></tr>"
+        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td><a href='javascript: delete_row("+row.id+")'>x</a></td></tr>"
         $("table").append(line)
 
     load_index = () ->
       $.ajax api_url+"/format_definition/",
         error: (jqXHR, textStatus, errorThrown) ->
-          alert textStatus
+          alert "Error while loading index: "+jqXHR.status
         success: (data, textStatus, jqXHR) ->
           build_table data
+
     $(document).ready ->
       load_index()
 
@@ -39,11 +40,7 @@
       %th ID
       %th Name
       %th Class
-    - @format_definitions.each do |definition|
-      %tr
-        %td=definition.id
-        %td=definition.name
-        %td=definition.importer_class
+      %th Delete
   %h1 Create New
   %form{id: 'format_definition_form'}
     %label Name

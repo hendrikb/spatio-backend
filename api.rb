@@ -46,6 +46,14 @@ delete '/api/format_definition/:id' do
   end
 end
 
+
+
+get '/api/format_definition/' do
+  response_is_json
+  FormatDefinition.all.to_json
+end
+
+
 def okay
   { "status" => "ok"  }.to_json
 end
