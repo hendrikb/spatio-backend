@@ -6,12 +6,11 @@ $LOAD_PATH.unshift(File.join(SPEC_ROOT, '..', 'lib'))
 $LOAD_PATH.unshift(File.join(SPEC_ROOT, '..', 'lib', 'spatio'))
 $LOAD_PATH.unshift SPEC_ROOT
 
-require 'factory_girl'
-Dir.glob(SPEC_ROOT + '/factories/*').each { |f| require f }
-
+require 'bundler'
+Bundler.require :default, :test
 require 'rack/test'
-require 'vcr'
 
+Dir.glob(SPEC_ROOT + '/factories/*').each { |f| require f }
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/vcr'
   c.hook_into :fakeweb
@@ -30,7 +29,11 @@ set :logging, false
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
-   config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+
+  config.before :each do
+    DatabaseCleaner[:active_record].clean_with :truncation
+  end
 end
 
 require 'simplecov'

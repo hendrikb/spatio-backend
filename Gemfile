@@ -19,4 +19,5 @@ group :test do
   gem 'vcr'
   gem 'fakeweb'
   gem 'factory_girl'
+  gem 'database_cleaner'
 end
