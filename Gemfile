@@ -10,8 +10,10 @@ gem 'rgeo'
 gem 'rgeo-activerecord'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
+gem 'geocoder'
 
 gem 'sparql-client'
+gem 'redis'
 
 group :test do
   gem 'rspec'
