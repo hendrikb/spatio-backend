@@ -16,6 +16,14 @@ describe Spatio::Parser::District do
       FactoryGirl.create(:district, name: 'Pankow', community: city)
       subject.perform('Test in Pankow/Mitte', city.name).should =~ ['Mitte', 'Pankow']
     end
+
+    it 'finds districts in multiple cities' do
+      second_city = FactoryGirl.create(:community, name: 'Hamburg')
+      FactoryGirl.create(:district, name: 'St. Pauli', community: second_city)
+
+      subject.perform('St. Pauli Mitte', ['Berlin', 'Hamburg']).should =~
+      ['St. Pauli', 'Mitte']
+    end
   end
 
   it 'ignores district of other cities' do
