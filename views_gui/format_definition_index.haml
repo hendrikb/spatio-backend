@@ -19,7 +19,7 @@
         alert msg
 
     @delete_row = (id) ->
-      $.ajax api_url+"/format_definition/"+id,
+      $.ajax api_url+"/format_definition/"+id+"/delete",
         type: 'POST',
         crossDomain: true,
         dataType: "json",
