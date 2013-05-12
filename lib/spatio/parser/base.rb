@@ -37,28 +37,13 @@ module Spatio
       end
 
       def parse_location_string
-        parse_states
-        parse_cities
-        parse_districts
-        parse_streets
-      end
+        [:states, :cities, :streets].each do |parser|
+          next if result.has_key?(parser)
+          result[parser] = constantize(parser).perform(location_string)
+        end
 
-      def parse_states
-        return if result.has_key?(:states)
-        result[:states] = Spatio::Parser::State.perform(location_string)
-      end
-
-      def parse_cities
-        return if result.has_key?(:cities)
-        result[:cities] = Spatio::Parser::City.perform(location_string)
-      end
-
-      def parse_districts
-        result[:districts] = Spatio::Parser::District.perform(location_string, result[:cities])
-      end
-
-      def parse_streets
-        result[:streets] = Spatio::Parser::Street.perform(location_string)
+        result[:districts] = Spatio::Parser::District.perform(location_string,
+                                                              result[:cities])
       end
 
       def constantize(class_name)
