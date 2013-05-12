@@ -20,6 +20,18 @@
     $(document).ready ->
       load_index()
 
+
+      $('#format_definition_form #Submit').click ->
+        $.ajax api_url+"/format_definition/new",
+          type: 'POST',
+          crossDomain: true,
+          dataType: "json",
+          data: '{ "name": "testxxx", "importer_class": "RSS"  }',
+          success: ->
+            alert "success"
+            load_index()
+          error: (jqXHR, textStatus, errorThrown) ->
+            alert textStatus
 %body
   %h1 Saved Format Definitions
   %table

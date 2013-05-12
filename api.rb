@@ -6,21 +6,16 @@ require './lib/models/format_definition'
 
 APP_ROOT = settings.root
 
-get '/api/format_definition/' do
-  response.headers["Access-Control-Allow-Origin"] = "*"
-  content_type :json
-  FormatDefinition.all.to_json
-end
 
-put '/api/format_definition/new' do
-  response.headers["Access-Control-Allow-Origin"] = "*"
+post '/api/format_definition/new' do
+  response_is_json
+
+  require './lib/spatio'
+  require './lib/spatio/reader'
+  Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
   begin
     data = JSON.parse request.body.read
-    require './lib/spatio'
-    require './lib/spatio/reader'
-    Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
-
     klass = eval "Spatio::Reader::#{data['importer_class']}"
   rescue RuntimeError
     return json_err "Parser class Spatio::Reader::#{data['importer_class']} not found"
@@ -32,10 +27,14 @@ put '/api/format_definition/new' do
     importer_class: data["importer_class"],
     importer_parameters: data["importer_parameters"]
 
-  if format_definition.save
-    okay
-  else
-    json_errors format_definition.errors
+  begin
+    if format_definition.save
+      okay
+    else
+      json_errors format_definition.errors
+    end
+  rescue ActiveRecord::RecordNotUnique
+    json_err "Record name must be unique"
   end
 end
 
