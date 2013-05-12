@@ -70,7 +70,7 @@ def okay
 end
 
 def json_err error
-  json_errors [ { "id"  => error } ]
+  json_errors [ { "error"  => error } ]
 end
 
 def json_errors errors
