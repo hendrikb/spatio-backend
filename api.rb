@@ -38,7 +38,9 @@ post '/api/format_definition/new' do
   end
 end
 
-delete '/api/format_definition/:id' do
+# DELETE ... browser does not send DELETE at the moment, ideas?
+post '/api/format_definition/:id' do
+  response_is_json
   if FormatDefinition.delete(params[:id])
     okay
   else
