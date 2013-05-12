@@ -18,4 +18,5 @@ group :test do
   gem 'simplecov'
   gem 'vcr'
   gem 'fakeweb'
+  gem 'factory_girl'
 end

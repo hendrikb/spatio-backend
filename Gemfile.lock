@@ -22,6 +22,8 @@ GEM
     curb (0.7.18)
     diff-lcs (1.2.4)
     eventmachine (1.0.3)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
     fakeweb (1.3.0)
     feedzirra (0.1.3)
       activesupport (~> 3.1.1)
@@ -106,6 +108,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  factory_girl
   fakeweb
   feedzirra
   pg
