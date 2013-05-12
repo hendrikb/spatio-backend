@@ -18,7 +18,7 @@ def initialize_states
 end
 
 COMMUNITY_QUERY = <<-sql
-  INSERT INTO COMMUNITIES(name, area, created_at, updated_at, state_id)
+  INSERT INTO COMMUNITIES (name, area, created_at, updated_at, state_id)
   SELECT planet_osm_polygon.name, ST_TRANSFORM(ST_COLLECT(way), 3785), NOW(), NOW(), states.id
   FROM planet_osm_polygon
   INNER JOIN states ON ST_CONTAINS(states.area, ST_TRANSFORM(way, 3785))
@@ -37,7 +37,7 @@ def initialize_communities
 
   Spatio::SparqlClient.cities.each do |city|
     ActiveRecord::Base.connection.execute("
-      INSERT INTO COMMUNITIES(name, area, created_at, updated_at, state_id)
+      INSERT INTO COMMUNITIES (name, area, created_at, updated_at, state_id)
       SELECT planet_osm_polygon.name, ST_TRANSFORM(ST_COLLECT(way), 3785), NOW(), NOW(), states.id
       FROM planet_osm_polygon
       INNER JOIN states ON ST_CONTAINS(states.area, ST_TRANSFORM(way, 3785))
@@ -52,7 +52,7 @@ def initialize_districts
   District.delete_all
 
   ActiveRecord::Base.connection.execute("
-    INSERT INTO districts(name, area, created_at, updated_at, community_id)
+    INSERT INTO districts (name, area, created_at, updated_at, community_id)
     SELECT planet_osm_polygon.name, ST_TRANSFORM(ST_COLLECT(way), 3785), NOW(), NOW(), communities.id
     FROM planet_osm_polygon
     INNER JOIN communities ON ST_CONTAINS(communities.area, ST_TRANSFORM(way, 3785))
