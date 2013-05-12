@@ -39,7 +39,8 @@
       load_index()
 
 
-      $('#format_definition_form #Submit').click ->
+      $('#format_definition_form button').click (e) ->
+        e.preventDefault()
         $.ajax api_url+"/format_definition/new",
           type: 'POST',
           crossDomain: true,
