@@ -19,7 +19,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 
-
+ActiveRecord::Base.logger = nil
 # setup test environment
 set :environment, :test
 set :run, false
