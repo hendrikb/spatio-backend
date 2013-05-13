@@ -7,6 +7,11 @@ require './lib/models/format_definition'
 APP_ROOT = settings.root
 
 
+get '/api/format_definition' do
+  response_is_json
+  FormatDefinition.all.to_json
+end
+
 post '/api/format_definition/new' do
   response_is_json
 
@@ -49,10 +54,6 @@ end
 
 
 
-get '/api/format_definition/' do
-  response_is_json
-  FormatDefinition.all.to_json
-end
 
 
 

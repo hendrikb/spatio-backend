@@ -29,7 +29,8 @@
           json_error jqXHR.responseText
 
     load_index = () ->
-      $.ajax api_url+"/format_definition/",
+      $.ajax api_url+"/format_definition",
+        crossDomain: true,
         error: (jqXHR, textStatus, errorThrown) ->
           json_error jqXHR.responseText
         success: (data, textStatus, jqXHR) ->
