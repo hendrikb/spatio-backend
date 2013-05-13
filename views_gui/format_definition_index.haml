@@ -36,6 +36,7 @@
         success: (data, textStatus, jqXHR) ->
           build_table data
 
+
     $(document).ready ->
       load_index()
 
@@ -46,7 +47,8 @@
           type: 'POST',
           crossDomain: true,
           dataType: "json",
-          data: '{ "name": "testxxx", "importer_class": "RSS"  }',
+          data:
+            "name": $('#name').val(), "importer_class": $('#importer_class').val(), "importer_parameters": $('#importer_parameters').val()  # '{ "name": "'+$('#name').val()+'", "importer_class": "'+$('#importer_class').val()+'", "importer_paramters": "'+$('#importer_parameters').val()+'" }'.replace(/\"/g,'\\"')")
           success: ->
             load_index()
           error: (jqXHR, textStatus, errorThrown) ->
