@@ -27,7 +27,8 @@ post '/api/format_definition/new' do
 
   format_definition= FormatDefinition.new name: params["name"],
     importer_class: params["importer_class"],
-    importer_parameters: params["importer_parameters"]
+    importer_parameters: params["importer_parameters"],
+    description: params["description"]
 
   begin
     if format_definition.save

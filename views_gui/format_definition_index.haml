@@ -10,7 +10,7 @@
 
       for obj in data
         row = obj["format_definition"]
-        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td><a href='javascript: delete_row("+row.id+")'>x</a></td></tr>"
+        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>"+row.description+"</rd><td><a href='javascript: delete_row("+row.id+")'>x</a></td></tr>"
         $("table").append(line)
 
     @json_error = (json_error_string) ->
@@ -50,7 +50,10 @@
           crossDomain: true,
           dataType: "json",
           data:
-            "name": $('#name').val(), "importer_class": $('#importer_class').val(), "importer_parameters": $('#importer_parameters').val()  # '{ "name": "'+$('#name').val()+'", "importer_class": "'+$('#importer_class').val()+'", "importer_paramters": "'+$('#importer_parameters').val()+'" }'.replace(/\"/g,'\\"')")
+            "name": $('#name').val(),
+            "importer_class": $('#importer_class').val(),
+            "importer_parameters": $('#importer_parameters').val(),
+            "description": $('#description').val()
           success: ->
             load_index()
           error: (jqXHR, textStatus, errorThrown) ->
@@ -71,4 +74,6 @@
     %input{id: 'importer_class', name:'importer_class'}
     %label Parameters
     %textarea{id: 'importer_parameters', name:'importer_parameters'}
+    %label Description
+    %textarea{id: 'description', name:'description'}
     %button Submit
