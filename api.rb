@@ -24,6 +24,8 @@ post '/api/format_definition/new' do
     klass = eval "Spatio::Reader::#{importer_class_cleaned}"
   rescue NameError
     return json_err "Parser class Spatio::Reader::#{importer_class_cleaned} not found"
+  rescue => detail
+    return json_err "Error: #{detail.to_s}"
   end
 
   format_definition= FormatDefinition.new name: params["name"],
