@@ -19,9 +19,15 @@ GEM
     backports (3.3.0)
     builder (3.0.4)
     coderay (1.0.9)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.6.2)
     curb (0.7.18)
     diff-lcs (1.2.4)
     eventmachine (1.0.3)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     fakeweb (1.3.0)
     feedzirra (0.1.3)
       activesupport (~> 3.1.1)
@@ -33,6 +39,8 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.8)
       sax-machine (~> 0.1.0)
+    haml (4.0.2)
+      tilt
     i18n (0.6.3)
     json (1.7.7)
     json_pure (1.7.7)
@@ -106,8 +114,10 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-postgis-adapter
+  coffee-script
   fakeweb
   feedzirra
+  haml
   pg
   pry
   rgeo
