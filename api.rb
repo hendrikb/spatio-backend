@@ -19,8 +19,11 @@ post '/api/format_definition/new' do
   require './lib/spatio/reader'
   Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
+  importer_class_cleaned = params['importer_class'].match(/^[a-z0-9]+/i).to_s
   begin
-    importer_class_cleaned = params['importer_class'].match(/^[a-z0-9]+/i).to_s
+    if (importer_class_cleaned.blank? or params['importer_class'].blank?)
+      raise '"name" and "importer_class" are mandatory fields'
+    end
     klass = eval "Spatio::Reader::#{importer_class_cleaned}"
   rescue NameError
     return json_err "Parser class Spatio::Reader::#{importer_class_cleaned} not found"
