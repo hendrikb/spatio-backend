@@ -12,5 +12,6 @@ get '/' do
 end
 
 get '/format_definition' do
+  response.headers["Access-Control-Allow-Origin"] = "*"
   haml :format_definition_index
 end
