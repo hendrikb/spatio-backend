@@ -6,11 +6,11 @@
   :coffee
     api_url = "#{settings.api_url}"
     build_table = (data) ->
-      $('tr.row').remove() if $('tr.row')
+      $('tr.r').remove() if $('tr.r')
 
       for obj in data
         row = obj["format_definition"]
-        line = "<tr class='row'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>"+row.description+"</rd><td><a href='javascript: delete_row("+row.id+")'>x</a></td></tr>"
+        line = "<tr class='r'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>"+row.description+"</rd><td><a href='javascript: delete_row("+row.id+")' class='btn btn-danger'>Delete</a></td></tr>"
         $("table").append(line)
 
     @json_error = (json_error_string) ->
@@ -59,21 +59,40 @@
           error: (jqXHR, textStatus, errorThrown) ->
             json_error jqXHR.responseText
 %body
-  %h1 Saved Format Definitions
-  %table
+  %h1 Format Definition
+  %h2 Existing definitions
+  %table.table.table-striped.table-hover
     %tr
       %th ID
       %th Name
       %th Class
-      %th Delete
-  %h1 Create New
-  %form{id: 'format_definition_form'}
-    %label Name
-    %input{id: 'name', name:'name'}
-    %label Class
-    %input{id: 'importer_class', name:'importer_class'}
-    %label Parameters
-    %textarea{id: 'importer_parameters', name:'importer_parameters'}
-    %label Description
-    %textarea{id: 'description', name:'description'}
-    %button Submit
+      %th Description
+      %th
+  %h2 Create New
+  %form.form-horizontal{id: 'format_definition_form'}
+    .control-group
+      %label.control-label{for: 'name'} Name
+      .controls
+        %input{id: 'name', name:'name'}
+        %span.help-inline
+          Mandatory. Must be a unique name!
+    .control-group
+      %label.control-label{for: 'importer_class'}  Class
+      .controls
+        %input{id: 'importer_class', name:'importer_class'}
+        %span.help-inline
+          Mandatory. Enter a parser class name, see docs for available parsers,
+          try "RSS" for now.
+    .control-group
+      %label.control-label{for: 'importer_parameters'}  Parameters
+      .controls
+        %textarea{id: 'importer_parameters', name:'importer_parameters'}
+        %span.help-inline Optional. This must be ruby Hash syntax. See docs.
+    .control-group
+      %label.control-label{for: 'description'}  Description
+      .controls
+        %textarea{id: 'description', name:'description'}
+        %span.help-inline Optional.
+    .control-group
+      .controls
+        %button.btn.btn-primary Submit
