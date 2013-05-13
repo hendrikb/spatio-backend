@@ -27,5 +27,17 @@ To run, have ruby 1.9 installed and type:
 ```
 $> gem install bundler
 $> bundle install
-$> ruby service.rb
+
+# Edit gui.rb and change the api_url setting according to your planned setup
+
+# Start the API service:
+$> ruby api.rb -p 4567
+
+# Start the GUI service:
+$> ruby gui.rb -p 4568
+
+# Be aware that if you use RVM you might start the services using
+#     bundle exec ruby <api|gui>.rb -p <desired port>
+
+# Open the GUI: http://127.0.0.1:4568/
 ```
