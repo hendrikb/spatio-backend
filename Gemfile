@@ -13,6 +13,7 @@ gem 'rgeo-activerecord'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'geocoder'
+gem 'therubyracer'
 
 gem 'sparql-client'
 gem 'redis'

@@ -48,6 +48,7 @@ GEM
     i18n (0.6.3)
     json (1.7.7)
     json_pure (1.7.7)
+    libv8 (3.11.8.17)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     method_source (0.8.1)
@@ -70,6 +71,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (3.0.3)
+    ref (1.0.4)
     rgeo (0.3.20)
     rgeo-activerecord (0.5.0)
       activerecord (>= 3.0.3)
@@ -110,6 +112,9 @@ GEM
       json_pure (>= 1.4)
       net-http-persistent (>= 1.4)
       rdf (>= 1.0)
+    therubyracer (0.11.4)
+      libv8 (~> 3.11.8.12)
+      ref
     tilt (1.4.0)
     tzinfo (0.3.37)
     vcr (2.4.0)
@@ -138,4 +143,5 @@ DEPENDENCIES
   sinatra-activerecord
   sinatra-contrib
   sparql-client
+  therubyracer
   vcr

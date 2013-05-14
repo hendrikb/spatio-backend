@@ -1,7 +1,5 @@
 SPEC_ROOT = File.dirname(__FILE__)
 
-require File.join( SPEC_ROOT, '..', 'app.rb')
-
 $LOAD_PATH.unshift(File.join(SPEC_ROOT, '..', 'lib'))
 $LOAD_PATH.unshift(File.join(SPEC_ROOT, '..', 'lib', 'spatio'))
 $LOAD_PATH.unshift SPEC_ROOT
