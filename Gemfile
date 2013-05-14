@@ -13,6 +13,8 @@ gem 'rgeo-activerecord'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 
+gem "resque"
+
 gem 'sparql-client'
 
 group :test do
