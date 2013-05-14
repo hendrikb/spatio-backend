@@ -11,6 +11,13 @@ describe Spatio::Geocode::OsmData do
       subject.perform({ districts: ['Mitte'], cities: ['Berlin']}).should eq district.area
     end
 
+    it 'falls back to city without district area' do
+      city = FactoryGirl.create(:community, name: 'Berlin', area: create_area)
+      district = FactoryGirl.create(:district, name: 'Mitte', community_id: city.id)
+
+      subject.perform({ districts: ['Mitte'], cities: ['Berlin']}).should eq city.area
+    end
+
     it 'does not raise without district in database' do
       expect do
         subject.perform({ districts: ['Mitte'], cities: ['Berlin']})

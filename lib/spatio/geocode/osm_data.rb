@@ -11,7 +11,7 @@ module Spatio
 
       def perform
         district = resolve_districts
-        return district.area if district
+        return district.area if district && district.area
         city = resolve_cities
         return city.area if city
       end
