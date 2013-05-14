@@ -40,3 +40,12 @@ SimpleCov.start do
 end
 
 require 'spatio'
+
+def create_area
+  factory = RGeo::Geographic.simple_mercator_factory.projection_factory
+  line_string = factory.line_string([factory.point(0,0),
+                                     factory.point(0,1),
+                                     factory.point(1,1),
+                                     factory.point(0,0)])
+  factory.polygon(line_string)
+end
