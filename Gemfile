@@ -3,6 +3,8 @@ gem 'pry'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
+gem 'haml'
+gem 'coffee-script'
 gem 'feedzirra'
 gem 'sanitize'
 
