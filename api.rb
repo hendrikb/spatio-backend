@@ -7,6 +7,7 @@ require './lib/models/format_definition'
 APP_ROOT = settings.root
 
 load './lib/api/format_definition'
+load './lib/api/importer'
 
 
 
