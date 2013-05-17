@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'spatio'
 
 ENV['RACK_ENV'] ||= 'development'
 
