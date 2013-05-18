@@ -32,6 +32,7 @@ module Spatio
             cities.each do |city|
               result = geocode(streets.first, districts.first, cities.first)
               return result if result
+              sleep 1
             end
           end
         end
@@ -42,6 +43,7 @@ module Spatio
           cities.each do |city|
             result = geocode(streets.first, '', cities.first)
             return result if result
+            sleep 1
           end
         end
       end
