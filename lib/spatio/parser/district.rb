@@ -9,7 +9,7 @@ module Spatio
         districts = ::District.where(community_id: communities.map(&:id))
 
         districts.select do |district|
-          location_string.include?(district.name)
+          location_string.match(/\b#{district.name}\b/)
         end.map(&:name)
       end
     end
