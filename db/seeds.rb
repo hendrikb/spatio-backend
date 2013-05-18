@@ -64,6 +64,24 @@ def initialize_districts
     GROUP BY planet_osm_polygon.name, communities.id")
 end
 
+def initialize_localities
+  puts 'Initializing localities'
+  Locality.delete_all
+
+  ActiveRecord::Base.connection.execute("
+    INSERT INTO localities (name, area, created_at, updated_at, community_id)
+    SELECT planet_osm_polygon.name, ST_TRANSFORM(ST_COLLECT(way), 3785), NOW(), NOW(), communities.id
+    FROM planet_osm_polygon
+    INNER JOIN communities ON ST_CONTAINS(communities.area, ST_TRANSFORM(way, 3785))
+    WHERE admin_level = '10'
+    AND planet_osm_polygon.name IS NOT NULL
+    AND planet_osm_polygon.name <> '?'
+    AND ST_ISVALID(planet_osm_polygon.way)
+    AND ST_ISVALID(communities.area)
+    GROUP BY planet_osm_polygon.name, communities.id")
+end
+
 initialize_states
 initialize_communities
 initialize_districts
+initialize_localities
