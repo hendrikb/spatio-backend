@@ -8,6 +8,11 @@ describe Spatio::Parser::City do
     subject.perform('Test in Berlin').should eq ['Berlin']
   end
 
+  it 'ignores substring' do
+    FactoryGirl.create(:community, name: 'Berlin')
+    subject.perform('Test in Berlinale').should be_empty
+  end
+
   it 'works without city' do
     subject.perform('Foobar').should be_empty
   end

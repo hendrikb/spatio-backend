@@ -5,7 +5,7 @@ module Spatio
     module City
       def self.perform(location_string)
         Community.all.select do |community|
-          location_string.include?(community.name)
+          location_string.match(/\b#{community.name}\b/)
         end.map(&:name)
       end
     end
