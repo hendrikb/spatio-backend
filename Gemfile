@@ -15,6 +15,8 @@ gem 'activerecord-postgis-adapter'
 gem 'geocoder'
 gem 'therubyracer'
 
+gem "resque"
+
 gem 'sparql-client'
 gem 'redis'
 
