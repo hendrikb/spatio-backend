@@ -8,6 +8,5 @@ post '/api/importer/new' do
 
   json_err "namespace not found" unless FormatDefinition.valid_namespace? namespace
 
-  # resque = Resque.new
-  # resque << ReaderJob.new(format_definition, url)
+  Resque.enqueue(Spatio::ImportJob, namespace, url)
 end
