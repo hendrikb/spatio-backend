@@ -27,4 +27,5 @@ group :test do
   gem 'fakeweb'
   gem 'factory_girl'
   gem 'database_cleaner'
+  gem 'mock_redis'
 end

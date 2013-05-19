@@ -52,6 +52,7 @@ GEM
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     method_source (0.8.1)
+    mock_redis (0.7.0)
     mono_logger (1.1.0)
     multi_json (1.7.3)
     net-http-persistent (2.8)
@@ -142,6 +143,7 @@ DEPENDENCIES
   feedzirra
   geocoder
   haml
+  mock_redis
   pg
   pry
   redis

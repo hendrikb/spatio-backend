@@ -30,6 +30,7 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
 
   config.before :each do
+    Spatio.stub(:redis).and_return MockRedis.new
     DatabaseCleaner[:active_record].clean_with :truncation
   end
 end
