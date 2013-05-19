@@ -8,6 +8,8 @@ require 'spatio/parser'
 require 'spatio/reader'
 require 'spatio/geocode'
 
+require 'spatio/jobs/import_job'
+
 
 ENV['RACK_ENV'] ||= 'development'
 
