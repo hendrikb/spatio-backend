@@ -8,4 +8,9 @@ class FormatDefinition < ActiveRecord::Base
     Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
     eval "Spatio::Reader::#{importer_class}"
   end
+
+  def self.valid_namespace? namespace
+    return true if FormatDefinition.find_by_name(namespace)
+    false
+  end
 end
