@@ -4,11 +4,9 @@ post '/api/importer/new' do
   url = params['url']
   json_err "url field is mandatory" if url.blank?
 
-  begin
-    format_definition = FormatDefinition.find(params['format_definition'])
-  rescue
-    json_err "format_definition not found" if format_definition.nil?
-  end
+  namespace = params['namespace']
+
+  json_err "namespace not found" unless FormatDefinition.valid_namespace? namespace
 
   # resque = Resque.new
   # resque << ReaderJob.new(format_definition, url)
