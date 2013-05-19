@@ -1,4 +1,5 @@
 config/database.yml
+config/redis.yml
 *.swp
 coverage/
 spec/vcr/
