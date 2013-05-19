@@ -12,7 +12,7 @@ require 'spatio/geocode'
 ENV['RACK_ENV'] ||= 'development'
 
 def conf(file)
-  YAML.load_file('config/' + file).fetch(settings.environment.to_s)
+  YAML.load_file('config/' + file).fetch(ENV['RACK_ENV'])
 end
 
 module Spatio
