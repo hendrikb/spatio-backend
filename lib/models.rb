@@ -1,5 +1,3 @@
-require 'sinatra'
-require 'sinatra/activerecord'
 require_relative  'spatio'
 
 require_relative 'models/state.rb'
