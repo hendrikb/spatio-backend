@@ -17,6 +17,10 @@ end
 
 module Spatio
   GEOFACTORY = ::RGeo::Geographic.simple_mercator_factory.projection_factory
+
+  def self.redis
+    @redis || Redis.new(conf('redis.yml'))
+  end
 end
 
 ActiveRecord::Base.establish_connection conf('database.yml')
