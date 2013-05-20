@@ -9,7 +9,7 @@ module Spatio
         self.table_name = table_name
       end
 
-      table.create(data)
+      table.create!(data)
     end
   end
 end
