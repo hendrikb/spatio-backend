@@ -6,11 +6,8 @@ require './lib/models/format_definition'
 
 APP_ROOT = settings.root
 
-load './lib/api/format_definition'
-load './lib/api/importer'
-
-
-
+require_relative 'lib/api/format_definition'
+require_relative 'lib/api/importer'
 
 def response_is_json
   response.headers["Access-Control-Allow-Origin"] = "*"
