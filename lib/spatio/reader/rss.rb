@@ -6,19 +6,7 @@ module Spatio::Reader
     class RSS
 
       def self.perform parameters = { input_encoding:'utf-8', output_encoding: 'utf-8' }
-        Spatio::Reader::RSS.new(parameters)
-      end
-
-      private
-      def initialize parameters
-        @feed_url = parameters[:url]
-        @options = parameters
-        raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
-        perform
-      end
-
-      def parameters_valid?
-        return !@feed_url.nil?
+        Spatio::Reader::RSS.new(parameters).perform
       end
 
       def perform
@@ -37,6 +25,16 @@ module Spatio::Reader
         add_ids
       end
 
+      private
+      def initialize parameters
+        @feed_url = parameters[:url]
+        @options = parameters
+        raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
+      end
+
+      def parameters_valid?
+        return !@feed_url.nil?
+      end
 
       def fallback_text entry
         begin
