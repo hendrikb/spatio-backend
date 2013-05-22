@@ -1,10 +1,17 @@
 # encoding: utf-8
+require './lib/spatio'
 
 module Spatio
+  # TODO do we need a Spatio::Jobs:: module here?
   class ImportJob
     @queue = :spatio_importer
 
-    def self.perform(namespace, url)
+    def self.perform(id)
+      import_definition = Import.find(id)
+      klass = import_definition.importer_class
+      klass.perform porter_definition.importer_parameters
     end
+
+    private
   end
 end
