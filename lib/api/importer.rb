@@ -28,6 +28,11 @@ post '/api/import/new' do
 end
 
 get '/api/import/:id/run' do
+  response_is_json
   import = Import.find(params[:id])
-  Resque.enqueue(Spatio::ImportJob, import.id)
+  if Resque.enqueue(Spatio::ImportJob, import.id)
+    okay
+  else
+    json_err "Enqueing this task did not work out"
+  end
 end
