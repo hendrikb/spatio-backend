@@ -38,11 +38,20 @@
               <td>"+row.description+"</td>
               <td>TODO</td>
               <td class=''>
-                <a href='/api/import/"+row.id+"/run' class='btn btn-success'>Run!</a>
+                <a href='javascript:importerLoader.run_import("+row.id+")' class='btn btn-success'>Run!</a>
                 <a href='javascript:importerLoader.delete_row()' class='btn btn-danger'>Delete</a>
               </td>
             </tr>"
           $("table").append(line)
+      run_import: (id) ->
+        $.ajax api_url+"/import/"+id+"/run",
+          crossDomain: true,
+          error: (jqXHR, textStatus, errorThrown) ->
+            alert 'error'
+            json_error jqXHR.responseText
+          success: (data, textStatus, jqXHR) ->
+            alert 'success'
+
       delete_row:  ->
         alert 'not yet implemented'
     $ ->
