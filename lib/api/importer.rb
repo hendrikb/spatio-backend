@@ -1,5 +1,12 @@
 require 'resque'
 
+get '/api/import' do
+  require './lib/spatio'
+
+  response_is_json
+  Import.all.to_json
+end
+
 post '/api/import/new' do
   url = params['url']
   json_err "url field is mandatory" if url.blank?
