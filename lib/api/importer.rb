@@ -27,7 +27,7 @@ post '/api/import/new' do
     format_definition: format_definition
 end
 
-get '/api/imports/:id/run' do
+get '/api/import/:id/run' do
   import = Import.find(params[:id])
   Resque.enqueue(Spatio::ImportJob, import.namespace, import.url)
 end
