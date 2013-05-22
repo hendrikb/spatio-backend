@@ -1,0 +1,58 @@
+!!! 5
+%head
+  %script{src:'/jquery.js'}
+  %script{src:'/bootstrap/js/bootstrap.js'}
+  %link{rel:'stylesheet', href:'/bootstrap/css/bootstrap.css', type:'text/css'}
+  :coffee
+    api_url = "#{settings.api_url}"
+
+    @importerLoader =
+      init: ->
+        importerLoader.load_index()
+      load_index: ->
+        $.ajax api_url+"/import",
+          crossDomain: true,
+          error: (jqXHR, textStatus, errorThrown) ->
+            json_error jqXHR.responseText
+          success: (data, textStatus, jqXHR) ->
+            importerLoader.build_table(data)
+      build_table: (data) ->
+        $('tr.r').remove() if $('tr.r')
+
+        for obj in data
+          row = obj["import"]
+          line = "<tr class='r'>
+              <td>"+row.id+"</td>
+              <td>"+row.name+"</td>
+              <td>"+row.namespace+"</td>
+              <td>"+row.format_definition_id+"</td>
+              <td>"+row.url+"</td>
+              <td>"+row.description+"</td>
+              <td>TODO</td>
+              <td class=''>
+                <a href='/api/import/"+row.id+"/run' class='btn btn-success'>Run!</a>
+                <a href='javascript:importerLoader.delete_row()' class='btn btn-danger'>Delete</a>
+              </td>
+            </tr>"
+          $("table").append(line)
+      delete_row:  ->
+        alert 'not yet implemented'
+    $ ->
+      importerLoader.init()
+
+
+
+
+%body
+  %h1
+    Imports
+  %table.table.table-striped.table-hover
+    %tr
+      %th ID
+      %th Name
+      %th Namespace
+      %th Format
+      %th URL
+      %th Description
+      %th Status
+      %th
