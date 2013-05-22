@@ -1,6 +1,6 @@
 require 'resque'
 
-post '/api/imports/new' do
+post '/api/import/new' do
   url = params['url']
   json_err "url field is mandatory" if url.blank?
 
