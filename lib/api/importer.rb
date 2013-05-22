@@ -21,7 +21,7 @@ post '/api/import/new' do
     json_err "format_definition not found" if format_definition.nil?
   end
 
-  ImportJob.save name: Date.today.to_s,
+  Import.save name: Date.today.to_s,
     namespace: namespace,
     url: url,
     format_definition: format_definition
