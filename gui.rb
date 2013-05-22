@@ -14,3 +14,8 @@ get '/format_definition' do
   response.headers["Access-Control-Allow-Origin"] = "*"
   haml :format_definition_index
 end
+
+get '/import' do
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  haml :import_index
+end
