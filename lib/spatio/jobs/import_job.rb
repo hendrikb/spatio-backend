@@ -1,5 +1,8 @@
 # encoding: utf-8
 require './lib/spatio'
+require 'logger'
+
+LOG = Logger.new(STDOUT)
 
 module Spatio
   # TODO do we need a Spatio::Jobs:: module here?
