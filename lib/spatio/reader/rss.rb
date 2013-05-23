@@ -10,6 +10,14 @@ module Spatio::Reader
         Spatio::Reader::RSS.new(parameters).perform
       end
 
+
+      def initialize parameters
+        @feed_url = parameters[:url]
+        @options = parameters
+        @items = []
+        raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
+      end
+
       def perform
         fetch_feed
         @feed.entries.each do |entry|
@@ -26,12 +34,6 @@ module Spatio::Reader
       end
 
       private
-      def initialize parameters
-        @feed_url = parameters[:url]
-        @options = parameters
-        raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
-      end
-
       def parameters_valid?
         return !@feed_url.nil?
       end
