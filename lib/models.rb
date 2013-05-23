@@ -10,9 +10,9 @@ end
 
 ActiveRecord::Base.establish_connection conf('database.yml')
 
-require_relative 'models/state.rb'
-require_relative 'models/community.rb'
-require_relative 'models/district.rb'
-require_relative 'models/locality.rb'
-require_relative 'models/format_definition.rb'
+require_relative 'models/state'
+require_relative 'models/community'
+require_relative 'models/district'
+require_relative 'models/locality'
+require_relative 'models/format_definition'
 require_relative 'models/namespace'
