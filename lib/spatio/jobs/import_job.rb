@@ -6,6 +6,8 @@ LOG = Logger.new(STDOUT)
 
 module Spatio
   # TODO do we need a Spatio::Jobs:: module here?
+  # could at least supply logging stuff...
+
   class ImportJob
     @queue = :spatio_importer
 
