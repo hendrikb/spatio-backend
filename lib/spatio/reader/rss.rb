@@ -11,7 +11,6 @@ module Spatio::Reader
 
       def perform
         fetch_feed
-        require 'pry'; binding.pry
         @feed.entries.each do |entry|
           @items << {
             human_readable_location_in: parseable_locations(entry),
