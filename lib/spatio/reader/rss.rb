@@ -4,6 +4,7 @@ require 'feedzirra'
 
 module Spatio::Reader
     class RSS
+      include Spatio::Reader
 
       def self.perform parameters = { input_encoding:'utf-8', output_encoding: 'utf-8' }
         Spatio::Reader::RSS.new(parameters).perform
