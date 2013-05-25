@@ -34,7 +34,7 @@ module Spatio
       LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
       @import = import
       @format_definition = @import.format_definition
-      @klass = "Spatio::Reader::#{@format_definition.importer_class}".constantize
+      @klass = @format_definition.klass
     end
 
     def add_location entries
