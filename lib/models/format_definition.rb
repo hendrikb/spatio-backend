@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 class FormatDefinition < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :importer_class
@@ -6,7 +8,7 @@ class FormatDefinition < ActiveRecord::Base
     require './lib/spatio'
     require './lib/spatio/reader'
     Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
-    eval "Spatio::Reader::#{importer_class}"
+    "Spatio::Reader::#{importer_class}".constantize
   end
 
   def self.valid_namespace? namespace
