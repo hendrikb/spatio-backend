@@ -1,6 +1,8 @@
 # encoding: utf-8
 require './lib/spatio'
 require 'logger'
+require './lib/spatio/reader'
+require 'resque'
 
 LOG = Logger.new(STDOUT)
 
@@ -18,8 +20,6 @@ module Spatio
 
     private
     def  initialize import
-      require './lib/spatio'
-      require './lib/spatio/reader'
       Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
       LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
@@ -39,7 +39,6 @@ module Spatio
     end
 
     def enqueue_for_geocoding entries
-      require 'resque'
 
       LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} entries"
       entries.each do |entry|
