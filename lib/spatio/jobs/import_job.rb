@@ -35,18 +35,21 @@ module Spatio
       importer_parameters.merge!({url: @import.url})
 
       entries = @klass.perform(importer_parameters)
-      enqueue_for_geocoding entries
+      entries = add_location entries
     end
 
-    def enqueue_for_geocoding entries
-
+    def add_location entries
       LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} entries"
-      entries.each do |entry|
-        if Resque.enqueue(Spatio::GeoPersistJob, entry)
-        else
-          raise Error "Could not enque #{entry.to_s}"
-        end
+      entries.map do |entry|
+        entry[:location] = geocode entry[:human_readable_location_in]
+        entry
       end
+    end
+
+    def geocode location_string
+      #set contact here for now, should be in format definition
+      location_hash = Spatio::Parser.perform(location_string, 'Berlin')
+      Spatio::Geocode.perform(location_hash)
     end
   end
 end
