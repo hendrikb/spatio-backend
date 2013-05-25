@@ -15,18 +15,7 @@ module Spatio
 
     def self.perform(id)
       import_definition = Import.find(id)
-      new import_definition
-    end
-
-    private
-    def  initialize import
-      Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
-
-      LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
-      @import = import
-      @format_definition = @import.format_definition
-      @klass = "Spatio::Reader::#{@format_definition.importer_class}".constantize
-      perform
+      new(import_definition).perform
     end
 
     def perform
@@ -36,6 +25,16 @@ module Spatio
 
       entries = @klass.perform(importer_parameters)
       entries = add_location entries
+    end
+
+    private
+    def initialize import
+      Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
+
+      LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
+      @import = import
+      @format_definition = @import.format_definition
+      @klass = "Spatio::Reader::#{@format_definition.importer_class}".constantize
     end
 
     def add_location entries
