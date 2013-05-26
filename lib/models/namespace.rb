@@ -2,7 +2,7 @@ class Namespace < ActiveRecord::Base
   has_many :fields
   MANDATORY_FIELD_NAMESPACE = 'Mandatory Fields'
 
-  validate :name, unique: true
+  validates :name, uniqueness: true
 
   def all_fields
     fields + mandatory_fields
