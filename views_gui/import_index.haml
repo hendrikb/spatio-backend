@@ -14,6 +14,11 @@
         alert msg
 
 
+    @importerAdder =
+      init: ->
+        $('#add_import_submit').click ->
+          alert 'ok'
+
     @importerLoader =
       init: ->
         importerLoader.load_index()
@@ -57,13 +62,13 @@
         alert 'not yet implemented'
     $ ->
       importerLoader.init()
+      importerAdder.init()
 
 
 
 
 %body
-  %h1
-    Imports
+  %h1 Imports
   %table.table.table-striped.table-hover
     %tr
       %th ID
@@ -75,3 +80,35 @@
       %th Description
       %th Status
       %th
+
+  %h1 Create a new Job
+
+  %form.horizontal-form
+    .control-group
+      %label.control-label{for: :name}Name
+      .controls
+        %input#name
+
+    .control-group
+      %label.control-label{for: :namespace}Namespace
+      .controls
+        %input#namespace
+    .control-group
+      %label.control-label{for: :geo_context}Context
+      .controls
+        %input#geo_context
+    .control-group
+      %label.control-label{for: :format_definition}Format
+      .controls
+        %select#format_definition
+    .control-group
+      %label.control-label{for: :url}URL
+      .controls
+        %input#url
+    .control-group
+      %label.control-label{for: :description}Description
+      .controls
+        %textarea#description
+    .control-group
+      .control
+        %button.btn.btn-alert#add_import_submit Submit
