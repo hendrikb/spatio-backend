@@ -20,7 +20,7 @@ module Spatio
 
     def perform
       LOG.info "JOB #{self.to_s}: Perfoming on #{@reader.to_s}"
-      importer_parameters = (eval @format_definition.importer_parameters) || {}
+      importer_parameters = JSON.parse(@format_definition.importer_parameters)
       importer_parameters.merge!({url: @import.url})
 
       entries = @reader.perform(importer_parameters)
