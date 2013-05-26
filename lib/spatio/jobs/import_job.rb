@@ -26,6 +26,7 @@ module Spatio
       entries = @reader.perform(importer_parameters)
       entries = add_location entries
       save entries
+      LOG.info 'Finished importing'
     end
 
     private
