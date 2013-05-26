@@ -53,6 +53,7 @@ module Spatio
                                   created_at: DateTime.now)
           LOG.info "Saved #{title}"
         rescue
+          # TODO: differentiate between duplicate key and other errors
           LOG.error "Could not save: #{title}"
         end
       end
