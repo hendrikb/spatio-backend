@@ -5,15 +5,16 @@ require 'feedzirra'
 module Spatio::Reader
     class RSS
       include Spatio::Reader
+      DEFAULT_ENCODING = { input_encoding:'utf-8', output_encoding: 'utf-8' }
 
-      def self.perform parameters = { input_encoding:'utf-8', output_encoding: 'utf-8' }
+      def self.perform parameters
         Spatio::Reader::RSS.new(parameters).perform
       end
 
 
       def initialize parameters
         @feed_url = parameters[:url]
-        @options = parameters
+        @options = DEFAULT_ENCODING.merge parameters
         @items = []
         raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
       end
