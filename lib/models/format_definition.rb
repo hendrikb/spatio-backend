@@ -15,4 +15,10 @@ class FormatDefinition < ActiveRecord::Base
     return true if FormatDefinition.find_by_name(namespace)
     false
   end
+
+  def create_namespace
+    # TODO: add fields
+    namespace = Namespace.create(name: name, table_name: name.parameterize('_').tableize)
+    namespace.create_table if namespace.valid?
+  end
 end
