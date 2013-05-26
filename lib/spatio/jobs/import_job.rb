@@ -35,7 +35,7 @@ module Spatio
       LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
       @import = import
       @format_definition = @import.format_definition
-      @reader = @format_definition.klass
+      @reader = @format_definition.reader_class
     end
 
     def save entries
