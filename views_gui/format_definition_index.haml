@@ -87,7 +87,8 @@
       %label.control-label{for: 'importer_parameters'}  Parameters
       .controls
         %textarea{id: 'importer_parameters', name:'importer_parameters'}
-        %span.help-inline Optional. This must be ruby Hash syntax. See docs.
+        %span.help-inline
+          Optional. This must be valid JSON Object (associative array). See docs.
     .control-group
       %label.control-label{for: 'description'}  Description
       .controls

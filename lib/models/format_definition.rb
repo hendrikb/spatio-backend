@@ -3,7 +3,8 @@ require 'active_support/inflector'
 class FormatDefinition < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :importer_class
-  validates :namespace, :uniqueness => true
+  validates :name, :uniqueness => true
+  serialize :importer_parameters, Hash
 
   def reader_class
     require './lib/spatio'

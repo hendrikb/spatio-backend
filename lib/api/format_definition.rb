@@ -24,9 +24,11 @@ post '/api/format_definition/new' do
     return json_err "Error: #{detail.to_s}"
   end
 
+  importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
+
   format_definition= FormatDefinition.new name: params["name"],
     importer_class: importer_class_cleaned,
-    importer_parameters: params["importer_parameters"],
+    importer_parameters: importer_parameters.symbolize_keys,
     description: params["description"]
 
   begin

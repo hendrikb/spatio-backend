@@ -20,7 +20,7 @@ module Spatio
 
     def perform
       LOG.info "JOB #{self.to_s}: Perfoming on #{@reader.to_s}"
-      importer_parameters = JSON.parse(@format_definition.importer_parameters)
+      importer_parameters = @format_definition.importer_parameters
       importer_parameters.merge!({url: @import.url})
 
       entries = @reader.perform(importer_parameters)
@@ -68,7 +68,7 @@ module Spatio
     end
 
     def geocode location_string
-      location_hash = Spatio::Parser.perform(location_string, @geo_context)
+      location_hash = Spatio::Parser.perform(location_string, @import.geo_context)
       Spatio::Geocode.perform(location_hash)
     end
   end
