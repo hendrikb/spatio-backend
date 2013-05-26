@@ -13,7 +13,6 @@ post '/api/import/new' do
 
   namespace = params['namespace']
 
-  json_err "namespace not found" unless FormatDefinition.valid_namespace? namespace
 
   begin
     format_definition = FormatDefinition.find(params['format_definition'])
