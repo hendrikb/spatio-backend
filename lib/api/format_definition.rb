@@ -17,7 +17,7 @@ post '/api/format_definition/new' do
     if (importer_class_cleaned.blank? or params['importer_class'].blank?)
       raise '"name" and "importer_class" are mandatory fields'
     end
-    klass = "Spatio::Reader::#{importer_class_cleaned}".constantize
+    reader = "Spatio::Reader::#{importer_class_cleaned}".constantize
   rescue NameError
     return json_err "Parser class Spatio::Reader::#{importer_class_cleaned} not found"
   rescue => detail

@@ -19,11 +19,11 @@ module Spatio
     end
 
     def perform
-      LOG.info "JOB #{self.to_s}: Perfoming on #{@klass.to_s}"
+      LOG.info "JOB #{self.to_s}: Perfoming on #{@reader.to_s}"
       importer_parameters = (eval @format_definition.importer_parameters) || {}
       importer_parameters.merge!({url: @import.url})
 
-      entries = @klass.perform(importer_parameters)
+      entries = @reader.perform(importer_parameters)
       entries = add_location entries
       save entries
     end
@@ -35,7 +35,7 @@ module Spatio
       LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
       @import = import
       @format_definition = @import.format_definition
-      @klass = @format_definition.klass
+      @reader = @format_definition.klass
     end
 
     def save entries
