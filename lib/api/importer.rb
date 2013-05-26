@@ -20,10 +20,21 @@ post '/api/import/new' do
     json_err "format_definition not found" if format_definition.nil?
   end
 
-  Import.save name: Date.today.to_s,
+  import = Import.new name: Date.today.to_s,
     namespace: namespace,
     url: url,
     format_definition: format_definition
+
+  begin
+    if format_definition.save
+      import.create_namespace
+      okay
+    else
+      json_errors format_definition.errors
+    end
+  rescue
+    json_err "Error while creating Import"
+  end
 end
 
 get '/api/import/:id/run' do
