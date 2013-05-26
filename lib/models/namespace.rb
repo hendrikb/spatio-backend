@@ -13,7 +13,6 @@ class Namespace < ActiveRecord::Base
   end
 
   def create_table
-    # TODO: make uuid primary key and unique
     transaction do
       connection.create_table(table_name)
       all_fields.each do |field|
@@ -21,6 +20,8 @@ class Namespace < ActiveRecord::Base
                              field.name,
                              field.sql_type)
       end
+
+      connection.add_index(table_name, :uuid, unique: true)
     end
   end
 end
