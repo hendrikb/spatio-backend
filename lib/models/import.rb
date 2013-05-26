@@ -7,8 +7,8 @@ class Import < ActiveRecord::Base
 
   def create_namespace
     # TODO: add fields
-    namespace = Namespace.create(name: namespace,
+    ns = Namespace.create(name: namespace,
                                  table_name: namespace.parameterize('_').tableize)
-    namespace.create_table if namespace.valid?
+    ns.create_table if ns.valid?
   end
 end
