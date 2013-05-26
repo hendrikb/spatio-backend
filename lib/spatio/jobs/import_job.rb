@@ -25,6 +25,7 @@ module Spatio
 
       entries = @klass.perform(importer_parameters)
       entries = add_location entries
+      save entries
     end
 
     private
@@ -35,6 +36,22 @@ module Spatio
       @import = import
       @format_definition = @import.format_definition
       @klass = @format_definition.klass
+    end
+
+    def save entries
+      namespace = Namespace.find_by_name(@import.namespace)
+
+      entries.each do |entry|
+        next unless entry[:location]
+        title = entry[:meta_data][:title]
+        Spatio::Persist.perform(namespace.table_name,
+                                uuid: entry[:id],
+                                title: title,
+                                location: entry[:location],
+                                created_at: DateTime.now)
+
+        LOG.info "Saved #{title}"
+      end
     end
 
     def add_location entries
