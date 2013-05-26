@@ -49,7 +49,6 @@ module Spatio
                                 title: title,
                                 location: entry[:location],
                                 created_at: DateTime.now)
-
         LOG.info "Saved #{title}"
       end
     end
@@ -63,7 +62,7 @@ module Spatio
     end
 
     def geocode location_string
-      #set contact here for now, should be in format definition
+      #set context here for now, TODO: should be in Importer
       location_hash = Spatio::Parser.perform(location_string, 'Berlin')
       Spatio::Geocode.perform(location_hash)
     end
