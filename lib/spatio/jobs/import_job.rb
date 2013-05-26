@@ -44,12 +44,16 @@ module Spatio
       entries.each do |entry|
         next unless entry[:location]
         title = entry[:meta_data][:title]
-        Spatio::Persist.perform(namespace.table_name,
-                                uuid: entry[:id],
-                                title: title,
-                                location: entry[:location],
-                                created_at: DateTime.now)
-        LOG.info "Saved #{title}"
+        begin
+          Spatio::Persist.perform(namespace.table_name,
+                                  uuid: entry[:id],
+                                  title: title,
+                                  location: entry[:location],
+                                  created_at: DateTime.now)
+          LOG.info "Saved #{title}"
+        rescue
+          LOG.error "Could not save: #{title}"
+        end
       end
     end
 
