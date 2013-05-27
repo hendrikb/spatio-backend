@@ -21,7 +21,7 @@ module Spatio
     def perform
       LOG.info "JOB #{self.to_s}: Perfoming on #{@reader.to_s}"
       importer_parameters = @format_definition.importer_parameters
-      importer_parameters.merge!({url: @import.url})
+      importer_parameters.merge!({ url: @import.url })
 
       entries = @reader.perform(importer_parameters)
       entries.reject! { |e| already_existing(entries).include? e[:id] }
@@ -43,7 +43,7 @@ module Spatio
 
     def save entries
       entries.each do |entry|
-        title = entry[:meta_data][:title]
+        title = entry[:title]
         begin
           Spatio::Persist.perform(@namespace.table_name,
                                   uuid: entry[:id],
