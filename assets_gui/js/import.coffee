@@ -63,7 +63,7 @@
             <a href='javascript:importerLoader.delete_row("+row.id+")' class='btn btn-danger'>Delete</a>
           </td>
         </tr>"
-      $("table").append(line)
+      $("table#imports").append(line)
   run_import: (id) ->
     $.ajax api_url+"/import/"+id+"/run",
       crossDomain: true,
@@ -85,6 +85,7 @@
         json_error jqXHR.responseText
 
 $ ->
-  importerLoader.init()
-  importerAdder.init()
+  if location.pathname.match("/import")
+    importerLoader.init()
+    importerAdder.init()
 
