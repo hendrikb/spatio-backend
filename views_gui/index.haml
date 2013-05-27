@@ -1,12 +1,15 @@
 !!! 5
 %head
+  <!-- assets: -->
+  = js :app
+  <!-- / assets: -->
   %script{src:'/jquery.js'}
   %script{src:'/bootstrap/js/bootstrap.js'}
   %link{rel:'stylesheet', href:'/bootstrap/css/bootstrap.css', type:'text/css'}
 %body
   %h1
     Spatio Backend
-  %div
+  .content
     %a.btn{href: 'format_definition' } 1: Define an Import-Format
     .icon-arrow-right
     %a.btn{href: 'import' } 2: Define an Import

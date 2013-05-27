@@ -23,6 +23,8 @@ group :development do
   gem 'pry'
 end
 
+gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
+
 group :test do
   gem 'rspec'
   gem 'simplecov'
