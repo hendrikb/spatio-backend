@@ -33,7 +33,6 @@
     for obj in data
       row = obj["format_definition"]
       line = "<tr class='r'>
-                <td>"+row.id+"</td>
                 <td>"+row.name+"</td>
                 <td>"+row.importer_class+"</td>
                 <td>"+row.description+"</rd>

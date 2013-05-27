@@ -52,7 +52,6 @@
     for obj in data
       row = obj["import"]
       line = "<tr class='r'>
-          <td>"+row.id+"</td>
           <td>"+row.name+"</td>
           <td>"+row.namespace+"</td>
           <td>"+row.geo_context+"</td>
