@@ -24,6 +24,7 @@ module Spatio
       importer_parameters.merge!({url: @import.url})
 
       entries = @reader.perform(importer_parameters)
+      entries.reject! { |e| already_existing(entries).include? e[:id] }
       entries = add_location entries
       save entries
       LOG.info 'Finished importing'
@@ -37,16 +38,15 @@ module Spatio
       @import = import
       @format_definition = @import.format_definition
       @reader = @format_definition.reader_class
+      @namespace = Namespace.find_by_name(@import.namespace)
     end
 
     def save entries
-      namespace = Namespace.find_by_name(@import.namespace)
-
       entries.each do |entry|
         next unless entry[:location]
         title = entry[:meta_data][:title]
         begin
-          Spatio::Persist.perform(namespace.table_name,
+          Spatio::Persist.perform(@namespace.table_name,
                                   uuid: entry[:id],
                                   title: title,
                                   location: entry[:location],
@@ -57,6 +57,15 @@ module Spatio
           LOG.error "Could not save: #{title}"
         end
       end
+    end
+
+    def already_existing entries
+      namespace = @namespace
+      table = Class.new(ActiveRecord::Base) do
+        self.table_name = namespace.table_name
+      end
+      uuids = entries.map { |e| e[:id] }
+      @already_existing_entries ||= table.where(uuid: uuids).map(&:uuid)
     end
 
     def add_location entries
