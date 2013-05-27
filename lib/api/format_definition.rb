@@ -37,9 +37,6 @@ end
 
 post'/api/format_definition/:id/delete' do
   response_is_json
-  if FormatDefinition.delete(params[:id])
+  FormatDefinition.delete(params[:id])
     okay
-  else
-    json_err "Could not delete"
-  end
 end

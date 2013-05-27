@@ -44,10 +44,6 @@ get '/api/import/:id/run' do
 end
 
 post'/api/import/:id/delete' do
-  response_is_json
-  if Import.delete(params[:id])
-    okay
-  else
-    json_err "Could not delete"
-  end
+  Import.delete(params[:id])
+  okay
 end
