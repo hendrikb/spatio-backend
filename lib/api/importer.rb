@@ -44,6 +44,7 @@ get '/api/import/:id/run' do
 end
 
 post'/api/import/:id/delete' do
+  response_is_json
   Import.delete(params[:id])
   okay
 end
