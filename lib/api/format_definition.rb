@@ -26,14 +26,13 @@ post '/api/format_definition/new' do
 
   importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
 
-  format_definition= FormatDefinition.new name: params["name"],
+  format_definition = FormatDefinition.new name: params["name"],
     importer_class: importer_class_cleaned,
     importer_parameters: importer_parameters.symbolize_keys,
     description: params["description"]
 
   begin
     if format_definition.save
-      format_definition.create_namespace
       okay
     else
       json_errors format_definition.errors
