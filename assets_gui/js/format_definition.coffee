@@ -15,6 +15,7 @@
           "description": $('#description').val()
         success: ->
           formatDefinition.load_index()
+          $("#format_definition_form :input").val("")
         error: (jqXHR, textStatus, errorThrown) ->
           json_error jqXHR.responseText
 
