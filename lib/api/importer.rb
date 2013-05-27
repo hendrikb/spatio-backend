@@ -8,33 +8,23 @@ get '/api/import' do
 end
 
 post '/api/import/new' do
-  url = params['url']
-  json_err "url field is mandatory" if url.blank?
-
-  namespace = params['namespace']
-
+  response_is_json
 
   begin
-    format_definition = FormatDefinition.find(params['format_definition'])
+    format = FormatDefinition.find(params['format_definition'])
   rescue
-    json_err "format_definition not found" if format_definition.nil?
+    json_err 'Invalid FormatDefinition'
   end
 
-  import = Import.new name: Date.today.to_s,
-    namespace: namespace,
-    url: url,
-    format_definition: format_definition
+  import = Import.create name: params['name'],
+    namespace: params['namespace'],
+    geo_context: params['geo_context'],
+    url: params['url'],
+    format_definition: format,
+    description: params['description']
 
-  begin
-    if format_definition.save
-      import.create_namespace
-      okay
-    else
-      json_errors format_definition.errors
-    end
-  rescue
-    json_err "Error while creating Import"
-  end
+  json_errors import.errors unless import.persisted?
+  okay
 end
 
 get '/api/import/:id/run' do
@@ -46,3 +36,4 @@ get '/api/import/:id/run' do
     json_err "Enqueing this task did not work out"
   end
 end
+
