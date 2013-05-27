@@ -16,15 +16,21 @@ post '/api/import/new' do
     json_err 'Invalid FormatDefinition'
   end
 
-  import = Import.create name: params['name'],
+  import = Import.new name: params['name'],
     namespace: params['namespace'],
     geo_context: params['geo_context'],
     url: params['url'],
     format_definition: format,
     description: params['description']
 
-  json_errors import.errors unless import.persisted?
-  okay
+  begin
+    if import.save!
+      import.create_namespace
+      okay
+    end
+  rescue
+    json_errors import.errors
+  end
 end
 
 get '/api/import/:id/run' do
