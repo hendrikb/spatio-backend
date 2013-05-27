@@ -76,7 +76,7 @@
               <td>"+row.description+"</td>
               <td class=''>
                 <a href='javascript:importerLoader.run_import("+row.id+")' class='btn btn-success'>Run!</a>
-                <a href='javascript:importerLoader.delete_row()' class='btn btn-danger'>Delete</a>
+                <a href='javascript:importerLoader.delete_row("+row.id+")' class='btn btn-danger'>Delete</a>
               </td>
             </tr>"
           $("table").append(line)
@@ -89,8 +89,16 @@
           success: (data, textStatus, jqXHR) ->
             alert 'success'
 
-      delete_row:  ->
-        alert 'not yet implemented'
+      delete_row: (id) ->
+        alert 'delete'
+        $.ajax api_url+"/import/"+id+"/delete",
+          type: 'POST',
+          crossDomain: true,
+          dataType: "json",
+          success: ->
+            importerLoader.load_index()
+          error: (jqXHR, textStatus, errorThrown) ->
+            json_error jqXHR.responseText
 
     $ ->
       importerLoader.init()
