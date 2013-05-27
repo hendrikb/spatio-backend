@@ -15,6 +15,7 @@
           "description": $('#description').val()
         success: ->
           importerLoader.load_index()
+          $("#add_import_form :input").val("")
         error: (jqXHR, textStatus, errorThrown) ->
           json_error jqXHR.responseText
 
@@ -77,7 +78,6 @@
     $.ajax api_url+"/import/"+id+"/run",
       crossDomain: true,
       error: (jqXHR, textStatus, errorThrown) ->
-        alert 'error'
         json_error jqXHR.responseText
       success: (data, textStatus, jqXHR) ->
         alert 'The import was scheduled'
