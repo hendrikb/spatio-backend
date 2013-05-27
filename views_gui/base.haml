@@ -1,5 +1,8 @@
 !!! 5
 %head
+  %title
+    Spatio Backend GUI
+
   :coffee
     @api_url = "#{settings.api_url}"
   <!-- Assets -->
@@ -11,4 +14,13 @@
   != css :app
   <!-- /Assets -->
 %body
-  = yield
+  .navbar
+    .navbar-inner
+      .brand Spatio - Backend
+      %ul.nav
+        %li.format_definition
+          %a{href: '/format_definition'}Format Definitions
+        %li.import
+          %a{href: '/import'}Imports
+  .container-fluid
+    = yield
