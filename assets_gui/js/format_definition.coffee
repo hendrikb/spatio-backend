@@ -37,12 +37,12 @@
                 <td>"+row.name+"</td>
                 <td>"+row.importer_class+"</td>
                 <td>"+row.description+"</rd>
-                <td><button id='delete_"+row.id+"' class='btn btn-danger'>Delete</button></td>
+                <td><button id='delete_row_"+row.id+"' data-id='"+row.id+"' class='btn btn-danger'>Delete</button></td>
               </tr>"
       $("table#format_definitions").append(line)
-      $("button#delete_"+row.id).click (e) ->
+      $("button#delete_row_"+row.id).click (e) ->
         e.preventDefault()
-        formatDefinition.delete_row(row.id)
+        formatDefinition.delete_row($(e.target).data("id"))
 
 
   delete_row: (id) ->

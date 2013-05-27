@@ -58,23 +58,31 @@
           <td>"+row.format_definition_id+"</td>
           <td>"+row.url+"</td>
           <td>"+row.description+"</td>
-          <td class=''>
-            <a href='javascript:importerLoader.run_import("+row.id+")' class='btn btn-success'>Run!</a>
-            <a href='javascript:importerLoader.delete_row("+row.id+")' class='btn btn-danger'>Delete</a>
+          <td>
+            <button id='run_import_"+row.id+"' data-id='"+row.id+"' class='btn btn-success'>Run!</button>
+            <button id='delete_import_"+row.id+"' data-id='"+row.id+"' class='btn btn-danger'>Delete</button>
           </td>
         </tr>"
       $("table#imports").append(line)
+      $("button#run_import_"+row.id).click (e) ->
+        e.preventDefault()
+        importerLoader.run_import($(e.target).data("id"))
+      $("button#delete_import_"+row.id).click (e) ->
+        e.preventDefault()
+        importerLoader.delete_import($(e.target).data("id"))
+
+
   run_import: (id) ->
+    $('#run_import_'+id).attr("disabled", "disabled").text("Running...")
     $.ajax api_url+"/import/"+id+"/run",
       crossDomain: true,
       error: (jqXHR, textStatus, errorThrown) ->
         alert 'error'
         json_error jqXHR.responseText
       success: (data, textStatus, jqXHR) ->
-        alert 'success'
+        alert 'The import was scheduled'
 
-  delete_row: (id) ->
-    alert 'delete'
+  delete_import: (id) ->
     $.ajax api_url+"/import/"+id+"/delete",
       type: 'POST',
       crossDomain: true,
