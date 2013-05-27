@@ -45,12 +45,8 @@ module Spatio
       entries.each do |entry|
         title = entry[:title]
         begin
-          Spatio::Persist.perform(@namespace.table_name,
-                                  uuid: entry[:id],
-                                  title: title,
-                                  location: entry[:location],
-                                  created_at: DateTime.now)
-          LOG.info "Saved #{title}"
+          Spatio::Persist.perform(@namespace.table_name, table_row(entry))
+                                  LOG.info "Saved #{title}"
         rescue Spatio::NoLocationError
           LOG.warn "Could not find location: #{title}"
         rescue
@@ -58,6 +54,15 @@ module Spatio
           LOG.error "Could not save: #{title}"
         end
       end
+    end
+
+    def table_row entry
+      {
+        uuid: entry[:id],
+        title: entry[:title],
+        location: entry[:location],
+        created_at: DateTime.now
+      }.merge entry[:meta_data]
     end
 
     def already_existing entries
