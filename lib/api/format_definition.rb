@@ -22,7 +22,7 @@ post '/api/format_definition/new' do
     description: params["description"]
 
   begin
-     "Spatio::Reader::#{importer_class_cleaned}".constantize
+    "Spatio::Reader::#{importer_class_cleaned}".constantize
     if format_definition.save
       okay
     else
@@ -38,5 +38,5 @@ end
 post'/api/format_definition/:id/delete' do
   response_is_json
   FormatDefinition.delete(params[:id])
-    okay
+  okay
 end
