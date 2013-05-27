@@ -14,8 +14,12 @@ class FormatDefinition < ActiveRecord::Base
   end
 
   def create_namespace
-    # TODO: add fields
     namespace = Namespace.create(name: name, table_name: name.parameterize('_').tableize)
+    importer_parameters[:meta_data].each do |field_name, _|
+      Field.create(name: field_name,
+                   namespace: namespace.id,
+                   sql_type: "TEXT")
+    end
     namespace.create_table if namespace.valid?
   end
 end
