@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'csv'
+require 'open-uri'
 
 module Spatio
   module Reader
@@ -8,21 +9,21 @@ module Spatio
       attr_reader :options
       DEFAULT_OPTIONS = { encoding:'utf-8', col_sep: ';'}
 
-      def self.perform file_name, parameters
-        Spatio::Reader::CSV.new(file_name, parameters).perform
+      def self.perform parameters
+        Spatio::Reader::CSV.new(parameters).perform
       end
 
-      def initialize file_name, parameters = {}
-        @file_name = file_name
+      def initialize parameters = {}
         @options = DEFAULT_OPTIONS.merge parameters
+        @url = @options[:url]
       end
 
       def perform
         @items = []
-        @csv = ::CSV.foreach(@file_name,
+        @csv = ::CSV.parse(open(@url),
                              col_sep: options[:col_sep],
                              headers: :first_row,
-                             encoding: options[:encoding]) do |row|
+                             encoding: options[:encoding]).each do |row|
           @items << generate_item(row)
         end
         add_ids
