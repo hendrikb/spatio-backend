@@ -24,9 +24,10 @@ module Spatio::Reader
         @feed.entries.each do |entry|
           @items << {
             human_readable_location_in: parseable_locations(entry),
+            title: begin entry.title rescue nil end,
             meta_data: {
-              title: begin entry.title rescue nil end,
               text: fallback_text(entry),
+              description: begin entry.description rescue nil end,
               url: entry.url
             }
           }
