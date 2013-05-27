@@ -9,7 +9,9 @@ module Spatio
         self.table_name = table_name
       end
 
-      table.create!(data)
+      row = table.new(data)
+      raise Spatio::NoLocationError unless row.location
+      row.save!
     end
   end
 end

@@ -43,7 +43,6 @@ module Spatio
 
     def save entries
       entries.each do |entry|
-        next unless entry[:location]
         title = entry[:meta_data][:title]
         begin
           Spatio::Persist.perform(@namespace.table_name,
@@ -52,6 +51,8 @@ module Spatio
                                   location: entry[:location],
                                   created_at: DateTime.now)
           LOG.info "Saved #{title}"
+        rescue Spatio::NoLocationError
+          LOG.warn "Could not find location: #{title}"
         rescue
           # TODO: differentiate between duplicate key and other errors
           LOG.error "Could not save: #{title}"
