@@ -34,7 +34,8 @@
       row = obj["format_definition"]
       line = "<tr class='r'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>"+row.description+"</rd><td><button id='delete_"+row.id+"' class='btn btn-danger'>Delete</btn></td></tr>"
       $("table#format_definitions").append(line)
-      $("button#delete_"+row.id).click ->
+      $("button#delete_"+row.id).click (e) ->
+        e.preventDefault()
         formatDefinition.delete_row(row.id)
 
 
