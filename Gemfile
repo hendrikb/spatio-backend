@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-gem 'pry'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
@@ -17,9 +16,12 @@ gem 'therubyracer'
 gem 'json', '~> 1.8.0'
 
 gem "resque"
-
-gem 'sparql-client'
 gem 'redis'
+gem 'sparql-client'
+
+group :development do
+  gem 'pry'
+end
 
 group :test do
   gem 'rspec'
