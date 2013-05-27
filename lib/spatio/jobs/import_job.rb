@@ -70,7 +70,7 @@ module Spatio
     end
 
     def add_location entries
-      LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} entries"
+      LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} new entries"
       entries.map do |entry|
         entry[:location] = geocode entry[:human_readable_location_in]
         entry
