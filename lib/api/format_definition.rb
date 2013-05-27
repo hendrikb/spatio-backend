@@ -13,7 +13,6 @@ post '/api/format_definition/new' do
   Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
   importer_class_cleaned = params['importer_class'].match(/^[a-z0-9]+/i).to_s
-  reader = "Spatio::Reader::#{importer_class_cleaned}".constantize
 
   importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
 
@@ -23,11 +22,14 @@ post '/api/format_definition/new' do
     description: params["description"]
 
   begin
+     "Spatio::Reader::#{importer_class_cleaned}".constantize
     if format_definition.save
       okay
     else
       json_errors format_definition.errors
     end
+  rescue NameError
+    json_err "Importer Class #{importer_class_cleaned} not found, see docs for supported classes"
   rescue ActiveRecord::RecordNotUnique
     json_err "Record name must be unique"
   end
