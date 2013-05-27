@@ -26,9 +26,7 @@ module Spatio::Reader
           human_readable_location_in: parseable_locations(entry),
           title: begin entry.title rescue nil end,
           url: entry.url,
-          meta_data: {
-            description: begin entry.description rescue nil end,
-          }
+          meta_data: {}
         }
       end
       add_ids
