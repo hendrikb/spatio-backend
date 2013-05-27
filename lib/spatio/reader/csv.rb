@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'csv'
 require 'open-uri'
+require 'sanitize'
 
 module Spatio
   module Reader
@@ -54,11 +55,13 @@ module Spatio
       end
 
       def fill_item(row, columns)
-        "".tap do |result|
-          columns.each do |column|
-            result << "#{row[column]} "
-          end
-        end.strip
+        result = ""
+        columns.each do |column|
+          result << "#{row[column]} "
+        end
+        # TODO: move to method
+        result = result.strip.force_encoding options[:encoding]
+        Sanitize.clean result, output_encoding: options[:encoding]
       end
 
       def convert_answer_to_bool answer
