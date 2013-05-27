@@ -6,12 +6,6 @@ build_table = (data) ->
     line = "<tr class='r'><td>"+row.id+"</td><td>"+row.name+"</td><td>"+row.importer_class+"</td><td>"+row.description+"</rd><td><a href='javascript: delete_row("+row.id+")' class='btn btn-danger'>Delete</a></td></tr>"
     $("table").append(line)
 
-@json_error = (json_error_string) ->
-    error_obj = JSON.parse json_error_string
-    msg = "The following error(s) occured:\n"
-    for error in error_obj.errors
-      msg += "- "+error["error"]+"\n"
-    alert msg
 
 @delete_row = (id) ->
   $.ajax api_url+"/format_definition/"+id+"/delete",
