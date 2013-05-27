@@ -14,6 +14,7 @@ gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'geocoder'
 gem 'therubyracer'
+gem 'json', '~> 1.8.0'
 
 gem "resque"
 
