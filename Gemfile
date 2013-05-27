@@ -4,6 +4,8 @@ gem 'sinatra-activerecord'
 gem 'sinatra-contrib'
 gem 'haml'
 gem 'coffee-script'
+gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
+
 gem 'feedzirra'
 gem 'sanitize'
 
