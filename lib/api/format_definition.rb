@@ -33,7 +33,6 @@ post '/api/format_definition/new' do
 
   begin
     if format_definition.save
-      format_definition.create_namespace
       okay
     else
       json_errors format_definition.errors

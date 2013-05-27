@@ -25,6 +25,7 @@ post '/api/import/new' do
 
   begin
     if import.save!
+      import.create_namespace
       okay
     end
   rescue
