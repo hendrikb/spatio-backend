@@ -7,6 +7,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'spatio/parser'
 require 'spatio/reader'
 require 'spatio/geocode'
+require 'spatio/exceptions'
 require 'spatio/persist'
 
 require 'spatio/jobs/import_job'
