@@ -21,12 +21,12 @@ module Spatio
       def perform
         @items = []
         @csv = ::CSV.parse(open(@url),
-                             col_sep: options[:col_sep],
-                             headers: :first_row,
-                             encoding: options[:encoding]).each do |row|
-          @items << generate_item(row)
-        end
-        add_ids
+                           col_sep: options[:col_sep],
+                           headers: :first_row,
+                           encoding: options[:encoding]).each do |row|
+                             @items << generate_item(row)
+                           end
+                           add_ids
       end
 
       private
@@ -37,6 +37,7 @@ module Spatio
         end
         {
           human_readable_location_in: fill_item(row, @options[:geo_columns]),
+          title: fill_item(row, @options[:title_columns]),
           meta_data: generate_metadata(row)
         }
       end
@@ -46,7 +47,6 @@ module Spatio
 
       def generate_metadata row
         result = {}
-        result[:title] = fill_item(row, @options[:title_columns])
         options[:meta_data].each do |key, value|
           result[key] = fill_item(row, value)
         end
