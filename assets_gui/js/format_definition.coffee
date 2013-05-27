@@ -22,7 +22,6 @@
     $.ajax api_url+"/format_definition",
       crossDomain: true,
       error: (jqXHR, textStatus, errorThrown) ->
-        alert jqXHR.responseText
         json_error jqXHR.responseText
       success: (data, textStatus, jqXHR) ->
         formatDefinition.build_table data
