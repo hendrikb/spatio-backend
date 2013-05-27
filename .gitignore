@@ -3,3 +3,4 @@ config/redis.yml
 *.swp
 coverage/
 spec/vcr/
+public_gui/*
