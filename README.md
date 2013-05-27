@@ -33,11 +33,12 @@ $> bundle install
 # Start the API service:
 $> ruby api.rb -p 4567
 
-# Start the GUI service:
-$> ruby gui.rb -p 4568
+# Start the GUI service (you can set a PORT in the file gui.rb):
+$> ruby gui.rb
 
 # Be aware that if you use RVM you might start the services using
-#     bundle exec ruby <api|gui>.rb -p <desired port>
+# if you experience version conflicts:
+#     bundle exec <program call as given above>
 
 # Open the GUI: http://127.0.0.1:4568/
 ```
