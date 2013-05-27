@@ -27,5 +27,5 @@ end
 
 def json_errors errors
   status 500
-  { "status" =>  "error", "errors" => errors }.to_json
+  { "status" =>  "error", "errors" =>  errors.to_a }.to_json
 end
