@@ -1,6 +1,12 @@
 !!! 5
 %head
-  <!-- Assets: -->
+  :coffee
+    @api_url = "#{settings.api_url}"
+  <!-- Assets -->
+  <!-- lib: -->
+  != js :lib
+  != css :lib
+  <!-- /lib -->
   != js :app
   != css :app
   <!-- /Assets -->
