@@ -32,18 +32,11 @@ module Spatio
 
       private
       def generate_item row
-        title =  ""
-        options[:title_columns].each do |column|
-          title << "#{row[column]} "
-        end
         {
           human_readable_location_in: fill_item(row, @options[:geo_columns]),
           title: fill_item(row, @options[:title_columns]),
           meta_data: generate_metadata(row)
         }
-      end
-
-      def title
       end
 
       def generate_metadata row
