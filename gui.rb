@@ -63,7 +63,7 @@ class App < Sinatra::Base
 
 
   get '/' do
-    haml :index, layout: :base
+    redirect '/format_definition'
   end
 
   get '/format_definition' do
