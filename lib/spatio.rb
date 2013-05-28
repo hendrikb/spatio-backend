@@ -11,6 +11,7 @@ require 'spatio/exceptions'
 require 'spatio/persist'
 
 require 'spatio/jobs/import_job'
+require 'spatio/importer'
 
 
 ENV['RACK_ENV'] ||= 'development'

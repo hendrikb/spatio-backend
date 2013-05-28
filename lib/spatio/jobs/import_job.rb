@@ -46,41 +46,8 @@ module Spatio
       LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} new entries"
 
       entries.each do |entry|
-        entries = add_location entry
-        save entry
+        Spatio::Importer.new(entry, @namespace, @import.geo_context).perform
       end
-    end
-
-    def save entry
-      title = entry[:title]
-      begin
-        Spatio::Persist.perform(@namespace.table_name, table_row(entry))
-        LOG.info "Saved #{title}"
-      rescue Spatio::NoLocationError
-        LOG.warn "Could not find location: #{title}"
-      rescue
-        # TODO: differentiate between duplicate key and other errors
-        LOG.error "Could not save: #{title}"
-      end
-    end
-
-    def table_row entry
-      {
-        uuid: entry[:id],
-        title: entry[:title],
-        location: entry[:location],
-        created_at: DateTime.now
-      }.merge entry[:meta_data]
-    end
-
-    def add_location entry
-      entry[:location] = geocode entry[:human_readable_location_in]
-      entry
-    end
-
-    def geocode location_string
-      location_hash = Spatio::Parser.perform(location_string, @import.geo_context)
-      Spatio::Geocode.perform(location_hash)
     end
 
     def already_existing entries
