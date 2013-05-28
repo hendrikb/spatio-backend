@@ -36,6 +36,8 @@ module Spatio
             end
           end
         end
+
+        nil
       end
 
       def with_city
@@ -46,6 +48,8 @@ module Spatio
             sleep 1
           end
         end
+
+        nil
       end
 
       def geocode(street, district = nil, city = nil)
