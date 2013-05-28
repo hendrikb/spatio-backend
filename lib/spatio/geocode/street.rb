@@ -30,7 +30,7 @@ module Spatio
         streets.each do |street|
           districts.each do |district|
             cities.each do |city|
-              result = geocode(streets.first, districts.first, cities.first)
+              result = geocode(street, district, city)
               return result if result
               sleep 1
             end
@@ -41,7 +41,7 @@ module Spatio
       def with_city
         streets.each do |street|
           cities.each do |city|
-            result = geocode(streets.first, '', cities.first)
+            result = geocode(street, '', city)
             return result if result
             sleep 1
           end

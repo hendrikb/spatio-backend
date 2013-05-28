@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Spatio::Geocode::Street do
   subject { Spatio::Geocode::Street }
   let(:street) { 'Turmstrasse' }
+  let(:street2) { 'Beusselstrasse' }
   let(:district) { 'Mitte'  }
   let(:city) { 'Berlin' }
   let(:coordinates) { [53, 11] }
@@ -23,6 +24,15 @@ describe Spatio::Geocode::Street do
     Geocoder.should_receive(:coordinates).with(location_string(street, district, city)).
       and_return coordinates
     Spatio::Geocode::Street.perform({ streets: [street],
+                                      districts: [district],
+                                      cities: [city]})
+  end
+
+  it 'calls Geocoder with second street' do
+    Geocoder.should_receive(:coordinates).with(location_string(street, district, city))
+    Geocoder.should_receive(:coordinates).with(location_string(street2, district, city)).
+      and_return coordinates
+    Spatio::Geocode::Street.perform({ streets: [street, street2],
                                       districts: [district],
                                       cities: [city]})
   end
