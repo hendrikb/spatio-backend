@@ -11,7 +11,6 @@ module Spatio::Reader
       Spatio::Reader::RSS.new(parameters).perform
     end
 
-
     def initialize parameters
       @feed_url = parameters[:url]
       @options = DEFAULT_ENCODING.merge parameters
@@ -22,12 +21,8 @@ module Spatio::Reader
     def perform
       fetch_feed
       @feed.entries.each do |entry|
-        @items << {
-          human_readable_location_in: parseable_locations(entry),
-          title: begin entry.title rescue nil end,
-          url: entry.url,
-          meta_data: {}
-        }
+        entry[:article] = load_link(entry) if parse_articles?
+        @items << generate_item(entry)
       end
       add_ids
     end
@@ -37,13 +32,22 @@ module Spatio::Reader
       return !@feed_url.nil?
     end
 
-    def fallback_text entry
-      begin
-        return entry.summary
-      rescue
-        return entry.title unless entry.title.nil?
-        nil
+    def generate_item entry
+      {
+        human_readable_location_in: fill_item(entry, @options[:geo_columns]),
+        title: fill_item(entry, @options[:title_columns]),
+        meta_data: generate_metadata(entry),
+        url: entry.url
+      }
+    end
+
+    def generate_metadata entry
+      return unless @options[:meta_data]
+      result = {}
+      @options[:meta_data].each do |key, value|
+        result[key] = fill_item(entry, value)
       end
+      result
     end
 
     def load_link entry
@@ -57,16 +61,17 @@ module Spatio::Reader
         encoded_html =  html.force_encoding(@options[:input_encoding])
         Sanitize.clean encoded_html, output_encoding: @options[:output_encoding]
       rescue
-        fallback_text entry
+        ""
       end
     end
 
-    def parseable_locations entry
-      if parse_articles?
-        load_link entry
-      else
-        fallback_text entry
+    def fill_item entry, keys
+      result = ""
+      keys.each do |key|
+        result << "#{entry[key.to_sym]}"
       end
+      result = result.strip.force_encoding @options[:input_encoding]
+      Sanitize.clean result, output_encoding: @options[:output_encoding]
     end
 
     def fetch_feed
