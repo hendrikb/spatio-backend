@@ -1,0 +1,26 @@
+!!! 5
+%head
+  %title
+    Spatio Backend GUI
+
+  :coffee
+    @api_url = "#{settings.api_url}"
+  <!-- Assets -->
+  <!-- lib: -->
+  != js :lib
+  != css :lib
+  <!-- /lib -->
+  != js :app
+  != css :app
+  <!-- /Assets -->
+%body
+  .navbar
+    .navbar-inner
+      .brand Spatio - Backend
+      %ul.nav
+        %li.format_definition
+          %a{href: '/format_definition'}Format Definitions
+        %li.import
+          %a{href: '/import'}Imports
+  .container-fluid
+    = yield

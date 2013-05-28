@@ -13,16 +13,6 @@ post '/api/format_definition/new' do
   Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
   importer_class_cleaned = params['importer_class'].match(/^[a-z0-9]+/i).to_s
-  begin
-    if (importer_class_cleaned.blank? or params['importer_class'].blank?)
-      raise '"name" and "importer_class" are mandatory fields'
-    end
-    reader = "Spatio::Reader::#{importer_class_cleaned}".constantize
-  rescue NameError
-    return json_err "Parser class Spatio::Reader::#{importer_class_cleaned} not found"
-  rescue => detail
-    return json_err "Error: #{detail.to_s}"
-  end
 
   importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
 
@@ -32,11 +22,14 @@ post '/api/format_definition/new' do
     description: params["description"]
 
   begin
+    "Spatio::Reader::#{importer_class_cleaned}".constantize
     if format_definition.save
       okay
     else
       json_errors format_definition.errors
     end
+  rescue NameError
+    json_err "Importer Class #{importer_class_cleaned} not found, see docs for supported classes"
   rescue ActiveRecord::RecordNotUnique
     json_err "Record name must be unique"
   end
@@ -44,9 +37,6 @@ end
 
 post'/api/format_definition/:id/delete' do
   response_is_json
-  if FormatDefinition.delete(params[:id])
-    okay
-  else
-    json_err "Could not delete"
-  end
+  FormatDefinition.delete(params[:id])
+  okay
 end

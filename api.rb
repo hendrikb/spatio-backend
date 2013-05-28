@@ -22,7 +22,7 @@ def okay
 end
 
 def json_err error
-  json_errors [ { "error"  => error } ]
+  json_errors [ error  ]
 end
 
 def json_errors errors
