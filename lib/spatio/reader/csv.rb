@@ -47,6 +47,7 @@ module Spatio
       end
 
       def generate_metadata row
+        return unless options[:meta_data]
         result = {}
         options[:meta_data].each do |key, value|
           result[key] = fill_item(row, value)
