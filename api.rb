@@ -6,6 +6,14 @@ require './lib/models/format_definition'
 
 APP_ROOT = settings.root
 
+
+#########
+
+get '/api/ping' do
+  response_is_json
+  true.to_json
+end
+
 require_relative 'lib/api/format_definition'
 require_relative 'lib/api/importer'
 

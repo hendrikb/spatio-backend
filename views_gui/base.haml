@@ -17,10 +17,13 @@
   .navbar
     .navbar-inner
       .brand Spatio - Backend
-      %ul.nav
+      %ul.nav.pull-left
         %li.format_definition
           %a{href: '/format_definition'}Format Definitions
         %li.import
           %a{href: '/import'}Imports
+      %ul.nav.pull-right
+        %li.import
+          #api_status.label.nav{style: 'margin-top:10px;'} API: pending
   .container-fluid
     = yield
