@@ -23,7 +23,7 @@ module Spatio::Reader
     def perform
       fetch_feed
       @feed.entries.each do |entry|
-        entry[:article] = load_link(entry) if parse_articles?
+        entry['article'] = load_link(entry) if parse_articles?
         @items << generate_item(entry)
       end
       add_ids
@@ -70,7 +70,7 @@ module Spatio::Reader
     def fill_item entry, keys
       result = ""
       keys.each do |key|
-        result << "#{entry[key.to_sym]}"
+        result << "#{entry[key]}"
       end
       result = result.strip.force_encoding @options[:input_encoding]
       Sanitize.clean result, output_encoding: @options[:output_encoding]
