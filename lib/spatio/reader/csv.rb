@@ -14,16 +14,20 @@ module Spatio
       end
 
       def perform
-        @csv = ::CSV.parse(open(@url),
-                           col_sep: options[:col_sep],
-                           headers: :first_row,
-                           encoding: options[:encoding]).each do |row|
-                             @items << generate_item(row)
-                           end
-                           add_ids
+        entries.each do |entry|
+          @items << generate_item(entry)
+        end
+        add_ids
       end
 
       private
+
+      def entries
+        ::CSV.parse(open(@url),
+                    col_sep: options[:col_sep],
+                    headers: :first_row,
+                    encoding: options[:encoding])
+      end
 
       def default_options
         super.merge({ col_sep: ';' })

@@ -10,8 +10,7 @@ module Spatio::Reader
     end
 
     def perform
-      fetch_feed
-      @feed.entries.each do |entry|
+      entries.each do |entry|
         entry['article'] = load_link(entry) if parse_articles?
         @items << generate_item(entry)
       end
@@ -35,6 +34,10 @@ module Spatio::Reader
       rescue
         ""
       end
+    end
+
+    def entries
+      fetch_feed.entries
     end
 
     def fetch_feed
