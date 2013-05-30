@@ -2,11 +2,11 @@
 require 'csv'
 require 'open-uri'
 require 'sanitize'
+require 'spatio/reader/base'
 
 module Spatio
   module Reader
-    class CSV
-      include Spatio::Reader
+    class CSV < Base
       attr_reader :options
       DEFAULT_OPTIONS = { encoding:'utf-8', col_sep: ';'}
 

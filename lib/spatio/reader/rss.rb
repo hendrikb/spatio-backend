@@ -1,12 +1,10 @@
 # encoding: UTF-8
 require 'active_support'
 require 'feedzirra'
+require 'spatio/reader/base'
 
 module Spatio::Reader
-  class RSS
-    # TODO: base reader class
-
-    include Spatio::Reader
+  class RSS < Base
     DEFAULT_ENCODING = { input_encoding:'utf-8', output_encoding: 'utf-8' }
 
     def self.perform parameters
