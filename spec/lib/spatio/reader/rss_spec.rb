@@ -14,7 +14,7 @@ describe Spatio::Reader::RSS do
                 title_columns: ['title'],
                 meta_data: { title: ['title'] },
                 parse_articles: true,
-                parse_article_selector: '#bomain_content'}
+                parse_articles_selector: '#bomain_content'}
 
     VCR.use_cassette "rss_test" do
       @result = Spatio::Reader::RSS.perform(options)
