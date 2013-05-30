@@ -58,14 +58,6 @@ module Spatio
         Sanitize.clean result, output_encoding: options[:encoding]
       end
 
-      def convert_answer_to_bool answer
-        answer.upcase == "J"
-      end
-
-      def convert_plz plz
-        return nil if plz.nil?
-        plz.to_i
-      end
     end
   end
 end
