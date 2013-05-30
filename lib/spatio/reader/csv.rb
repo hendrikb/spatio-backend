@@ -8,18 +8,9 @@ module Spatio
   module Reader
     class CSV < Base
       attr_reader :options
-      DEFAULT_OPTIONS = { col_sep: ';',
-                          input_encoding:'utf-8',
-                          output_encoding: 'utf-8' }
 
       def self.perform parameters
         Spatio::Reader::CSV.new(parameters).perform
-      end
-
-      def initialize parameters = {}
-        @options = DEFAULT_OPTIONS.merge parameters
-        @url = @options[:url]
-        @items = []
       end
 
       def perform
