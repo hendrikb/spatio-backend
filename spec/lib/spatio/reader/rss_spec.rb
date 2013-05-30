@@ -21,7 +21,7 @@ describe Spatio::Reader::RSS do
     end
   end
 
-  it 'has 20 entries', :vcr do
+  it 'has 20 entries' do
     @result.should have(20).entries
   end
 
