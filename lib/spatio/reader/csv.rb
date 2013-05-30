@@ -36,15 +36,6 @@ module Spatio
         super.merge({ col_sep: ';' })
       end
 
-      def generate_metadata entry
-        return unless options[:meta_data]
-        result = {}
-        options[:meta_data].each do |key, value|
-          result[key] = fill_item(entry, value)
-        end
-        result
-      end
-
       def fill_item(entry, columns)
         result = ""
         columns.each do |column|

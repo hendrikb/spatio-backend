@@ -32,15 +32,6 @@ module Spatio::Reader
       }
     end
 
-    def generate_metadata entry
-      return unless @options[:meta_data]
-      result = {}
-      @options[:meta_data].each do |key, value|
-        result[key] = fill_item(entry, value)
-      end
-      result
-    end
-
     def load_link entry
       require 'net/http'
       require 'sanitize'

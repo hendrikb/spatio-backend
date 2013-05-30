@@ -13,6 +13,16 @@ module Spatio
       end
 
       private
+
+      def generate_metadata entry
+        return unless @options[:meta_data]
+        result = {}
+        @options[:meta_data].each do |key, value|
+          result[key] = fill_item(entry, value)
+        end
+        result
+      end
+
       def add_ids
         @items.each do |item|
           item[:id] = digest item.to_s
