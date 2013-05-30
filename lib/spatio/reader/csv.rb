@@ -28,17 +28,6 @@ module Spatio
       def default_options
         super.merge({ col_sep: ';' })
       end
-
-      def fill_item(entry, columns)
-        result = ""
-        columns.each do |column|
-          result << "#{entry[column]} "
-        end
-        # TODO: move to method
-        result = result.strip.force_encoding options[:input_encoding]
-        Sanitize.clean result, output_encoding: options[:output_encoding]
-      end
-
     end
   end
 end

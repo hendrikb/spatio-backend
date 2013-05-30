@@ -42,15 +42,6 @@ module Spatio::Reader
       end
     end
 
-    def fill_item entry, keys
-      result = ""
-      keys.each do |key|
-        result << "#{entry[key]}"
-      end
-      result = result.strip.force_encoding @options[:input_encoding]
-      Sanitize.clean result, output_encoding: @options[:output_encoding]
-    end
-
     def fetch_feed
       #TODO Do not use Feedzirra as it requires ActiveSupport
       @feed ||= Feedzirra::Feed.fetch_and_parse @url

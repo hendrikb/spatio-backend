@@ -31,6 +31,15 @@ module Spatio
         result
       end
 
+      def fill_item entry, keys
+        result = ""
+        keys.each do |key|
+          result << "#{entry[key]}"
+        end
+        result = result.strip.force_encoding @options[:input_encoding]
+        Sanitize.clean result, output_encoding: @options[:output_encoding]
+      end
+
       def add_ids
         @items.each do |item|
           item[:id] = digest item.to_s
