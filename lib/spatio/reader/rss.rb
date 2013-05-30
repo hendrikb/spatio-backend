@@ -18,10 +18,6 @@ module Spatio::Reader
     end
 
     private
-    def generate_item entry
-      super.merge({ url: entry.url })
-    end
-
     def load_link entry
       http_response = Net::HTTP.get(URI(entry.url))
       doc = Nokogiri::HTML http_response
