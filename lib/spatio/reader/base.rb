@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'digest/sha1'
+require 'sanitize'
 
 module Spatio
   module Reader
