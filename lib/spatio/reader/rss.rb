@@ -34,7 +34,7 @@ module Spatio::Reader
       begin
         encode_clean html
       rescue
-        ""
+        ''
       end
     end
 
@@ -43,7 +43,7 @@ module Spatio::Reader
     end
 
     def parse_articles_selector
-      return "body" if @options[:parse_articles_selector].nil?
+      return 'body' if @options[:parse_articles_selector].nil?
       @options[:parse_articles_selector]
     end
   end

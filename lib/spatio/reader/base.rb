@@ -32,7 +32,7 @@ module Spatio
       end
 
       def fill_item entry, keys
-        result = ""
+        result = ''
         keys.each do |key|
           result << "#{entry[key]}"
         end
