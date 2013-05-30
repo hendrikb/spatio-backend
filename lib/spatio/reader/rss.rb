@@ -18,6 +18,15 @@ module Spatio::Reader
     end
 
     private
+
+    def entries
+      fetch_feed.entries
+    end
+
+    def fetch_feed
+      @feed ||= Feedzirra::Feed.fetch_and_parse @url
+    end
+
     def load_link entry
       http_response = Net::HTTP.get(URI(entry.url))
       doc = Nokogiri::HTML http_response
@@ -27,14 +36,6 @@ module Spatio::Reader
       rescue
         ""
       end
-    end
-
-    def entries
-      fetch_feed.entries
-    end
-
-    def fetch_feed
-      @feed ||= Feedzirra::Feed.fetch_and_parse @url
     end
 
     def parse_articles?
