@@ -36,8 +36,7 @@ module Spatio
         keys.each do |key|
           result << "#{entry[key]}"
         end
-        result = result.strip.force_encoding @options[:input_encoding]
-        Sanitize.clean result, output_encoding: @options[:output_encoding]
+        encode_clean result
       end
 
       def add_ids
@@ -56,6 +55,11 @@ module Spatio
 
       def default_options
         { input_encoding:'utf-8', output_encoding: 'utf-8' }
+      end
+
+      def encode_clean string
+        result = string.strip.force_encoding @options[:input_encoding]
+        Sanitize.clean result, output_encoding: @options[:output_encoding]
       end
     end
   end

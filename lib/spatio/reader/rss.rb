@@ -35,8 +35,7 @@ module Spatio::Reader
       doc = Nokogiri::HTML http_response
       html = doc.css(parse_articles_selector).to_html
       begin
-        encoded_html =  html.force_encoding(@options[:input_encoding])
-        Sanitize.clean encoded_html, output_encoding: @options[:output_encoding]
+        encode_clean html
       rescue
         ""
       end
