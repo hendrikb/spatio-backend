@@ -14,6 +14,14 @@ module Spatio
 
       private
 
+      def generate_item entry
+        {
+          human_readable_location_in: fill_item(entry, @options[:geo_columns]),
+          title: fill_item(entry, @options[:title_columns]),
+          meta_data: generate_metadata(entry)
+        }
+      end
+
       def generate_metadata entry
         return unless @options[:meta_data]
         result = {}
