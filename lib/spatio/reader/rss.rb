@@ -19,10 +19,6 @@ module Spatio::Reader
     end
 
     private
-    def parameters_valid?
-      return !@url.nil?
-    end
-
     def generate_item entry
       super.merge({ url: entry.url })
     end
@@ -42,7 +38,6 @@ module Spatio::Reader
     end
 
     def fetch_feed
-      #TODO Do not use Feedzirra as it requires ActiveSupport
       @feed ||= Feedzirra::Feed.fetch_and_parse @url
     end
 
