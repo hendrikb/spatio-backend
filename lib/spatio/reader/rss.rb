@@ -5,17 +5,8 @@ require 'spatio/reader/base'
 
 module Spatio::Reader
   class RSS < Base
-    DEFAULT_OPTIONS  = { input_encoding:'utf-8', output_encoding: 'utf-8' }
-
     def self.perform parameters
       Spatio::Reader::RSS.new(parameters).perform
-    end
-
-    def initialize parameters
-      @feed_url = parameters[:url]
-      @options = DEFAULT_OPTIONS.merge parameters
-      @items = []
-      raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
     end
 
     def perform
@@ -29,7 +20,7 @@ module Spatio::Reader
 
     private
     def parameters_valid?
-      return !@feed_url.nil?
+      return !@url.nil?
     end
 
     def generate_item entry
@@ -76,7 +67,7 @@ module Spatio::Reader
 
     def fetch_feed
       #TODO Do not use Feedzirra as it requires ActiveSupport
-      @feed ||= Feedzirra::Feed.fetch_and_parse @feed_url
+      @feed ||= Feedzirra::Feed.fetch_and_parse @url
     end
 
     def parse_articles?

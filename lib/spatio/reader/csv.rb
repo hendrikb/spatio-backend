@@ -32,6 +32,10 @@ module Spatio
         }
       end
 
+      def default_options
+        super.merge({ col_sep: ';' })
+      end
+
       def generate_metadata entry
         return unless options[:meta_data]
         result = {}

@@ -4,14 +4,12 @@ require 'digest/sha1'
 module Spatio
   module Reader
     class Base
-      DEFAULT_OPTIONS = { col_sep: ';',
-                          input_encoding:'utf-8',
-                          output_encoding: 'utf-8' }
 
       def initialize parameters = {}
-        @options = DEFAULT_OPTIONS.merge parameters
+        @options = default_options.merge parameters
         @url = @options[:url]
         @items = []
+        raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
       end
 
       private
@@ -23,6 +21,14 @@ module Spatio
 
       def digest string
         Digest::SHA1.hexdigest string
+      end
+
+      def parameters_valid?
+        return !@url.nil?
+      end
+
+      def default_options
+        { input_encoding:'utf-8', output_encoding: 'utf-8' }
       end
     end
   end
