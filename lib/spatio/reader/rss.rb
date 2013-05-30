@@ -1,6 +1,6 @@
 # encoding: UTF-8
-require 'active_support'
 require 'feedzirra'
+require 'net/http'
 require 'spatio/reader/base'
 
 module Spatio::Reader
@@ -23,9 +23,6 @@ module Spatio::Reader
     end
 
     def load_link entry
-      require 'net/http'
-      require 'sanitize'
-
       http_response = Net::HTTP.get(URI(entry.url))
       doc = Nokogiri::HTML http_response
       html = doc.css(parse_articles_selector).to_html

@@ -1,7 +1,6 @@
 # encoding: UTF-8
 require 'csv'
 require 'open-uri'
-require 'sanitize'
 require 'spatio/reader/base'
 
 module Spatio
