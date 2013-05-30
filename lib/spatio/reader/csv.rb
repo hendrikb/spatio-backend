@@ -8,7 +8,9 @@ module Spatio
   module Reader
     class CSV < Base
       attr_reader :options
-      DEFAULT_OPTIONS = { encoding:'utf-8', col_sep: ';'}
+      DEFAULT_OPTIONS = { col_sep: ';',
+                          input_encoding:'utf-8',
+                          output_encoding: 'utf-8' }
 
       def self.perform parameters
         Spatio::Reader::CSV.new(parameters).perform
@@ -17,10 +19,10 @@ module Spatio
       def initialize parameters = {}
         @options = DEFAULT_OPTIONS.merge parameters
         @url = @options[:url]
+        @items = []
       end
 
       def perform
-        @items = []
         @csv = ::CSV.parse(open(@url),
                            col_sep: options[:col_sep],
                            headers: :first_row,
@@ -31,31 +33,31 @@ module Spatio
       end
 
       private
-      def generate_item row
+      def generate_item entry
         {
-          human_readable_location_in: fill_item(row, @options[:geo_columns]),
-          title: fill_item(row, @options[:title_columns]),
-          meta_data: generate_metadata(row)
+          human_readable_location_in: fill_item(entry, @options[:geo_columns]),
+          title: fill_item(entry, @options[:title_columns]),
+          meta_data: generate_metadata(entry)
         }
       end
 
-      def generate_metadata row
+      def generate_metadata entry
         return unless options[:meta_data]
         result = {}
         options[:meta_data].each do |key, value|
-          result[key] = fill_item(row, value)
+          result[key] = fill_item(entry, value)
         end
         result
       end
 
-      def fill_item(row, columns)
+      def fill_item(entry, columns)
         result = ""
         columns.each do |column|
-          result << "#{row[column]} "
+          result << "#{entry[column]} "
         end
         # TODO: move to method
-        result = result.strip.force_encoding options[:encoding]
-        Sanitize.clean result, output_encoding: options[:encoding]
+        result = result.strip.force_encoding options[:input_encoding]
+        Sanitize.clean result, output_encoding: options[:output_encoding]
       end
 
     end
