@@ -6,7 +6,6 @@ require 'spatio/reader/base'
 module Spatio
   module Reader
     class CSV < Base
-      attr_reader :options
 
       def self.perform parameters
         Spatio::Reader::CSV.new(parameters).perform
@@ -22,7 +21,7 @@ module Spatio
       private
 
       def entries
-        ::CSV.parse(open(@url),
+        ::CSV.parse(open(url),
                     col_sep: options[:col_sep],
                     headers: :first_row,
                     encoding: options[:encoding])

@@ -4,10 +4,11 @@ require 'digest/sha1'
 module Spatio
   module Reader
     class Base
+      attr_reader :options, :items, :url
 
       def initialize parameters = {}
         @options = default_options.merge parameters
-        @url = @options[:url]
+        @url = options[:url]
         @items = []
         raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
       end
@@ -16,8 +17,8 @@ module Spatio
 
       def generate_item entry
         {
-          human_readable_location_in: fill_item(entry, @options[:geo_columns]),
-          title: fill_item(entry, @options[:title_columns]),
+          human_readable_location_in: fill_item(entry, options[:geo_columns]),
+          title: fill_item(entry, options[:title_columns]),
           meta_data: generate_metadata(entry)
         }
       end
@@ -25,7 +26,7 @@ module Spatio
       def generate_metadata entry
         return unless @options[:meta_data]
         result = {}
-        @options[:meta_data].each do |key, value|
+        options[:meta_data].each do |key, value|
           result[key] = fill_item(entry, value)
         end
         result
@@ -40,7 +41,7 @@ module Spatio
       end
 
       def add_ids
-        @items.each do |item|
+        items.each do |item|
           item[:id] = digest item.to_s
         end
       end
@@ -50,7 +51,7 @@ module Spatio
       end
 
       def parameters_valid?
-        return !@url.nil?
+        return url.present?
       end
 
       def default_options
@@ -58,8 +59,8 @@ module Spatio
       end
 
       def encode_clean string
-        result = string.strip.force_encoding @options[:input_encoding]
-        Sanitize.clean result, output_encoding: @options[:output_encoding]
+        result = string.strip.force_encoding options[:input_encoding]
+        Sanitize.clean result, output_encoding: options[:output_encoding]
       end
     end
   end

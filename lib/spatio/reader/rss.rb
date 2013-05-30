@@ -5,6 +5,7 @@ require 'spatio/reader/base'
 
 module Spatio::Reader
   class RSS < Base
+
     def self.perform parameters
       Spatio::Reader::RSS.new(parameters).perform
     end
@@ -24,7 +25,7 @@ module Spatio::Reader
     end
 
     def fetch_feed
-      @feed ||= Feedzirra::Feed.fetch_and_parse @url
+      @feed ||= Feedzirra::Feed.fetch_and_parse url
     end
 
     def load_link entry
@@ -39,12 +40,12 @@ module Spatio::Reader
     end
 
     def parse_articles?
-      @options[:parse_articles]
+      options[:parse_articles]
     end
 
     def parse_articles_selector
-      return 'body' if @options[:parse_articles_selector].nil?
-      @options[:parse_articles_selector]
+      return 'body' if options[:parse_articles_selector].blank?
+      options[:parse_articles_selector]
     end
   end
 end
