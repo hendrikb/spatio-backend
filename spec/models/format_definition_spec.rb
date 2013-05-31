@@ -21,6 +21,40 @@ describe FormatDefinition do
     end
   end
 
+  context 'compatible?' do
+    let(:importer_parameters) { { title_columns: ['title'], geo_columns: ['title'] } }
+
+    it 'returns true if meta_data is empty' do
+      format_definition = FactoryGirl.create(:format_definition,
+                                             importer_parameters: importer_parameters)
+      other_definition = FactoryGirl.create(:format_definition,
+                                            name: 'foo',
+                                            importer_parameters: importer_parameters)
+      format_definition.compatible?(other_definition).should be true
+    end
+
+    it 'returns false with different meta_data' do
+      format_definition = FactoryGirl.create(:format_definition,
+                                             importer_parameters: importer_parameters.merge({ meta_data: { text: ['title'] } }))
+      other_definition = FactoryGirl.create(:format_definition,
+                                            name: 'foo',
+                                            importer_parameters: importer_parameters.merge({ meta_data: { description: ['title'] } }))
+
+      format_definition.compatible?(other_definition).should be false
+    end
+
+    it 'returns true with same meta_data keys' do
+      format_definition = FactoryGirl.create(:format_definition,
+                                             importer_parameters: importer_parameters.merge({ meta_data: { text: ['title'] } }))
+      other_definition = FactoryGirl.create(:format_definition,
+                                            name: 'foo',
+                                            importer_parameters: importer_parameters.merge({ meta_data: { text: ['description'] } }))
+
+      format_definition.compatible?(other_definition).should be true
+    end
+
+  end
+
   context '#reader_class' do
     it 'workds for RSS' do
       format_definition = FactoryGirl.create(:format_definition, importer_class: 'RSS')
@@ -50,7 +84,7 @@ describe FormatDefinition do
       format_definition = FactoryGirl.build:format_definition,
         importer_parameters: { title_columns: ['title', 'article'],
                                geo_columns: ['title'] }
-      format_definition.should_not be_valid
+        format_definition.should_not be_valid
     end
 
     it 'can use article keyword with parse_articles' do
@@ -58,7 +92,7 @@ describe FormatDefinition do
         importer_parameters: { title_columns: ['title', 'article'],
                                geo_columns: ['title'],
                                parse_articles: true }
-      format_definition.should be_valid
+        format_definition.should be_valid
     end
 
     it 'cannot use article keyword in meta_data without flag' do
@@ -66,7 +100,7 @@ describe FormatDefinition do
         importer_parameters: { title_columns: ['title'],
                                geo_columns: ['title'],
                                meta_data: { text: ['article'] } }
-      format_definition.should_not be_valid
+        format_definition.should_not be_valid
     end
   end
 end

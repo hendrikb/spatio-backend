@@ -32,6 +32,16 @@ class FormatDefinition < ActiveRecord::Base
     importer_parameters[:geo_columns]
   end
 
+  def meta_data
+    importer_parameters[:meta_data]
+  end
+
+  def compatible? other_definition
+    return true unless meta_data
+    return true if meta_data.same_keys?(other_definition.meta_data)
+    false
+  end
+
   private
 
   def valid_article_usage?
