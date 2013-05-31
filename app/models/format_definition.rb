@@ -37,8 +37,8 @@ class FormatDefinition < ActiveRecord::Base
   end
 
   def compatible? other_definition
-    return true unless meta_data
-    return true if meta_data.same_keys?(other_definition.meta_data)
+    return true if meta_data.nil? && other_definition.meta_data.nil?
+    return true if meta_data && meta_data.same_keys?(other_definition.meta_data)
     false
   end
 
