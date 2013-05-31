@@ -60,5 +60,13 @@ describe FormatDefinition do
                                parse_articles: true }
       format_definition.should be_valid
     end
+
+    it 'cannot use article keyword in meta_data without flag' do
+      format_definition = FactoryGirl.build:format_definition,
+        importer_parameters: { title_columns: ['title'],
+                               geo_columns: ['title'],
+                               meta_data: { text: ['article'] } }
+      format_definition.should_not be_valid
+    end
   end
 end

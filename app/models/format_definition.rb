@@ -32,12 +32,27 @@ class FormatDefinition < ActiveRecord::Base
     importer_parameters[:geo_columns]
   end
 
+  private
+
   def valid_article_usage?
     unless importer_parameters[:parse_articles]
-      importer_parameters.each do |key, columns|
-        return false if (columns.class == Array && columns.include?('article'))
-      end
+      return false if article_in_columns?
+      return false if  article_in_meta_data?
     end
     true
+  end
+
+  def article_in_columns?
+    importer_parameters.each do |_, columns|
+      return true if (columns.class == Array && columns.include?('article'))
+    end
+    false
+  end
+
+  def article_in_meta_data?
+    importer_parameters.each do |key, columns|
+      return true if key == :meta_data && columns.values.flatten.include?('article')
+    end
+    false
   end
 end
