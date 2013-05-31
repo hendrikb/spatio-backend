@@ -28,6 +28,7 @@ class Import < ActiveRecord::Base
     Import.where(namespace: namespace).each do |import|
       unless import.format_definition.compatible? format_definition
         errors.add(:namespace, 'FormatDefinitions in namespace must be compatible')
+        break
       end
     end
   end
