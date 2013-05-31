@@ -38,7 +38,7 @@ module Spatio
     end
 
     def add_location
-      @entry[:location] = geocode entry[:human_readable_location_in]
+      @entry[:location] = geocode entry[:location_string]
     end
 
     def geocode location_string

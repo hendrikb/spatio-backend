@@ -18,7 +18,7 @@ module Spatio
 
       def generate_item entry
         {
-          human_readable_location_in: fill_item(entry, options[:geo_columns]),
+          location_string: fill_item(entry, options[:geo_columns]),
           title: fill_item(entry, options[:title_columns]),
           meta_data: generate_metadata(entry)
         }

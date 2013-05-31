@@ -27,13 +27,13 @@ describe Spatio::Reader::CSV do
   let(:title_column) { 'Treffer - Reinickendorf' }
   let(:text_column) { 'Den richtigen Riecher hatten in der vergangen Nacht Polizeibeamte' }
 
-  context 'human readable location' do
+  context 'location_string' do
     it 'includes title(1) column' do
-      @result.first[:human_readable_location_in].should include title_column
+      @result.first[:location_string].should include title_column
     end
 
     it 'includes text(4) column' do
-      @result.first[:human_readable_location_in].should include text_column
+      @result.first[:location_string].should include text_column
     end
   end
 

@@ -28,13 +28,13 @@ describe Spatio::Reader::RSS do
   let(:title) { 'Körperverletzung in U-Bahnhof – Zeugen gesucht - Pankow' }
   let(:article) { 'Mit Bildern einer Überwachungskamera sucht die Polizei' }
 
-  context 'human readable location' do
+  context 'location_string' do
     it 'includes title' do
-      @result.first[:human_readable_location_in].should include title
+      @result.first[:location_string].should include title
     end
 
     it 'parses and includes article' do
-      @result.first[:human_readable_location_in].should include article
+      @result.first[:location_string].should include article
     end
   end
 
