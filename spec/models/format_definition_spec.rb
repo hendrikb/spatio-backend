@@ -46,5 +46,19 @@ describe FormatDefinition do
       format_definition.should_not be_valid
     end
 
+    it 'cannot use article keyword without parse_articles' do
+      format_definition = FactoryGirl.build:format_definition,
+        importer_parameters: { title_columns: ['title', 'article'],
+                               geo_columns: ['title'] }
+      format_definition.should_not be_valid
+    end
+
+    it 'can use article keyword with parse_articles' do
+      format_definition = FactoryGirl.build:format_definition,
+        importer_parameters: { title_columns: ['title', 'article'],
+                               geo_columns: ['title'],
+                               parse_articles: true }
+      format_definition.should be_valid
+    end
   end
 end
