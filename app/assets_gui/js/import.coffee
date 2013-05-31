@@ -16,6 +16,8 @@
         success: ->
           importerLoader.load_index()
           $("#add_import_form :input").val("")
+          msg = 'Import successfully created.'
+          $('#flash_status').addClass('alert-success').removeClass('alert-error').html(msg).show()
         error: (jqXHR, textStatus, errorThrown) ->
           json_error jqXHR.responseText
 
@@ -79,7 +81,8 @@
       error: (jqXHR, textStatus, errorThrown) ->
         json_error jqXHR.responseText
       success: (data, textStatus, jqXHR) ->
-        alert 'The import was scheduled'
+        msg = 'Import was scheduled.'
+        $('#flash_status').addClass('alert-success').removeClass('alert-error').html(msg).show()
 
   delete_import: (id) ->
     $.ajax api_url+"/import/"+id+"/delete",
