@@ -11,13 +11,13 @@ describe FormatDefinition do
 
   context 'validation' do
     it 'validates presence of name' do
-      FormatDefinition.create(importer_class: 'TestClass').save.should be_false
+      FactoryGirl.build(:format_definition, name: '').should_not be_valid
     end
     it 'validates presence of importer_class' do
-      FormatDefinition.create(name: 'TestName').save.should be_false
+      FactoryGirl.build(:format_definition, importer_class: '').should_not be_valid
     end
     it 'validates works correctly' do
-      FormatDefinition.create(name: 'TestName', importer_class: 'TC').save.should be_true
+      FactoryGirl.build(:format_definition).should be_valid
     end
   end
 
