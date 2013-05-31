@@ -13,7 +13,7 @@ class App < Sinatra::Base
   set :api_url, API_URL
   set :port, GUI_HTTP_PORT
 
-  set :views, Proc.new { File.join(root, "views_gui") }
+  set :views, Proc.new { File.join(root, "app/views_gui") }
   set :public_folder, File.dirname(__FILE__) + '/public_gui'
 
   register Sinatra::AssetPack
