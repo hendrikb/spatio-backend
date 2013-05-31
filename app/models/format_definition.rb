@@ -16,6 +16,10 @@ class FormatDefinition < ActiveRecord::Base
   end
 
   def importer_parameters_format
-    errors.add(:importer_parameters, 'title_columns can not be empty') unless importer_parameters[:title_columns]
+    errors.add(:importer_parameters, 'title_columns can not be empty') unless title_columns
+  end
+
+  def title_columns
+    importer_parameters[:title_columns]
   end
 end
