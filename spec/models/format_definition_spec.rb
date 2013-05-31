@@ -40,5 +40,11 @@ describe FormatDefinition do
       format_definition.should_not be_valid
     end
 
+    it 'is not valid without geo_columns' do
+      format_definition = FactoryGirl.build:format_definition,
+        importer_parameters: { title_columns: ['title'] }
+      format_definition.should_not be_valid
+    end
+
   end
 end
