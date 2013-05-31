@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' if settings.environment == :development
 
 require 'sinatra/activerecord'
-require './lib/models/format_definition'
+require './app/models/format_definition'
 
 APP_ROOT = settings.root
 

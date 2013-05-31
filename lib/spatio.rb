@@ -29,4 +29,4 @@ module Spatio
 end
 
 ActiveRecord::Base.establish_connection conf('database.yml')
-require 'models'
+require './app/models'

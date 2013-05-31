@@ -1,4 +1,4 @@
-require_relative  'spatio'
+require './lib/spatio'
 
 require_relative 'models/state'
 require_relative 'models/community'
