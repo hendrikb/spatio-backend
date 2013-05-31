@@ -11,13 +11,6 @@ module Spatio
         Spatio::Reader::CSV.new(parameters).perform
       end
 
-      def perform
-        entries.each do |entry|
-          @items << generate_item(entry)
-        end
-        add_ids
-      end
-
       private
 
       def entries

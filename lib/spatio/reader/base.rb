@@ -7,6 +7,13 @@ module Spatio
     class Base
       attr_reader :options, :items, :url
 
+      def perform
+        entries.each do |entry|
+          @items << generate_item(entry)
+        end
+        add_ids
+      end
+
       def initialize parameters = {}
         @options = default_options.merge parameters
         @url = options[:url]

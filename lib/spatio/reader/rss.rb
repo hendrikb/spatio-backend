@@ -10,18 +10,13 @@ module Spatio::Reader
       Spatio::Reader::RSS.new(parameters).perform
     end
 
-    def perform
-      entries.each do |entry|
-        entry['article'] = load_link(entry) if parse_articles?
-        @items << generate_item(entry)
-      end
-      add_ids
-    end
-
     private
 
     def entries
-      fetch_feed.entries
+      fetch_feed.entries.map do |entry|
+        entry['article'] = load_link(entry) if parse_articles?
+        entry
+      end
     end
 
     def fetch_feed
