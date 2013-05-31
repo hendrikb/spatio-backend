@@ -24,9 +24,8 @@ post '/api/import/new' do
     description: params['description']
 
   begin
+
     if import.save!
-      # TODO: validation that FormatDefinitions are compatible if namespace already
-      # exists
       import.create_namespace
       okay
     end
