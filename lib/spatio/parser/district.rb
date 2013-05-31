@@ -7,12 +7,8 @@ module Spatio
         communities = Community.where(name: cities)
         return [] if communities.empty?
 
-        districts = ::District.where(community_id: communities.map(&:id)).
-          where('? ~* name', location_string)
-
-        districts.select do |district|
-          location_string.match(/\b#{district.name}\b/)
-        end.map(&:name)
+        ::District.where(community_id: communities.map(&:id)).
+          where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).map(&:name)
       end
     end
   end
