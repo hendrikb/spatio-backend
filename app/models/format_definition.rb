@@ -6,10 +6,16 @@ class FormatDefinition < ActiveRecord::Base
   validates :name, :uniqueness => true
   serialize :importer_parameters, Hash
 
+  validate :importer_parameters_format
+
   def reader_class
     require './lib/spatio'
     require './lib/spatio/reader'
     Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
     "Spatio::Reader::#{importer_class}".constantize
+  end
+
+  def importer_parameters_format
+    errors.add(:importer_parameters, 'title_columns can not be empty') unless importer_parameters[:title_columns]
   end
 end

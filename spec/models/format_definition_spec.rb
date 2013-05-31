@@ -32,4 +32,13 @@ describe FormatDefinition do
       expect { format_definition.reader_class }.to raise_error
     end
   end
+
+  context '#importer_parameters' do
+    it 'is not valid without title_columns' do
+      format_definition = FactoryGirl.build:format_definition,
+        importer_parameters: { geo_columns: ['title'] }
+      format_definition.should_not be_valid
+    end
+
+  end
 end
