@@ -19,9 +19,10 @@ module Spatio
     end
 
     def perform
+      start_time = Time.now
       LOG.info "JOB #{self.to_s}: Performing on #{@reader.to_s}"
       import_entries
-      LOG.info 'Finished importing'
+      LOG.info "Finished importing in #{(Time.now - start_time).duration}."
     end
 
     private
