@@ -13,6 +13,8 @@ require 'spatio/persist'
 require 'spatio/jobs/import_job'
 require 'spatio/importer'
 
+require 'spatio/core_ext/hash'
+
 
 ENV['RACK_ENV'] ||= 'development'
 
