@@ -4,9 +4,7 @@ module Spatio
   module Parser
     module State
       def self.perform(location_string)
-        ::State.all.select do |community|
-          location_string.include?(community.name)
-        end.map(&:name)
+        ::State.where('? ~* name', location_string).map(&:name)
       end
     end
   end
