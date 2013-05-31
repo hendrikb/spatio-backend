@@ -19,14 +19,14 @@ class App < Sinatra::Base
   register Sinatra::AssetPack
 
   assets {
-    serve '/js',     from: 'assets_gui/js'        # Default
-    serve '/vendor_js',     from: 'assets_gui/vendor/js'        # Default
+    serve '/js',     from: 'app/assets_gui/js'        # Default
+    serve '/vendor_js',     from: 'app/assets_gui/vendor/js'        # Default
 
-    serve '/css',    from: 'assets_gui/css'       # Default
-    serve '/vendor_css',     from: 'assets_gui/vendor/css'        # Default
+    serve '/css',    from: 'app/assets_gui/css'       # Default
+    serve '/vendor_css',     from: 'app/assets_gui/vendor/css'        # Default
 
-    serve '/images', from: 'assets_gui/images'    # Default
-    serve '/vendor_images',     from: 'assets_gui/vendor/images'        # Default
+    serve '/images', from: 'app/assets_gui/images'    # Default
+    serve '/vendor_images',     from: 'app_assets_gui/vendor/images'        # Default
 
     # The second parameter defines where the compressed version will be served.
     # (Note: that parameter is optional, AssetPack will figure it out.)
