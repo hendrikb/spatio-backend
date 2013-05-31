@@ -16,7 +16,7 @@ module Spatio
 
       def initialize parameters = {}
         @options = default_options.merge parameters
-        @url = options[:url]
+        @url = options[:url].strip
         @items = []
         raise 'parameters not valid: you forgot to give :url' unless parameters_valid?
       end
