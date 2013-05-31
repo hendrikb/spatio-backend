@@ -19,7 +19,7 @@ module Spatio
     end
 
     def perform
-      LOG.info "JOB #{self.to_s}: Perfoming on #{@reader.to_s}"
+      LOG.info "JOB #{self.to_s}: Performing on #{@reader.to_s}"
       import_entries
       LOG.info 'Finished importing'
     end
@@ -43,7 +43,7 @@ module Spatio
       entries = @reader.perform(importer_parameters)
       entries.reject! { |e| already_existing(entries).include? e[:id] }
 
-      LOG.info "JOB #{self.to_s}: Enqueing #{entries.count} new entries"
+      LOG.info "JOB #{self.to_s}: Enqueuing #{entries.count} new entries"
 
       entries.each do |entry|
         Spatio::Importer.new(entry, @namespace, @import.geo_context).perform
