@@ -19,12 +19,8 @@ class FormatDefinition < ActiveRecord::Base
     errors.add(:importer_parameters, 'title_columns can not be empty') unless title_columns
     errors.add(:importer_parameters, 'geo_columns can not be empty') unless geo_columns
 
-    unless importer_parameters[:parse_articles]
-      importer_parameters.each do |_, columns|
-        if columns.class == Array && columns.include?('article')
-          errors.add(:importer_parameters, 'cannot use article without parse_article')
-        end
-      end
+    unless valid_article_usage?
+      errors.add(:importer_parameters, 'cannot use article without parse_article')
     end
   end
 
@@ -34,5 +30,14 @@ class FormatDefinition < ActiveRecord::Base
 
   def geo_columns
     importer_parameters[:geo_columns]
+  end
+
+  def valid_article_usage?
+    unless importer_parameters[:parse_articles]
+      importer_parameters.each do |key, columns|
+        return false if (columns.class == Array && columns.include?('article'))
+      end
+    end
+    true
   end
 end
