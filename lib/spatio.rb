@@ -14,6 +14,7 @@ require 'spatio/jobs/import_job'
 require 'spatio/importer'
 
 require 'spatio/core_ext/hash'
+require 'spatio/core_ext/numeric'
 
 
 ENV['RACK_ENV'] ||= 'development'
