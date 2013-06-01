@@ -24,14 +24,11 @@ post '/api/format_definition/new' do
 
   begin
     format_definition = FormatDefinition.new(parse_params(params))
-    "Spatio::Reader::#{format_definition.importer_class}".constantize
     if format_definition.save
       okay
     else
       json_errors format_definition.errors
     end
-  rescue NameError
-    json_err "Importer Class #{importer_class_cleaned} not found, see docs for supported classes"
   rescue ActiveRecord::RecordNotUnique
     json_err "Record name must be unique"
   end
