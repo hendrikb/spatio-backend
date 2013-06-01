@@ -14,6 +14,8 @@ module Spatio
       save
     end
 
+    private
+
     def save
       title = entry[:title]
       begin
