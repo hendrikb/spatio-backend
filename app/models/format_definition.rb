@@ -7,12 +7,21 @@ class FormatDefinition < ActiveRecord::Base
   serialize :importer_parameters, Hash
 
   validate :importer_parameters_format
+  validate :validate_reader_class
 
   def reader_class
     require './lib/spatio'
     require './lib/spatio/reader'
     Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
     "Spatio::Reader::#{importer_class}".constantize
+  end
+
+  def validate_reader_class
+    begin
+      reader_class
+    rescue
+       errors.add(:importer_class,  'not found, see docs for supported classes')
+    end
   end
 
   def importer_parameters_format

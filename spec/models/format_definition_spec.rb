@@ -19,6 +19,16 @@ describe FormatDefinition do
     it 'validates works correctly' do
       FactoryGirl.build(:format_definition).should be_valid
     end
+
+    context 'validates reader_class' do
+      it 'is not valid for XLS' do
+        FactoryGirl.build(:format_definition, importer_class: 'XLS').should_not be_valid
+      end
+
+      it 'is valid for CSV' do
+        FactoryGirl.build(:format_definition, importer_class: 'CSV').should be_valid
+      end
+    end
   end
 
   context 'compatible?' do
@@ -63,18 +73,6 @@ describe FormatDefinition do
       format_definition.compatible?(other_definition).should be true
     end
 
-  end
-
-  context '#reader_class' do
-    it 'works for RSS' do
-      format_definition = FactoryGirl.create(:format_definition, importer_class: 'RSS')
-      format_definition.reader_class.should eq Spatio::Reader::RSS
-    end
-
-    it 'raises error with XLS' do
-      format_definition = FactoryGirl.create(:format_definition, importer_class: 'XLS')
-      expect { format_definition.reader_class }.to raise_error
-    end
   end
 
   context '#importer_parameters' do
