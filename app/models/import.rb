@@ -18,15 +18,15 @@ class Import < ActiveRecord::Base
   def create_namespace
       ns = Namespace.create(name: namespace, table_name: namespace.parameterize('_').tableize)
       if ns.valid?
-        create_fields if format_definition.meta_data
+        create_fields(ns.id) if format_definition.meta_data
         ns.create_table
       end
   end
 
-  def create_fields
+  def create_fields (namespace_id)
     format_definition.meta_data.each do |field_name, _|
       Field.create(name: field_name,
-                   namespace: ns.id,
+                   namespace_id: namespace_id,
                    sql_type: "TEXT")
     end
   end
