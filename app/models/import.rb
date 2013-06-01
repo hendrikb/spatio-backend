@@ -8,15 +8,19 @@ class Import < ActiveRecord::Base
 
   belongs_to :format_definition
 
-  def create_namespace
+  def setup_namespace
     return if Namespace.find_by_name namespace
     transaction do
+      create_namespace
+    end
+  end
+
+  def create_namespace
       ns = Namespace.create(name: namespace, table_name: namespace.parameterize('_').tableize)
       if ns.valid?
         create_fields if format_definition.meta_data
         ns.create_table
       end
-    end
   end
 
   def create_fields
