@@ -55,7 +55,7 @@ module Spatio
 
     def fetch_entries
       entries = @reader.perform(importer_parameters)
-      entries.reject! { |e| already_existing(entries).include? e[:id] }
+      entries.reject { |e| already_existing(entries).include? e[:id] }
     end
 
     def already_existing entries
