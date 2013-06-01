@@ -15,13 +15,17 @@ class Namespace < ActiveRecord::Base
   def create_table
     transaction do
       connection.create_table(table_name)
-      all_fields.each do |field|
-        connection.add_column(table_name,
-                             field.name,
-                             field.sql_type)
-      end
+      create_fields
 
       connection.add_index(table_name, :uuid, unique: true)
+    end
+  end
+
+  private
+
+  def create_fields
+    all_fields.each do |field|
+      connection.add_column(table_name, field.name, field.sql_type)
     end
   end
 end
