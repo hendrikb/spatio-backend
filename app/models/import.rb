@@ -20,7 +20,7 @@ class Import < ActiveRecord::Base
   end
 
   def create_fields
-    format_definition.importer_parameters[:meta_data].each do |field_name, _|
+    format_definition.meta_data.each do |field_name, _|
       Field.create(name: field_name,
                    namespace: ns.id,
                    sql_type: "TEXT")
