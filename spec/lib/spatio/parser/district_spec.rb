@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe Spatio::Parser::District do
-  it { should respond_to :perform }
-
+  subject { Spatio::Parser::District }
 
   context 'district in right city' do
     let(:city) { FactoryGirl.create(:community) }
