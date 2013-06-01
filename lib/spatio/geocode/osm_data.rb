@@ -35,11 +35,11 @@ module Spatio
       end
 
       def cities
-        Community.where(name: locations[:cities])
+        cities ||= Community.where(name: locations[:cities])
       end
 
       def community_ids
-        @community_ids ||= cities.map(&:id)
+        cities.map(&:id)
       end
     end
   end
