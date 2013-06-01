@@ -14,10 +14,15 @@ module Spatio
         @communities = Community.where(name: cities)
       end
 
+      def community_ids
+        @community_ids ||= communities.map(&:id)
+      end
+
       def perform
-        return [] if communities.empty?
-        ::District.where(community_id: communities.map(&:id)).
-          where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).map(&:name)
+        return [] if community_ids.empty?
+        ::District.where(community_id: community_ids).
+          where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).
+          map(&:name)
       end
     end
   end
