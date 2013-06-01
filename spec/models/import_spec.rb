@@ -21,5 +21,25 @@ describe Import do
         FactoryGirl.build(:import).should_not be_valid
       end
     end
+
+    context 'setup_namespace' do
+      let(:table_name) { 'test123s' }
+
+      before :each do
+        mandatory_field_namespace = FactoryGirl.create :namespace, name: Namespace::MANDATORY_FIELD_NAMESPACE
+        FactoryGirl.create :field, name: 'uuid', namespace: mandatory_field_namespace
+        FactoryGirl.create :field, name: 'location', sql_type: 'GEOMETRY',namespace: mandatory_field_namespace
+      end
+
+      after :all do
+        ActiveRecord::Base.connection.execute("DROP TABLE #{table_name}")
+      end
+
+      it 'creates table' do
+        import = FactoryGirl.create(:import, namespace: 'test123')
+        import.setup_namespace
+        ActiveRecord::Base.connection.tables.should include table_name
+      end
+    end
   end
 end
