@@ -2,5 +2,6 @@
     error_obj = JSON.parse json_error_string
     msg = "The following error(s) occured:\n"
     for error in error_obj.errors
-      msg += "- "+error+"\n"
-    alert msg
+      msg += "- " + error + "<br /> "
+    $('#container').trigger('flashError', [msg])
+
