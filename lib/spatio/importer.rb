@@ -30,7 +30,6 @@ module Spatio
     end
 
     def table_row
-      meta_data = entry[:meta_data] || {}
       {
         uuid: entry[:id],
         title: entry[:title],
@@ -46,6 +45,10 @@ module Spatio
     def geocode location_string
       location_hash = Spatio::Parser.perform(location_string, geo_context)
       Spatio::Geocode.perform(location_hash)
+    end
+
+    def meta_data
+      entry[:meta_data] || {}
     end
   end
 end
