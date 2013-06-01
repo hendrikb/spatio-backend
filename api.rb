@@ -15,21 +15,19 @@ class Api < Sinatra::Base
   #########
 
   get '/api/ping' do
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    status 200
+    okay
   end
 
   require_relative 'lib/api/format_definition'
   require_relative 'lib/api/importer'
 
   def response_is_json
-    require 'pry'; binding.pry
-    response.headers["Access-Control-Allow-Origin"] = "*"
     content_type :json
   end
 
   def okay
-    { "status" => "ok"  }.to_json
+    cross_domain_call_allowed
+    status 200
   end
 
   def json_err error
@@ -37,8 +35,16 @@ class Api < Sinatra::Base
   end
 
   def json_errors errors
+    allow_crossdomain_calls
     status 500
+    response_is_json
     { "status" =>  "error", "errors" =>  errors.to_a }.to_json
   end
+
+
+  def cross_domain_call_allowed
+    response.headers["Access-Control-Allow-Origin"] = "*"
+  end
+
   run! if app_file == $0
 end
