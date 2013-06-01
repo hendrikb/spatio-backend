@@ -90,6 +90,7 @@
       dataType: "json",
       success: ->
         importerLoader.load_index()
+        $('#container').trigger('flashSuccess', ['Import was deleted.'])
       error: (jqXHR, textStatus, errorThrown) ->
         json_error jqXHR.responseText
 
