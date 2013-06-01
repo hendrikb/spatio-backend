@@ -18,10 +18,6 @@ end
 post '/api/format_definition/new' do
   response_is_json
 
-  require './lib/spatio'
-  require './lib/spatio/reader'
-  Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
-
   begin
     format_definition = FormatDefinition.new(parse_params(params))
     if format_definition.save
