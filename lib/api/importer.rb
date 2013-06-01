@@ -10,13 +10,12 @@ end
 post '/api/import/new' do
   response_is_json
 
-  begin
-    import = Import.new params['import']
-    if import.save!
-      import.setup_namespace
-      okay
-    end
-  rescue
+  import = Import.new params['import']
+
+  if import.save
+    import.setup_namespace
+    okay
+  else
     json_errors import.errors
   end
 end
