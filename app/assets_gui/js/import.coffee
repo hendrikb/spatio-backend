@@ -7,12 +7,13 @@
         crossDomain: true,
         dataType: "json",
         data:
-          "name": $('#name').val(),
-          "namespace": $('#namespace').val(),
-          "geo_context": $('#geo_context').val(),
-          "format_definition": $('#format_definition').val()
-          "url": $('#url').val()
-          "description": $('#description').val()
+          "import":
+            "name": $('#name').val(),
+            "namespace": $('#namespace').val(),
+            "geo_context": $('#geo_context').val(),
+            "format_definition_id": $('#format_definition').val()
+            "url": $('#url').val()
+            "description": $('#description').val()
         success: ->
           importerLoader.load_index()
           $("#add_import_form :input").val("")

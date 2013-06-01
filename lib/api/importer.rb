@@ -11,20 +11,7 @@ post '/api/import/new' do
   response_is_json
 
   begin
-    format = FormatDefinition.find(params['format_definition'])
-  rescue
-    json_err 'Invalid FormatDefinition'
-  end
-
-  import = Import.new name: params['name'],
-    namespace: params['namespace'],
-    geo_context: params['geo_context'],
-    url: params['url'],
-    format_definition: format,
-    description: params['description']
-
-  begin
-
+    import = Import.new params['import']
     if import.save!
       import.setup_namespace
       okay
