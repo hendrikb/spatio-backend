@@ -25,9 +25,10 @@
       %ul.nav.pull-right
         %li.import
           #api_status.label.nav{style: 'margin-top:10px;'} API: pending
-  .container-fluid
+  .container-fluid#container
     .row-fluid
       .span12
-        #flash_status.alert.alert-success.hide
+        #flash
+          #flash_status.alert.alert-success.hide
 
     = yield
