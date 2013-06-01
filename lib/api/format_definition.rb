@@ -1,5 +1,15 @@
 require 'active_support/inflector'
 
+def parse_params params
+  importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
+  {
+    name: params['name'],
+    importer_class: params['importer_class'].match(/^[a-z0-9]+/i).to_s,
+    importer_parameters: importer_parameters.symbolize_keys,
+    description: params["description"]
+  }
+end
+
 get '/api/format_definition' do
   response_is_json
   FormatDefinition.all.to_json
@@ -12,17 +22,9 @@ post '/api/format_definition/new' do
   require './lib/spatio/reader'
   Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
 
-  importer_class_cleaned = params['importer_class'].match(/^[a-z0-9]+/i).to_s
-
-  importer_parameters = JSON.parse(params["importer_parameters"]) rescue {}
-
-  format_definition = FormatDefinition.new name: params["name"],
-    importer_class: importer_class_cleaned,
-    importer_parameters: importer_parameters.symbolize_keys,
-    description: params["description"]
-
   begin
-    "Spatio::Reader::#{importer_class_cleaned}".constantize
+    format_definition = FormatDefinition.new(parse_params(params))
+    "Spatio::Reader::#{format_definition.importer_class}".constantize
     if format_definition.save
       okay
     else
