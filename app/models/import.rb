@@ -12,8 +12,10 @@ class Import < ActiveRecord::Base
     return if Namespace.find_by_name namespace
     transaction do
       ns = Namespace.create(name: namespace, table_name: namespace.parameterize('_').tableize)
-      create_fields if ns.valid? && format_definition.meta_data
-      ns.create_table if ns.valid?
+      if ns.valid?
+        create_fields if format_definition.meta_data
+        ns.create_table
+      end
     end
   end
 
