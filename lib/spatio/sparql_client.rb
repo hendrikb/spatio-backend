@@ -4,34 +4,6 @@ module Spatio
   module SparqlClient
     extend self
 
-    #straight query for communities is too large, get subcategories.first
-    def community_subcategories
-      query_string = ' SELECT DISTINCT ?subcategory WHERE {
-      ?subcategory skos:broader ?category.
-      ?category skos:broader <http://de.dbpedia.org/resource/Kategorie:Ort_in_Deutschland>.
-    }'
-
-      sparql_client.query(query_string).map{ |res| res[:subcategory].to_s }.
-      select { |res| res =~ /Ort_/ }
-    end
-
-    # still includes Stadtteile, dont know how to fix that yet
-    # maybe just use OSM admin_levels
-    def communities
-      result = []
-      community_subcategories.each_slice(20) do |subcategories|
-        union = ""
-        subcategories.each_with_index do |cat, i|
-          union += "{ ?community dcterms:subject <#{cat}> }"
-          union += " UNION" unless i == subcategories.size - 1
-        end
-        query_string = "SELECT DISTINCT ?name WHERE { ?community rdfs:label ?name. #{union} }"
-        result += query(query_string)
-      end
-
-      result.uniq.reject { |res| res =~ /Liste/ }
-    end
-
     def cities
       query_string = ' SELECT DISTINCT ?name WHERE {
       ?city rdfs:label ?name.
