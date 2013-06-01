@@ -21,7 +21,6 @@ post '/api/import/new' do
 end
 
 get '/api/import/:id/run' do
-  json_api_call
   import = Import.find(params[:id])
   if Resque.enqueue(Spatio::ImportJob, import.id)
     okay
@@ -31,6 +30,5 @@ get '/api/import/:id/run' do
 end
 
 post'/api/import/:id/delete' do
-  json_api_call
   Import.delete(params[:id])
 end

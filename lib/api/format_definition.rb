@@ -16,7 +16,6 @@ get '/api/format_definition' do
 end
 
 post '/api/format_definition/new' do
-  json_api_call
 
   format_definition = FormatDefinition.new(parse_params(params))
   if format_definition.save
@@ -27,6 +26,5 @@ post '/api/format_definition/new' do
 end
 
 post'/api/format_definition/:id/delete' do
-  json_api_call
   FormatDefinition.delete(params[:id])
 end
