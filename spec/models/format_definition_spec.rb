@@ -66,7 +66,7 @@ describe FormatDefinition do
   end
 
   context '#reader_class' do
-    it 'workds for RSS' do
+    it 'works for RSS' do
       format_definition = FactoryGirl.create(:format_definition, importer_class: 'RSS')
       format_definition.reader_class.should eq Spatio::Reader::RSS
     end
