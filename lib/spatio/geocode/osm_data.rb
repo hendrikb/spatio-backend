@@ -23,8 +23,6 @@ module Spatio
 
       def resolve_districts
         return unless locations[:districts]
-        community_ids = cities.map(&:id)
-
         ::District.
           where(community_id: community_ids).
           where(name: locations[:districts]).
@@ -38,6 +36,10 @@ module Spatio
 
       def cities
         Community.where(name: locations[:cities])
+      end
+
+      def community_ids
+        @community_ids ||= cities.map(&:id)
       end
     end
   end
