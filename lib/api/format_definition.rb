@@ -18,15 +18,11 @@ end
 post '/api/format_definition/new' do
   response_is_json
 
-  begin
-    format_definition = FormatDefinition.new(parse_params(params))
-    if format_definition.save
-      okay
-    else
-      json_errors format_definition.errors
-    end
-  rescue ActiveRecord::RecordNotUnique
-    json_err "Record name must be unique"
+  format_definition = FormatDefinition.new(parse_params(params))
+  if format_definition.save
+    okay
+  else
+    json_errors format_definition.errors
   end
 end
 
