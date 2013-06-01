@@ -10,4 +10,4 @@
         api_status.html("API: offline").addClass("label-important")
 
 $ ->
-  setInterval(apiPinger.pingCycle, 50000000)
+  setInterval(apiPinger.pingCycle,5000)
