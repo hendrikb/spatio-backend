@@ -21,6 +21,12 @@ class Api < Sinatra::Base
   require_relative 'lib/api/format_definition'
   require_relative 'lib/api/importer'
 
+
+  def json_api_call
+    response_is_json
+    cross_domain_call_allowed
+  end
+
   def response_is_json
     content_type :json
   end

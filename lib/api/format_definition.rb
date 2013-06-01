@@ -11,12 +11,12 @@ def parse_params params
 end
 
 get '/api/format_definition' do
-  response_is_json
+  json_api_call
   FormatDefinition.all.to_json
 end
 
 post '/api/format_definition/new' do
-  response_is_json
+  json_api_call
 
   format_definition = FormatDefinition.new(parse_params(params))
   if format_definition.save
@@ -27,7 +27,6 @@ post '/api/format_definition/new' do
 end
 
 post'/api/format_definition/:id/delete' do
-  response_is_json
+  json_api_call
   FormatDefinition.delete(params[:id])
-  okay
 end
