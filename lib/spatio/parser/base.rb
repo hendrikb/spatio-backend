@@ -41,7 +41,10 @@ module Spatio
           next if result.has_key?(parser)
           result[parser] = constantize(parser).perform(location_string)
         end
+        parse_districts
+      end
 
+      def parse_districts
         result[:districts] = Spatio::Parser::District.perform(location_string,
                                                               result[:cities])
       end
