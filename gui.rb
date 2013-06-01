@@ -5,7 +5,7 @@ API_URL = "http://127.0.0.1:4567/api"
 
 #########################################
 
-class App < Sinatra::Base
+class Gui < Sinatra::Base
   require 'sinatra/reloader' if settings.environment == :development
   require 'sinatra/assetpack'
   set :root, File.dirname(__FILE__) # You must set app root

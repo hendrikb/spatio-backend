@@ -5,6 +5,6 @@ require 'resque/tasks'
 
 
 APP_FILE  = 'gui.rb'
-APP_CLASS = 'App'
+APP_CLASS = 'Gui'
 
 require 'sinatra/assetpack/rake'
