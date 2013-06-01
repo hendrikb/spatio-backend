@@ -15,8 +15,8 @@ class Api < Sinatra::Base
   #########
 
   get '/api/ping' do
-    require 'pry'; binding.pry
-    true.to_json
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    status 200
   end
 
   require_relative 'lib/api/format_definition'
