@@ -38,9 +38,6 @@ module Spatio
 
 
     def import_entries
-      importer_parameters = @format_definition.importer_parameters
-      importer_parameters.merge!({ url: @import.url })
-
       entries = @reader.perform(importer_parameters)
       entries.reject! { |e| already_existing(entries).include? e[:id] }
 
@@ -49,6 +46,10 @@ module Spatio
       entries.each do |entry|
         Spatio::Importer.new(entry, @namespace, @import.geo_context).perform
       end
+    end
+
+    def importer_parameters
+      @format_definition.importer_parameters.merge({ url: @import.url })
     end
 
     def already_existing entries
