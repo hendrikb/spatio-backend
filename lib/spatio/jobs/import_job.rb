@@ -38,9 +38,6 @@ module Spatio
 
 
     def import_entries
-      entries = @reader.perform(importer_parameters)
-      entries.reject! { |e| already_existing(entries).include? e[:id] }
-
       LOG.info "JOB #{self.to_s}: Enqueuing #{entries.count} new entries"
 
       entries.each do |entry|
@@ -50,6 +47,15 @@ module Spatio
 
     def importer_parameters
       @format_definition.importer_parameters.merge({ url: @import.url })
+    end
+
+    def entries
+      @entries ||= fetch_entries
+    end
+
+    def fetch_entries
+      entries = @reader.perform(importer_parameters)
+      entries.reject! { |e| already_existing(entries).include? e[:id] }
     end
 
     def already_existing entries
