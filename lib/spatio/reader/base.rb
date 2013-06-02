@@ -69,6 +69,7 @@ module Spatio
       def encode_clean string
         result = string.strip.force_encoding options[:encoding]
         result = Sanitize.clean result, output_encoding: options[:encoding]
+        result.encode("UTF-8", options[:encoding])
       end
     end
   end
