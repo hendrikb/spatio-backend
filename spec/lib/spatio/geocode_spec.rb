@@ -17,7 +17,7 @@ describe Spatio::Geocode do
       osm_result = create_area
 
       Spatio::Geocode::Street.stub(:perform)
-      Spatio::Geocode::Street.should_receive(:perform).with(locations).and_return osm_result
+      Spatio::Geocode::OsmData.should_receive(:perform).with(locations).and_return osm_result
       subject.perform(locations).should eq osm_result
     end
   end
