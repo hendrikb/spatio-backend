@@ -63,12 +63,12 @@ module Spatio
       end
 
       def default_options
-        { input_encoding:'utf-8', output_encoding: 'utf-8' }
+        { encoding:'utf-8' }
       end
 
       def encode_clean string
-        result = string.strip.force_encoding options[:input_encoding]
-        Sanitize.clean result, output_encoding: options[:output_encoding]
+        result = string.strip.force_encoding options[:encoding]
+        result = Sanitize.clean result, output_encoding: options[:encoding]
       end
     end
   end
