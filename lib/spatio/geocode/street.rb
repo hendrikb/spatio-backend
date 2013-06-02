@@ -32,7 +32,6 @@ module Spatio
             cities.each do |city|
               result = geocode(street, district, city)
               return result if result
-              sleep 1
             end
           end
         end
@@ -45,7 +44,6 @@ module Spatio
           cities.each do |city|
             result = geocode(street, '', city)
             return result if result
-            sleep 1
           end
         end
 
@@ -53,6 +51,7 @@ module Spatio
       end
 
       def geocode(street, district = nil, city = nil)
+        sleep 1
         coordinates = Geocoder.coordinates(location_string(street,district, city))
         lonlat = ::RGeo::Geographic.simple_mercator_factory.point(coordinates.second, coordinates.first) if coordinates
         lonlat.projection if lonlat
