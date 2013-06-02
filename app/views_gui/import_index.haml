@@ -10,14 +10,13 @@
     %th Description
     %th
 
-%h1 Create a new Job
+%h2 Create a new Job
 
-%form#add_import_form.horizontal-form
+%form#add_import_form.form-horizontal
   .control-group
-    %label.control-label{for: :name}Name
+    %label.control-label{for: 'name' }Name
     .controls
       %input#name
-
   .control-group
     %label.control-label{for: :namespace}Namespace
     .controls
@@ -37,7 +36,7 @@
   .control-group
     %label.control-label{for: :description}Description
     .controls
-      %textarea#description
+      %textarea#description{rows: '3'}
   .control-group
-    .control
+    .controls
       %button.btn.btn-primary#add_import_submit Submit

@@ -1,37 +1,38 @@
 %body
 %h1 Format Definition
-%h2 Existing definitions
 %table#format_definitions.table.table-striped.table-hover
   %tr
     %th Name
     %th Class
     %th Description
     %th
-%h2 Create New
+
+%h2 Create a new Format Definition
+
 %form.form-horizontal{id: 'format_definition_form'}
   .control-group
     %label.control-label{for: 'name'} Name
     .controls
-      %input{id: 'name', name:'name'}
+      %input.input-medium{id: 'name', name:'name'}
       %span.help-inline
         Mandatory. Must be a unique name!
   .control-group
     %label.control-label{for: 'importer_class'}  Class
     .controls
-      %input{id: 'importer_class', name:'importer_class'}
+      %input.input-medium{id: 'importer_class', name:'importer_class'}
       %span.help-inline
         Mandatory. Enter a parser class name, see docs for available parsers,
         try "RSS" for now.
   .control-group
     %label.control-label{for: 'importer_parameters'}  Parameters
     .controls
-      %textarea{id: 'importer_parameters', name:'importer_parameters'}
+      %textarea.input-xlarge{id: 'importer_parameters', name:'importer_parameters', rows: '5'}
       %span.help-inline
         Optional. This must be valid JSON Object (associative array). See docs.
   .control-group
     %label.control-label{for: 'description'}  Description
     .controls
-      %textarea{id: 'description', name:'description'}
+      %textarea.input-xlarge{id: 'description', name:'description'}
       %span.help-inline Optional.
   .control-group
     .controls
