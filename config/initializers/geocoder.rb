@@ -6,6 +6,6 @@ require 'redis'
 Geocoder.configure(
   lookup: :nominatim,
 
-  cache: Redis.new,
+  cache: Spatio.redis,
   timeout: 10
 )
