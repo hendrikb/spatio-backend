@@ -22,7 +22,7 @@ describe Import do
       end
     end
 
-    context 'setup_namespace' do
+    context '#setup_namespace' do
       let(:table_name) { 'test123s' }
 
       before :each do
