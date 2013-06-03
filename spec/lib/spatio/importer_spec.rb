@@ -43,6 +43,27 @@ describe Spatio::Importer do
       Spatio::Persist.should_receive(:perform).with(namespace.table_name, data)
       subject.perform
     end
+
+    context 'error handling' do
+      before do
+        Spatio::Parser.stub(:perform)
+        Spatio::Geocode.stub(:perform).and_return create_area
+      end
+
+      it 'logs a warning without location' do
+        Spatio::Persist.stub(:perform).and_raise Spatio::NoLocationError
+
+        LOG.should_receive(:warn).with("Could not find location: #{title}")
+        subject.perform
+      end
+
+      it 'logs an error with other error' do
+        Spatio::Persist.stub(:perform).and_raise ArgumentError
+
+        LOG.should_receive(:error).with("Could not save: #{title}")
+        subject.perform
+      end
+    end
   end
 
 end
