@@ -24,10 +24,10 @@ module Spatio::Reader
     end
 
     def load_link entry
-      http_response = Net::HTTP.get(URI(entry.url))
-      doc = Nokogiri::HTML http_response
-      html = doc.css(parse_articles_selector).to_html
       begin
+        http_response = Net::HTTP.get(URI(entry.url))
+        doc = Nokogiri::HTML http_response
+        html = doc.css(parse_articles_selector).to_html
         encode_clean html
       rescue
         ''
