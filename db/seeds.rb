@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require './lib/spatio/sparql_client'
-require './lib/models'
+require './app/models'
 
 def initialize_states
   puts 'Initializing states'

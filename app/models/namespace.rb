@@ -14,10 +14,11 @@ class Namespace < ActiveRecord::Base
 
   def create_table
     transaction do
-      connection.create_table(table_name)
+      connection.create_table(table_name, id: false)
       create_fields
 
-      connection.add_index(table_name, :uuid, unique: true)
+      connection.execute("ALTER TABLE #{table_name} ADD PRIMARY KEY (uuid);")
+      connection.add_index(table_name, :location, spatial: true)
     end
   end
 

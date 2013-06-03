@@ -16,6 +16,7 @@
         success: ->
           formatDefinition.load_index()
           $("#format_definition_form :input").val("")
+          $('#container').trigger('flashSuccess', ['FormatDefinition was created.'])
         error: (jqXHR, textStatus, errorThrown) ->
           json_error jqXHR.responseText
 
@@ -43,7 +44,6 @@
         e.preventDefault()
         formatDefinition.delete_row($(e.target).data("id"))
 
-
   delete_row: (id) ->
     $.ajax api_url+"/format_definition/"+id+"/delete",
       type: 'POST',
@@ -51,10 +51,9 @@
       dataType: "json",
       success: ->
         formatDefinition.load_index()
+        $('#container').trigger('flashSuccess', ['FormatDefinition was deleted.'])
       error: (jqXHR, textStatus, errorThrown) ->
         json_error jqXHR.responseText
-
-
 
 $ ->
   if location.pathname.match("/format_definition")

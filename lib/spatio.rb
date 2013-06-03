@@ -1,4 +1,3 @@
-require './config/initializers/geocoder'
 require 'rgeo'
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -31,5 +30,6 @@ module Spatio
   end
 end
 
+require './config/initializers/geocoder'
 ActiveRecord::Base.establish_connection conf('database.yml')
 require './app/models'

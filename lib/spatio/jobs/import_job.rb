@@ -7,9 +7,6 @@ require 'resque'
 LOG = Logger.new(STDOUT)
 
 module Spatio
-  # TODO do we need a Spatio::Jobs:: module here?
-  # could at least supply logging stuff...
-
   class ImportJob
     @queue = :spatio_importer
 
@@ -55,7 +52,7 @@ module Spatio
 
     def fetch_entries
       entries = @reader.perform(importer_parameters)
-      entries.reject! { |e| already_existing(entries).include? e[:id] }
+      entries.reject { |e| already_existing(entries).include? e[:id] }
     end
 
     def already_existing entries
