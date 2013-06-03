@@ -41,5 +41,21 @@ describe Import do
         ActiveRecord::Base.connection.tables.should include table_name
       end
     end
+
+    context '#create_fields' do
+      let(:importer_parameters) do
+        { title_columns: ["title"],
+          geo_columns: "title",
+          meta_data: { description: ["title"] } }
+      end
+
+      it 'creates field for entry in metadata' do
+        format_definition = FactoryGirl.create(:format_definition,
+                                              importer_parameters: importer_parameters)
+        import = FactoryGirl.create(:import, format_definition: format_definition)
+        expect { import.create_fields('test123') }.to change { Field.count }.by(1)
+      end
+
+    end
   end
 end
