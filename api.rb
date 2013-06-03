@@ -18,8 +18,8 @@ class Api < Sinatra::Base
     okay
   end
 
-  require_relative 'lib/api/format_definition'
-  require_relative 'lib/api/importer'
+  require './lib/api/format_definition'
+  require './lib/api/importer'
 
 
   def json_api_call
