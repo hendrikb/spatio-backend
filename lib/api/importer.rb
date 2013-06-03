@@ -2,8 +2,6 @@ require 'resque'
 
 class Api < Sinatra::Base
   get '/api/import' do
-    require './lib/spatio'
-
     json_api_call
     Import.all.to_json
   end

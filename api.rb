@@ -3,9 +3,9 @@ require 'sinatra/base'
 API_HTTP_PORT = 4567
 
 class Api < Sinatra::Base
-  require 'sinatra/activerecord'
-  require './app/models'
+  require './lib/spatio'
   require 'sinatra/reloader' if settings.environment == :development
+
 
   set :root, File.dirname(__FILE__) # You must set app root
   APP_ROOT = settings.root
@@ -14,13 +14,13 @@ class Api < Sinatra::Base
 
   #########
 
-  get '/api/ping' do
-    okay
-  end
-
   require './lib/api/format_definition'
   require './lib/api/importer'
 
+
+  get '/api/ping' do
+    okay
+  end
 
   def json_api_call
     response_is_json
