@@ -9,7 +9,7 @@ describe Spatio::Reader::RSS do
 
   before :all do
     url = 'http://userpage.fu-berlin.de/rschaden/tests/rss_berlin_police_20.xml'
-    options = { url: url,
+    @options = { url: url,
                 geo_columns: ['title', 'article'],
                 title_columns: ['title'],
                 meta_data: { title: ['title'] },
@@ -17,7 +17,7 @@ describe Spatio::Reader::RSS do
                 parse_articles_selector: '#bomain_content'}
 
     VCR.use_cassette "rss_test" do
-      @result = Spatio::Reader::RSS.perform(options)
+      @result = Spatio::Reader::RSS.perform(@options)
     end
   end
 
@@ -52,4 +52,9 @@ describe Spatio::Reader::RSS do
     @result.first[:id].should be_kind_of String
   end
 
+  it 'falls back to empty string if loading link fails', :vcr do
+    Net::HTTP.stub(:get).and_raise ArgumentError
+    result = Spatio::Reader::RSS.perform(@options)
+    result.first[:id].should be_kind_of String
+  end
 end
