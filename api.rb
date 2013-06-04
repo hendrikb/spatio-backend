@@ -15,6 +15,7 @@ class Api < Sinatra::Base
 
   require './lib/api/format_definition'
   require './lib/api/importer'
+  require './lib/api/reader'
   require './lib/helpers/response_helpers'
 
 

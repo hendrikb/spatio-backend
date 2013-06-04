@@ -7,6 +7,10 @@ module Spatio
     class Base
       attr_reader :options, :items, :url
 
+      def self.inherited subklass
+        Spatio::AVAILABLE_READERS << subklass
+      end
+
       def perform
         entries.each do |entry|
           @items << generate_item(entry)
