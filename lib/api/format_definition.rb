@@ -17,7 +17,6 @@ class Api < Sinatra::Base
   end
 
   post '/api/format_definition/new' do
-
     format_definition = FormatDefinition.new(parse_params(params))
     if format_definition.save
       okay
