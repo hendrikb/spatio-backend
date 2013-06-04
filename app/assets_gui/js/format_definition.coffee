@@ -1,6 +1,7 @@
 @formatDefinition =
   init: ->
     formatDefinition.load_index()
+    formatDefinition.load_reader()
 
     $('#format_definition_form button').click (e) ->
       e.preventDefault()
@@ -54,6 +55,20 @@
         $('#container').trigger('flashSuccess', ['FormatDefinition was deleted.'])
       error: (jqXHR, textStatus, errorThrown) ->
         json_error jqXHR.responseText
+
+  load_reader: ->
+    $.ajax api_url+"/reader",
+      crossDomain: true,
+      error: (jqXHR, textStatus, errorThrown) ->
+        json_error jqXHR.responseText
+      success: (data, textStatus, jqXHR) ->
+        formatDefinition.build_select(data)
+
+  build_select: (data) ->
+    $('#importer_class option').remove() if $('#importer_class option')
+    for obj in data
+      line = "<option value='"+obj+"'>"+obj+"</option>"
+      $("#importer_class").append(line)
 
 $ ->
   if location.pathname.match("/format_definition")

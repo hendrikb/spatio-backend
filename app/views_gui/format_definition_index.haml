@@ -3,7 +3,7 @@
 %table#format_definitions.table.table-striped.table-hover
   %tr
     %th Name
-    %th Class
+    %th Reader
     %th Description
     %th
 
@@ -17,12 +17,9 @@
       %span.help-inline
         Mandatory. Must be a unique name!
   .control-group
-    %label.control-label{for: 'importer_class'}  Class
+    %label.control-label{for: 'importer_class'} Reader
     .controls
-      %input.input-medium{id: 'importer_class', name:'importer_class'}
-      %span.help-inline
-        Mandatory. Enter a parser class name, see docs for available parsers,
-        try "RSS" for now.
+      %select#importer_class
   .control-group
     %label.control-label{for: 'importer_parameters'}  Parameters
     .controls
