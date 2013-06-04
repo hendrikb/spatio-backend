@@ -28,5 +28,6 @@ class Api < Sinatra::Base
 
   post'/api/format_definition/:id/delete' do
     FormatDefinition.delete(params[:id])
+    okay
   end
 end

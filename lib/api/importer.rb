@@ -28,5 +28,6 @@ class Api < Sinatra::Base
 
   post'/api/import/:id/delete' do
     Import.delete(params[:id])
+    okay
   end
 end
