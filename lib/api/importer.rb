@@ -7,8 +7,6 @@ class Api < Sinatra::Base
   end
 
   post '/api/import/new' do
-    json_api_call
-
     import = Import.new params['import']
 
     if import.save

@@ -5,7 +5,6 @@
       $.ajax api_url+"/import/new",
         type: 'POST',
         crossDomain: true,
-        dataType: "json",
         data:
           "import":
             "name": $('#name').val(),
@@ -23,13 +22,7 @@
 
     importerAdder.load_fd()
 
-  build_select: (data) ->
-    $('#format_definition option').remove() if $('#format_definition option')
 
-    for obj in data
-      row = obj["format_definition"]
-      line = "<option value='"+row.id+"'>"+row.name+"</option>"
-      $("#format_definition").append(line)
   load_fd: ->
     $.ajax api_url+"/format_definition",
       crossDomain: true,
@@ -37,6 +30,13 @@
         json_error jqXHR.responseText
       success: (data, textStatus, jqXHR) ->
         importerAdder.build_select(data)
+
+  build_select: (data) ->
+    $('#format_definition option').remove() if $('#format_definition option')
+    for obj in data
+      row = obj["format_definition"]
+      line = "<option value='"+row.id+"'>"+row.name+"</option>"
+      $("#format_definition").append(line)
 
 @importerLoader =
   init: ->
@@ -87,7 +87,6 @@
     $.ajax api_url+"/import/"+id+"/delete",
       type: 'POST',
       crossDomain: true,
-      dataType: "json",
       success: ->
         importerLoader.load_index()
         $('#container').trigger('flashSuccess', ['Import was deleted.'])

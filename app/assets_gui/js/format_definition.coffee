@@ -8,7 +8,6 @@
       $.ajax api_url+"/format_definition/new",
         type: 'POST',
         crossDomain: true,
-        dataType: "json",
         data:
           "name": $('#name').val(),
           "importer_class": $('#importer_class').val(),
@@ -49,7 +48,6 @@
     $.ajax api_url+"/format_definition/"+id+"/delete",
       type: 'POST',
       crossDomain: true,
-      dataType: "json",
       success: ->
         formatDefinition.load_index()
         $('#container').trigger('flashSuccess', ['FormatDefinition was deleted.'])
