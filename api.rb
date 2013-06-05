@@ -8,6 +8,8 @@ class Api < Sinatra::Base
 
   set :root, File.dirname(__FILE__) # You must set app root
   APP_ROOT = settings.root
+
+  set :bind, '0.0.0.0'
   set :port, API_HTTP_PORT
 
 

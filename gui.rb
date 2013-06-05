@@ -11,6 +11,8 @@ class Gui < Sinatra::Base
   set :root, File.dirname(__FILE__) # You must set app root
 
   set :api_url, API_URL
+
+  set :bind, '0.0.0.0'
   set :port, GUI_HTTP_PORT
 
   set :views, Proc.new { File.join(root, "app/views_gui") }
