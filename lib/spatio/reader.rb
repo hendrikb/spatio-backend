@@ -6,3 +6,4 @@ end
 
 require 'spatio/reader/rss'
 require 'spatio/reader/csv'
+require 'spatio/reader/excel'
