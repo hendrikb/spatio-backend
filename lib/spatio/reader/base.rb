@@ -47,7 +47,7 @@ module Spatio
       def fill_item entry, keys
         result = ''
         keys.each do |key|
-          result << "#{entry[key]}"
+          result << "#{entry[key]} "
         end
         encode_clean result
       end
