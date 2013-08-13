@@ -21,6 +21,8 @@ gem "resque"
 gem 'redis'
 gem 'sparql-client'
 
+gem 'spreadsheet'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'
