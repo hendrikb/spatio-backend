@@ -21,7 +21,7 @@ module Spatio
       def perform
         return [] if community_ids.empty?
         ::District.where(community_id: community_ids).
-          where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).
+          where("? LIKE concat('%', name, '%')", location_string).
           map(&:name)
       end
     end

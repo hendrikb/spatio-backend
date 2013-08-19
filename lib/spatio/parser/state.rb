@@ -4,7 +4,7 @@ module Spatio
   module Parser
     module State
       def self.perform(location_string)
-        ::State.where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).
+        ::State.where("? LIKE concat('%', name, '%')", location_string).
           map(&:name)
       end
     end

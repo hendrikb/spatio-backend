@@ -6,7 +6,7 @@ module Spatio
       attr_reader :location_string, :communities
 
       def self.perform(location_string)
-        ::Road.where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).
+        ::Road.where("? LIKE concat('%', name, '%')", location_string).
           map(&:name)
       end
     end
