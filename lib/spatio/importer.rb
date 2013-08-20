@@ -5,12 +5,16 @@ module Spatio
   class Importer
     attr_reader :entry, :namespace, :geo_context
 
-    def initialize(entry, namespace, geo_context)
+    def initialize(entry, namespace, geo_context = nil, given_coords = nil)
       @entry, @namespace, @geo_context = entry, namespace, geo_context
+      if given_coords
+        @entry[:location] = Spatio::GEOFACTORY.point(given_coords[:lat],
+                                                     given_coords[:lon])
+      end
     end
 
     def perform
-      add_location
+      add_location unless @entry[:location]
       save
     end
 

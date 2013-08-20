@@ -10,6 +10,20 @@ describe Spatio::Importer do
   let(:entry) { { id: id, title: title, location_string: location_string} }
   let(:namespace) { FactoryGirl.create(:namespace) }
   let(:geo_context) { 'Berlin' }
+  let(:berlin_coords) { { lat: 13.354949, lon: 52.540802  } }
+
+  context 'skip geocoding if coords are given' do
+    subject do
+      Spatio::Importer.new(entry,
+                           namespace, nil, berlin_coords)
+    end
+
+    it 'preserves given coordinates' do
+      location = Spatio::GEOFACTORY.point(berlin_coords[:lat], berlin_coords[:lon])
+      subject.perform
+      subject.entry[:location].should eq location
+    end
+  end
 
   context 'perform' do
     subject { Spatio::Importer.new(entry, namespace, geo_context) }
