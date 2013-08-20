@@ -14,13 +14,23 @@ describe Spatio::Parser::Street do
       end
     end
 
+
     context 'multiple streets' do
-      it 'returns multiple streets' do
-        first_street = 'Turmstrasse'
-        second_street = 'Beusselstrasse'
+      let(:first_street) { 'Turmstrasse' }
+      let(:second_street) { 'Beusselstrasse' }
+
+      before do
         FactoryGirl.create :road, name: first_street
         FactoryGirl.create :road, name: second_street
+      end
+
+      it 'returns multiple streets' do
         subject.perform("#{first_street}/#{second_street}").should =~ [first_street, second_street]
+      end
+
+      it 'prioritizes streetnames with street number' do
+        subject.perform("#{first_street} und #{second_street} 123").first.
+          should == "#{second_street} 123"
       end
     end
   end
