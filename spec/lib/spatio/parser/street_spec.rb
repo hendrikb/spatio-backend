@@ -3,7 +3,7 @@
 describe Spatio::Parser::Street do
   subject { Spatio::Parser::Street }
   context '.perform' do
-    STREETS = ['Alexanderplatz', 'Kurfürstendamm', 'Turmstr']
+    STREETS = ['Alexanderplatz', 'Kurfürstendamm', 'Turmstrasse']
 
     context 'other streets' do
       STREETS.each do |street|
@@ -12,6 +12,18 @@ describe Spatio::Parser::Street do
           subject.perform(street).should include street
         end
       end
+    end
+
+    it 'finds str. as well' do
+      street = 'Turmstraße'
+      FactoryGirl.create :road, name: street
+      subject.perform('Turmstr.').should include street
+    end
+
+    it 'finds Str. as well' do
+      street = 'Berliner Straße'
+      FactoryGirl.create :road, name: street
+      subject.perform('Berliner Str.').should include street
     end
 
 

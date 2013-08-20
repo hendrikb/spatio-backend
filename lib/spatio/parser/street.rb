@@ -10,6 +10,10 @@ module Spatio
       end
 
       def initialize(location_string)
+        location_string.gsub!('str.', 'straße')
+        location_string.gsub!('Str.', 'Straße')
+        location_string.gsub!(/str\b/, 'straße')
+        location_string.gsub!(/Str\b/, 'Straße')
         @location_string = location_string
       end
 
