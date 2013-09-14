@@ -4,7 +4,7 @@ module Spatio
   module Parser
     module City
       def self.perform(location_string)
-        ::Community.where("? ~* concat('[[:<:]]', name, '[[:>:]]')", location_string).
+        ::Community.where("? LIKE concat('%', name, '%')", location_string).
           map(&:name)
       end
     end

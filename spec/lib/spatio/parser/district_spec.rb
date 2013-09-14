@@ -11,10 +11,6 @@ describe Spatio::Parser::District do
       subject.perform('Test in Mitte', city.name).should eq ['Mitte']
     end
 
-    it 'ignores substring' do
-      subject.perform('Test in Mitten', city.name).should be_empty
-    end
-
     it 'finds multiple districts' do
       FactoryGirl.create(:district, name: 'Pankow', community: city)
       subject.perform('Test in Pankow/Mitte', city.name).should =~ ['Mitte', 'Pankow']

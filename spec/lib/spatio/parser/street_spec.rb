@@ -3,38 +3,46 @@
 describe Spatio::Parser::Street do
   subject { Spatio::Parser::Street }
   context '.perform' do
-    context 'fixed streets' do
-      ['Adlergestell', 'Unter den Linden'].each do |fixed_street|
-        it "matches #{fixed_street}" do
-          subject.perform(fixed_street).should include fixed_street
-        end
-      end
-    end
-    STREETS = ['Alexanderplatz', 'Kurfürstendamm', 'Turmstr',
-               'Tegeler Straße', 'Friedrichsstrasse', 'Hackescher Markt',
-               'Gendarmenmarkt', 'Kottbusser Tor', 'Strasse des 17. Juni',
-               'Allee der Kosmonauten', 'Karl-Marx-Allee', 'Alte Hamburger Strasse',
-               'Görlitzer Park', 'Alt-Moabit'
-    ]
+    STREETS = ['Alexanderplatz', 'Kurfürstendamm', 'Turmstrasse']
+
     context 'other streets' do
       STREETS.each do |street|
-        it "matches #{street}" do
+        it "matches #{street} in roads table" do
+          FactoryGirl.create :road, name: street
           subject.perform(street).should include street
         end
       end
     end
 
-    context 'other places' do
-      ['Gehweg', 'Parkplatz'].each do |place|
-        it "does not match #{place}" do
-          subject.perform(place).should_not include place
-        end
-      end
+    it 'finds str. as well' do
+      street = 'Turmstraße'
+      FactoryGirl.create :road, name: street
+      subject.perform('Turmstr.').should include street
     end
 
+    it 'finds Str. as well' do
+      street = 'Berliner Straße'
+      FactoryGirl.create :road, name: street
+      subject.perform('Berliner Str.').should include street
+    end
+
+
     context 'multiple streets' do
+      let(:first_street) { 'Turmstrasse' }
+      let(:second_street) { 'Beusselstrasse' }
+
+      before do
+        FactoryGirl.create :road, name: first_street
+        FactoryGirl.create :road, name: second_street
+      end
+
       it 'returns multiple streets' do
-        subject.perform('Turmstr/Beusselstr').should eq ['Turmstr', 'Beusselstr']
+        subject.perform("#{first_street}/#{second_street}").should =~ [first_street, second_street]
+      end
+
+      it 'prioritizes streetnames with street number' do
+        subject.perform("#{first_street} und #{second_street} 123").first.
+          should == "#{second_street} 123"
       end
     end
   end

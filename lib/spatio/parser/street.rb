@@ -3,45 +3,37 @@
 module Spatio
   module Parser
     class Street
-      STREET_SIGNIFIER = ["stra(ss|ß)e",
-                          "str",
-                          "weg",
-                          "platz",
-                          "damm",
-                          "ufer",
-                          "steg",
-                          "allee",
-                          "chaussee",
-                          "markt",
-                          "ring",
-                          "brücke",
-                          "tor",
-                          "promenade",
-                          "park"]
+      attr_reader :location_string, :communities
 
-      FIX_STREETS = [
-        "Unter den Linden", "Adlergestell", "Südstern", "Grosser Stern"
-      ]
-
-      STREET_PREFIXES = [
-        "Kleine[s|r]?", "Gro(ß|ss)e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
-      ]
-
-      def self.perform(string)
-        matches = string.scan monster_regexp
-        return [] if matches.nil?
-        matches.uniq.map(&:first).reject{ |m| m =~ /Gehweg|Richtung|(Vor|Park)platz|Elektronikmarkt/ }
+      def self.perform(location_string)
+        new(location_string).perform
       end
 
-      private
+      def initialize(location_string)
+        location_string.gsub!('str.', 'straße')
+        location_string.gsub!('Str.', 'Straße')
+        location_string.gsub!(/str\b/, 'straße')
+        location_string.gsub!(/Str\b/, 'Straße')
+        @location_string = location_string
+      end
 
-      # Awesome Regex: http://rubular.com/r/yoF4rOeKJy
-      def self.monster_regexp
-        street_signifier_lowercase = STREET_SIGNIFIER.join '|'
-        street_signifier_capitalized = STREET_SIGNIFIER.map(&:capitalize).join '|'
-        street_prefixes = STREET_PREFIXES.join '|'
+      def perform
+        streets_with_numbers + street_names
+      end
 
-        /(((Alt-)\p{Lu}\p{L}+\b|(#{FIX_STREETS.join('|')}))|(((#{street_prefixes}) )?((#{street_signifier_capitalized}) de[r|s] (([0-9]+\. )?\p{Lu}\p{L}+ ?)+|\p{Lu}[\p{L}-]+(#{street_signifier_lowercase})|(\p{L}+-)+(#{street_signifier_capitalized})|\p{Lu}\p{L}+ (#{street_signifier_capitalized}))\b))/
+      def streets_with_numbers
+        result = []
+        street_names.each do |street|
+          match = location_string.match(/#{street} \d+/)
+          result << match.to_s if match
+        end
+
+        result
+      end
+
+      def street_names
+        @street_names ||= ::Road.where("? LIKE concat('%', name, '%')", location_string).
+          map(&:name)
       end
     end
   end

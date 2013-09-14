@@ -81,7 +81,32 @@ def initialize_localities
     GROUP BY planet_osm_polygon.name, communities.id")
 end
 
+def initialize_roads
+  puts 'Initializing roads'
+  Road.delete_all
+
+  ActiveRecord::Base.connection.execute("
+    INSERT INTO roads(name)
+    SELECT DISTINCT planet_osm_line.name
+    FROM planet_osm_line
+    WHERE (highway='living_street'
+    OR highway='motorway'
+    OR highway='primary'
+    OR highway='proposed'
+    OR highway='raceway'
+    OR highway='residential'
+    OR highway='road'
+    OR highway='secondary'
+    OR highway='tertiary'
+    OR highway='track'
+    OR highway='trunk'
+    OR highway='unclassified'
+    OR route='road')
+    AND LENGTH(Name)>5;")
+end
+
 initialize_states
 initialize_communities
 initialize_districts
 initialize_localities
+initialize_roads
