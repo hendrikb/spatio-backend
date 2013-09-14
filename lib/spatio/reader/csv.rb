@@ -7,10 +7,6 @@ module Spatio
   module Reader
     class CSV < Base
 
-      def self.perform parameters
-        Spatio::Reader::CSV.new(parameters).perform
-      end
-
       private
 
       def entries

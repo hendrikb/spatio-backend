@@ -6,10 +6,6 @@ require 'spatio/reader/base'
 module Spatio::Reader
   class RSS < Base
 
-    def self.perform parameters
-      Spatio::Reader::RSS.new(parameters).perform
-    end
-
     private
 
     def entries

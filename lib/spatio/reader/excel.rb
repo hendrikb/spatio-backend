@@ -7,10 +7,6 @@ module Spatio
   module Reader
     class Excel < Base
 
-      def self.perform parameters
-        Spatio::Reader::Excel.new(parameters).perform
-      end
-
       private
 
       def entries

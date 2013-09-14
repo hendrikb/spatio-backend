@@ -11,6 +11,10 @@ module Spatio
         Spatio::AVAILABLE_READERS << subklass
       end
 
+      def self.perform parameters
+        self.new(parameters).perform
+      end
+
       def perform
         entries.each do |entry|
           @items << generate_item(entry)
