@@ -22,7 +22,7 @@ class Api < Sinatra::Base
     if Resque.enqueue(Spatio::ImportJob, import.id)
       okay
     else
-      json_err "Enqueing this task did not work out"
+      json_err 'Enqueing this task did not work out'
     end
   end
 

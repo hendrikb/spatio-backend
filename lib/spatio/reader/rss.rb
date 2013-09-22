@@ -19,7 +19,7 @@ module Spatio::Reader
       @feed ||= Feedzirra::Feed.fetch_and_parse url
     end
 
-    def load_link entry
+    def load_link(entry)
       begin
         http_response = Net::HTTP.get(URI(entry.url))
         doc = Nokogiri::HTML http_response

@@ -38,7 +38,7 @@ module Spatio
 
       def parse_location_string
         [:states, :cities, :streets].each do |parser|
-          next if result.has_key?(parser)
+          next if result.key?(parser)
           result[parser] = constantize(parser).perform(location_string)
         end
         parse_districts

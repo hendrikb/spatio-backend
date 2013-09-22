@@ -42,7 +42,7 @@ module Spatio
       @entry[:location] = geocode entry[:location_string]
     end
 
-    def geocode location_string
+    def geocode(location_string)
       location_hash = Spatio::Parser.perform(location_string, geo_context)
       Spatio::Geocode.perform(location_hash)
     end

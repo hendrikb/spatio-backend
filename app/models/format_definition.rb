@@ -12,7 +12,7 @@ class FormatDefinition < ActiveRecord::Base
   def reader_class
     require './lib/spatio'
     require './lib/spatio/reader'
-    Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
+    Dir.glob('./lib/spatio/reader/*.rb').each { |file| require file }
     "Spatio::Reader::#{importer_class}".constantize
   end
 
@@ -45,7 +45,7 @@ class FormatDefinition < ActiveRecord::Base
     importer_parameters[:meta_data]
   end
 
-  def compatible? other_definition
+  def compatible?(other_definition)
     return true if meta_data.nil? && other_definition.meta_data.nil?
     return true if meta_data && meta_data.same_keys?(other_definition.meta_data)
     false

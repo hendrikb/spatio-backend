@@ -27,7 +27,7 @@ class Import < ActiveRecord::Base
     format_definition.meta_data.each do |field_name, _|
       Field.create(name: field_name,
                    namespace_id: namespace_id,
-                   sql_type: "TEXT")
+                   sql_type: 'TEXT')
     end
   end
 

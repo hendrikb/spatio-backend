@@ -23,8 +23,9 @@ module Spatio
     end
 
     private
-    def initialize import
-      Dir.glob("./lib/spatio/reader/*.rb").each { |file| require file }
+
+    def initialize(import)
+      Dir.glob('./lib/spatio/reader/*.rb').each { |file| require file }
 
       LOG.info "JOB #{self.to_s}: Firing up ImportJob ID: #{import.id}"
       @import = import
@@ -55,7 +56,7 @@ module Spatio
       entries.reject { |e| already_existing(entries).include? e[:id] }
     end
 
-    def already_existing entries
+    def already_existing(entries)
       namespace = @namespace
       table = Class.new(ActiveRecord::Base) do
         self.table_name = namespace.table_name

@@ -7,11 +7,11 @@ module Spatio
     class Base
       attr_reader :options, :items, :url
 
-      def self.inherited subklass
+      def self.inherited (subklass)
         Spatio::AVAILABLE_READERS << subklass
       end
 
-      def self.perform parameters
+      def self.perform (parameters)
         self.new(parameters).perform
       end
 
@@ -22,7 +22,7 @@ module Spatio
         add_ids
       end
 
-      def initialize parameters = {}
+      def initialize(parameters = {})
         @options = default_options.merge parameters
         @url = options[:url].strip
         @items = []
@@ -31,7 +31,7 @@ module Spatio
 
       private
 
-      def generate_item entry
+      def generate_item(entry)
         {
           location_string: fill_item(entry, options[:geo_columns]),
           title: fill_item(entry, options[:title_columns]),
@@ -39,7 +39,7 @@ module Spatio
         }
       end
 
-      def generate_metadata entry
+      def generate_metadata(entry)
         return unless @options[:meta_data]
         result = {}
         options[:meta_data].each do |key, value|
@@ -48,7 +48,7 @@ module Spatio
         result
       end
 
-      def fill_item entry, keys
+      def fill_item(entry, keys)
         result = ''
         keys.each do |key|
           result << "#{entry[key]} "
@@ -62,7 +62,7 @@ module Spatio
         end
       end
 
-      def digest string
+      def digest(string)
         Digest::SHA1.hexdigest string
       end
 
@@ -74,10 +74,10 @@ module Spatio
         { encoding:'utf-8' }
       end
 
-      def encode_clean string
+      def encode_clean(string)
         result = string.strip.force_encoding options[:encoding]
         result = Sanitize.clean result, output_encoding: options[:encoding]
-        result.encode("UTF-8", options[:encoding])
+        result.encode('UTF-8', options[:encoding])
       end
     end
   end

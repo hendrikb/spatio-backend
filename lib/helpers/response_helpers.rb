@@ -14,19 +14,19 @@ class Api < Sinatra::Base
     status 200
   end
 
-  def json_err error
+  def json_err(error)
     json_errors [ error  ]
   end
 
-  def json_errors errors
+  def json_errors(errors)
     cross_domain_call_allowed
     status 500
     response_is_json
-    { "status" =>  "error", "errors" =>  errors.to_a }.to_json
+    { 'status' =>  'error', 'errors' =>  errors.to_a }.to_json
   end
 
 
   def cross_domain_call_allowed
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers['Access-Control-Allow-Origin'] = '*'
   end
 end
