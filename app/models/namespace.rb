@@ -4,14 +4,20 @@ class Namespace < ActiveRecord::Base
 
   validates :name, uniqueness: true
 
+  # Returns namespace specific fields and mandatory fields.
   def all_fields
     fields + mandatory_fields
   end
 
+  # Returns all mandatory fields.
   def mandatory_fields
     Namespace.find_by_name(MANDATORY_FIELD_NAMESPACE).fields
   end
 
+  # Creates a database table for the namespace with:
+  # - Columns for all_fields
+  # - Primary key on uuid
+  # - Spatial index on location
   def create_table
     transaction do
       connection.create_table(table_name, id: false)

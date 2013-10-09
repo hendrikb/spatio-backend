@@ -9,6 +9,7 @@ class FormatDefinition < ActiveRecord::Base
   validate :importer_parameters_format
   validate :validate_reader_class
 
+  # Returns the Reader class that is referenced in the importer_class field.
   def reader_class
     require './lib/spatio'
     require './lib/spatio/reader'
@@ -16,6 +17,7 @@ class FormatDefinition < ActiveRecord::Base
     "Spatio::Reader::#{importer_class}".constantize
   end
 
+  # validate that the object has a valid Reader class.
   def validate_reader_class
     begin
       reader_class
@@ -24,6 +26,7 @@ class FormatDefinition < ActiveRecord::Base
     end
   end
 
+  # validate that the object has valid importer_parameters
   def importer_parameters_format
     errors.add(:importer_parameters, "title_columns can't be blank") unless title_columns
     errors.add(:importer_parameters, "geo_columns can't be blank") unless geo_columns
@@ -33,18 +36,24 @@ class FormatDefinition < ActiveRecord::Base
     end
   end
 
+  # Returns importer_parameters[:title_columns]
   def title_columns
     importer_parameters[:title_columns]
   end
 
+  # Returns importer_parameters[:geo_columns]
   def geo_columns
     importer_parameters[:geo_columns]
   end
 
+  # Returns importer_parameters[:meta_data]
   def meta_data
     importer_parameters[:meta_data]
   end
 
+  # - Returns true if both objects have no meta_data
+  # - Returns true if both objects have the same keys in meta_data
+  # - Returns false otherwise
   def compatible?(other_definition)
     return true if meta_data.nil? && other_definition.meta_data.nil?
     return true if meta_data && meta_data.same_keys?(other_definition.meta_data)
