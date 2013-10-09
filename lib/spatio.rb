@@ -20,13 +20,14 @@ require 'spatio/core_ext/numeric'
 
 ENV['RACK_ENV'] ||= 'development'
 
-def conf(file)
-  YAML.load_file('config/' + file).fetch(ENV['RACK_ENV'])
-end
 
 module Spatio
   # Specifies the default RGeo geofactory used.
   GEOFACTORY = ::RGeo::Geographic.simple_mercator_factory.projection_factory
+
+  def self.conf(file)
+    YAML.load_file('config/' + file).fetch(ENV['RACK_ENV'])
+  end
 
   # Returns or initializes a Redis instance.
   def self.redis
@@ -35,5 +36,5 @@ module Spatio
 end
 
 require './config/initializers/geocoder'
-ActiveRecord::Base.establish_connection conf('database.yml')
+ActiveRecord::Base.establish_connection(Spatio.conf('database.yml'))
 require './app/models'
