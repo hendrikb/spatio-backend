@@ -1,0 +1,1 @@
+--exclude db --exclude spec --exclude contrib
