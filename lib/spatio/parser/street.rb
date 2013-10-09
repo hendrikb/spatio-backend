@@ -21,6 +21,8 @@ module Spatio
         streets_with_numbers + street_names
       end
 
+      private
+
       def streets_with_numbers
         result = []
         street_names.each do |street|
