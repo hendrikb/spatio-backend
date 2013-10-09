@@ -1,55 +1,53 @@
-Spatio
-======
+= Spatio
+
 Usage: ./pry.sh
 
-About
------
+== About
+
 IT IS HEAVILY WORK IN PROGRESS.
 
 Spatio is about to become a spatial-aware web service for a University Project. More Infos later.
 
-Setup
------
+== Setup
+
 You need to have PostGIS installed and a database with postgis extension setup.
 Copy config/db.yml.template to config/database.yml and specify your
 credentials.
 
 To create create and initialize the database tables type:
-```
-$> rake db:migrate
-$> ruby db/seeds.rb
-```
 
-Deployment
-----------
+  $> rake db:migrate
+  $> ruby db/seeds.rb
+
+== Deployment
 
 To run, have ruby 1.9 installed and type:
-```
-$> gem install bundler
-$> bundle install
 
-# You can set PORTs for the API and the GUI in their
-# respective source files
+  $> gem install bundler
+  $> bundle install
 
-# Edit gui.rb and change the api_url setting according to your planned setup
+  # You can set PORTs for the API and the GUI in their
+  # respective source files
 
-# Start the API service:
-$> ruby api.rb
+  # Edit gui.rb and change the api_url setting according to your planned setup
 
-# Start the GUI service
-$> ruby gui.rb
+  # Start the API service:
+  $> ruby api.rb
 
-
-# Be aware that if you use RVM you might start the services using
-# if you experience version conflicts:
-#     bundle exec <program call as given above>
-
-# Open the GUI: http://127.0.0.1:4568/ (change port respectively)
-```
+  # Start the GUI service
+  $> ruby gui.rb
 
 
-License
--------
+Be aware that if you use RVM you might start the services using if you experience version conflicts:
+
+  bundle exec [program call as given above]
+
+Finally, open the GUI: http://127.0.0.1:4568/ (change port respectively)
+
+---
+
+== License
+
 
 The MIT License (MIT)
 
