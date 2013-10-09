@@ -11,6 +11,6 @@ main_page: README.rdoc
 markup: rdoc
 show_hash: false
 tab_width: 8
-title:
+title: 'Spatio Documentation'
 visibility: :protected
 webcvs:
