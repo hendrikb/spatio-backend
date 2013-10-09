@@ -4,6 +4,9 @@ require_relative 'geocode/osm_data'
 
 module Spatio
   module Geocode
+
+    # Calls Street.perform and returns it if present
+    # Falls back on OsmData.perform otherwise
     def self.perform(locations)
       result = Spatio::Geocode::Street.perform(locations)
       return result if result.present?

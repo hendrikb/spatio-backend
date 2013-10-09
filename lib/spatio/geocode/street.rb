@@ -8,10 +8,14 @@ module Spatio
     class Street
       attr_reader :streets, :districts, :cities
 
+      # Creates a new Street instance and then calls perform on it.
       def self.perform(locations)
         new(locations).perform
       end
 
+      # - Returns nil if no street is given.
+      # - Returns the first pair of coordinates for a street, district and city triple if the Geocoder finds one.
+      # - Returns the first pair of coordinates for a street and city if the Geocoder finds one.
       def perform
         return unless streets
         result = with_district_and_city if districts.present? && cities.present?
@@ -20,6 +24,11 @@ module Spatio
       end
 
       private
+
+      # Initialize a new Street object with a Hash with the following keys:
+      # - streets
+      # - districts
+      # - cities
       def initialize(locations)
         @streets   = locations[:streets]
         @districts = locations[:districts]

@@ -5,10 +5,13 @@ module Spatio
     class OsmData
       attr_reader :locations
 
+      # Creates a new OsmData instance and then calls perform on it.
       def self.perform(locations)
         new(locations).perform
       end
 
+      # - Returns a district polygon if it finds one.
+      # - Returns a city polygon if it finds one otherwise.
       def perform
         district = resolve_districts
         return district.area if district && district.area
@@ -17,6 +20,10 @@ module Spatio
       end
 
       private
+
+      # Initialize a new OsmData object with a Hash with the following keys:
+      # - streets
+      # - districts
       def initialize(locations)
         @locations = locations
       end
