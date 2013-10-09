@@ -1,6 +1,12 @@
 class Api < Sinatra::Base
   require 'active_support/inflector'
 
+  # Reads the JSON object under the importer_parameters in the params
+  # Returns a Ruby Hash with the following keys:
+  # - name
+  # - importer_class
+  # - importer_parameters
+  # - description
   def parse_params (params)
     importer_parameters = JSON.parse(params['importer_parameters']) rescue {}
     {

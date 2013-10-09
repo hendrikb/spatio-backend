@@ -25,6 +25,7 @@ module Spatio
   # Specifies the default RGeo geofactory used.
   GEOFACTORY = ::RGeo::Geographic.simple_mercator_factory.projection_factory
 
+  # Reads a YAML file and fetches the entry for the current RACK_ENV.
   def self.conf(file)
     YAML.load_file('config/' + file).fetch(ENV['RACK_ENV'])
   end
