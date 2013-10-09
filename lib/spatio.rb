@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'rgeo'
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -23,8 +25,10 @@ def conf(file)
 end
 
 module Spatio
+  # Specifies the default RGeo geofactory used.
   GEOFACTORY = ::RGeo::Geographic.simple_mercator_factory.projection_factory
 
+  # Returns or initializes a Redis instance.
   def self.redis
     @redis || Redis.new(conf('redis.yml'))
   end
