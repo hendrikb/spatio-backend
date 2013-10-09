@@ -7,14 +7,21 @@ module Spatio
     class Base
       attr_reader :options, :items, :url
 
+      # Updates the Spatio::AVAILABLE_READERS constant whenever another class
+      # inherits from this Base class.
       def self.inherited (subklass)
         Spatio::AVAILABLE_READERS << subklass
       end
 
+      # Creates a new Reader instance and then calls perform on it.
       def self.perform (parameters)
         self.new(parameters).perform
       end
 
+      # Returns an Array of Hashes with the following keys:
+      # - location_string
+      # - title
+      # - meta_data
       def perform
         entries.each do |entry|
           @items << generate_item(entry)
@@ -22,6 +29,8 @@ module Spatio
         add_ids
       end
 
+      # Initialize a Reader class with a hash of parameters.
+      # Parameters have to include an URL to a resource on the Internet.
       def initialize(parameters = {})
         @options = default_options.merge parameters
         @url = options[:url].strip
