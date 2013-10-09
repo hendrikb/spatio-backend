@@ -21,6 +21,8 @@ require 'spatio/core_ext/numeric'
 ENV['RACK_ENV'] ||= 'development'
 
 
+# This is the main Spatio-Backend entry point. All logics for the backend
+# derive from this location.
 module Spatio
   # Specifies the default RGeo geofactory used.
   GEOFACTORY = ::RGeo::Geographic.simple_mercator_factory.projection_factory
