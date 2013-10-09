@@ -11,10 +11,17 @@ module Spatio
     class Base
       attr_reader :location_string, :context, :result
 
+      # Creates a new Base instance and then calls perform on it.
       def self.perform(location_string, context = '')
         new(location_string, context).perform
       end
 
+      # Parses the location_string and context and returns a Hash with
+      # the following keys
+      # - states
+      # - cities
+      # - districts
+      # - streets
       def perform
         resolve_context
 
