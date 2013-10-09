@@ -5,3 +5,4 @@ config/redis.yml
 coverage/
 spec/vcr/
 public_gui/*
+doc/
