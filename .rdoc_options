@@ -7,10 +7,10 @@ charset: UTF-8
 exclude: !ruby/regexp /(?-mix:db)|(?-mix:spec)|(?-mix:contrib)|(?-mix:Gemfile)|(?-mix:Rakefile)/
 hyperlink_all: true
 line_numbers: true
-main_page: Spatio
+main_page: README.rdoc
 markup: rdoc
 show_hash: false
 tab_width: 8
-title: 
+title:
 visibility: :protected
-webcvs: 
+webcvs:
