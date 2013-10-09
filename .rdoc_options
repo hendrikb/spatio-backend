@@ -4,10 +4,10 @@ static_path: []
 rdoc_include:
 - .
 charset: UTF-8
-exclude: !ruby/regexp /(?-mix:db)|(?-mix:spec)|(?-mix:contrib)/
-hyperlink_all: false
-line_numbers: false
-main_page: 
+exclude: !ruby/regexp /(?-mix:db)|(?-mix:spec)|(?-mix:contrib)|(?-mix:Gemfile)|(?-mix:Rakefile)/
+hyperlink_all: true
+line_numbers: true
+main_page: Spatio
 markup: rdoc
 show_hash: false
 tab_width: 8
