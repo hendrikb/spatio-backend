@@ -4,6 +4,11 @@ module Spatio
   module SparqlClient
     extend self
 
+    PREFIXES = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
+
+
+    # Returns all cities of Germany from the German dbpedia SPARQL endpoint.
     def cities
       query_string = ' SELECT DISTINCT ?name WHERE {
       ?city rdfs:label ?name.
@@ -17,6 +22,7 @@ module Spatio
       query(query_string).reject { |city| city =~/Liste/ }
     end
 
+    # Returns all states of Germany from the German dbpedia SPARQL endpoint.
     def states
       query_string = 'SELECT DISTINCT ?name {
       ?state rdfs:label ?name.
@@ -24,9 +30,6 @@ module Spatio
 
       query(query_string).reject { |state| state =~/D(E|e)/ }
     end
-
-    PREFIXES = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>'
 
     private
 
