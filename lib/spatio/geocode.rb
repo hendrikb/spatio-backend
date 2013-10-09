@@ -4,6 +4,8 @@ require_relative 'geocode/osm_data'
 
 module Spatio
   module Geocode
+    # Sets the default country scope for geocoding.
+    COUNTRY = 'Germany'
 
     # Calls Street.perform and returns it if present
     # Falls back on OsmData.perform otherwise

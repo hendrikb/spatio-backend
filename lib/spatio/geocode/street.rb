@@ -3,8 +3,6 @@ require 'active_support/core_ext/string/filters'
 
 module Spatio
   module Geocode
-    COUNTRY = 'Germany'
-
     class Street
       attr_reader :streets, :districts, :cities
 
