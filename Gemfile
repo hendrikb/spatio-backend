@@ -23,6 +23,8 @@ gem 'sparql-client'
 
 gem 'spreadsheet'
 
+gem 'rdoc'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'

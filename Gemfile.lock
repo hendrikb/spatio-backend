@@ -168,6 +168,7 @@ DEPENDENCIES
   pg
   pry
   pry-debugger
+  rdoc
   redis
   resque
   rgeo
