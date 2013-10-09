@@ -4,6 +4,7 @@ module Spatio
   module Persist
     extend self
 
+    # Saves the Hash of data into the PostGIS table named table_name
     def perform(table_name, data)
       table = Class.new(ActiveRecord::Base) do
         self.table_name = table_name
