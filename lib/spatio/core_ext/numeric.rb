@@ -1,4 +1,8 @@
 class Numeric
+  # Returns the duration in words:
+  # - In hours and minutes if > 1 hour
+  # - In minutes and seconds if > 1 minute
+  # - In seconds otherwise
   def duration
     secs  = self.to_int
     mins  = secs / 60
