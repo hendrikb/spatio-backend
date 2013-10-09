@@ -10,11 +10,16 @@ module Spatio
   class ImportJob
     @queue = :spatio_importer
 
+
+    # Finds an Import with the id.
+    # Then creates a new ImportJob instance with it calls perform on it.
     def self.perform(id)
       import_definition = Import.find(id)
       new(import_definition).perform
     end
 
+    # - Reads the entries from the URL in the Import
+    # - Creates a new Importer object for each entry and calls perform on it
     def perform
       start_time = Time.now
       LOG.info "JOB #{self.to_s}: Performing on #{@reader.to_s}"

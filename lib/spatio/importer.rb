@@ -9,6 +9,9 @@ module Spatio
       @entry, @namespace, @geo_context = entry, namespace, geo_context
     end
 
+    # - Calls Parser for the entry
+    # - Calls Geocode on result
+    # - Calls Persist on geocoded result
     def perform
       add_location
       save
